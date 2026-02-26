@@ -28,8 +28,9 @@
       --radius2: 14px;
       --maxw: 980px;
 
-      /* Mobile fixed header height (updated via media query) */
+      /* Desktop default */
       --mobileHeaderH: 0px;
+      --mobileGap: 10px;
     }
 
     *{box-sizing:border-box}
@@ -121,7 +122,7 @@
       justify-content:center;
       gap:12px;
       line-height:1;
-      margin-bottom: 0; /* no hints anymore */
+      margin-bottom: 0;
     }
 
     .rateNumber{
@@ -143,7 +144,6 @@
       top: -0.30em;
     }
 
-    /* Dot animation */
     .pulseDot{
       width:10px;height:10px;border-radius:50%;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -189,7 +189,7 @@
       gap: 14px;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: nowrap; /* one line on desktop */
+      flex-wrap: nowrap;
     }
 
     .imgBtn{
@@ -234,22 +234,19 @@
     }
 
     /* =========================================================
-       MOBILE:
-       - Fixed header (everything up to & including black bar)
-       - Rates LEFT and RIGHT of mascot (same row)
-       - Rates smaller
-       - Buttons in 2-column grid, ALL SAME SIZE (no scroll)
+       MOBILE: tighten gap under fixed header
        ========================================================= */
     @media (max-width: 760px){
       :root{
-        --mobileHeaderH: 188px; /* controls how far content is pushed down */
+        /* ✅ Reduced header height estimate + reduced gap */
+        --mobileHeaderH: 150px;
+        --mobileGap: 6px;
       }
 
       body{
         padding: 12px;
       }
 
-      /* Make the header fixed on mobile */
       .mobileFixedHeader{
         position: fixed;
         top: 0;
@@ -257,26 +254,25 @@
         right: 0;
         z-index: 50;
         background: var(--bg);
-        padding: 10px 12px 8px;
+        padding: 8px 12px 6px;
         box-shadow: 0 10px 28px rgba(2,6,23,.08);
       }
 
-      /* Push the scrollable content below the fixed header */
+      /* ✅ Smaller push-down so content hugs the bar */
       .mobileContent{
-        margin-top: calc(var(--mobileHeaderH) + 10px);
+        margin-top: calc(var(--mobileHeaderH) + var(--mobileGap));
       }
 
-      /* Header row: rate | mascot | rate */
       .topBar{
         margin-top: 0;
         display:grid;
         grid-template-columns: 1fr auto 1fr;
-        gap: 10px;
+        gap: 8px;
         align-items:center;
       }
 
       .brand img{
-        width: 110px;
+        width: 104px;
       }
 
       .rateBlock{
@@ -286,35 +282,36 @@
       }
 
       .rateKicker{
-        font-size: .58rem;
+        font-size: .56rem;
         letter-spacing: .12em;
-        margin-bottom: 4px;
+        margin-bottom: 3px;
         gap: 6px;
       }
 
-      .pulseDot{
-        width:8px;height:8px;
-      }
+      .pulseDot{ width:8px;height:8px; }
 
       .rateNumber{
-        font-size: 1.75rem;
+        font-size: 1.58rem;
       }
 
       .pct{
         font-size: .42em;
-        top: -0.18em;
+        top: -0.16em;
       }
 
-      /* Bar stays in fixed header, slightly thinner */
       .fullWidthBar{
         height: 12px;
-        margin-top: 8px;
+        margin-top: 6px;
         margin-bottom: 0;
       }
 
-      /* Make the goal header tighter */
-      .cardHeader{ padding: 12px 14px; }
-      .cardHeader h2{ font-size: 1.12rem; }
+      /* Tighten the card header so it sits closer */
+      .cardHeader{
+        padding: 10px 12px;
+      }
+      .cardHeader h2{
+        font-size: 1.08rem;
+      }
 
       /* Buttons: 2-column grid, equal sizes */
       .buttonRow{
@@ -335,7 +332,6 @@
         place-items:center;
       }
 
-      /* ✅ All buttons exactly same size */
       .imgBtn img{
         width: 100%;
         height: auto;
@@ -344,12 +340,6 @@
         border-radius: 12px;
       }
 
-      /* Remove the "last one spans full width" behavior on mobile */
-      .spanAllMobile{
-        grid-column: auto !important;
-      }
-
-      /* Tap feedback */
       .imgBtn:active{
         transform: scale(0.98);
       }
@@ -368,8 +358,6 @@
     <!-- MOBILE FIXED HEADER -->
     <div class="mobileFixedHeader">
       <section class="topBar">
-
-        <!-- Left rate -->
         <div class="rateBlock">
           <div class="rateKicker">
             <span>Market Rate</span>
@@ -380,14 +368,12 @@
           </div>
         </div>
 
-        <!-- Mascot -->
         <div class="brand">
           <img
             src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Mascott.png"
             alt="Rate Thief mascot logo">
         </div>
 
-        <!-- Right rate -->
         <div class="rateBlock">
           <div class="rateKicker">
             <span>APR as low as</span>
@@ -397,13 +383,12 @@
             <div class="rateNumber">4.60<span class="pct">%</span></div>
           </div>
         </div>
-
       </section>
 
       <div class="fullWidthBar" aria-hidden="true"></div>
     </div>
 
-    <!-- DESKTOP NORMAL HEADER (same markup, shown naturally because fixed header doesn't apply) -->
+    <!-- DESKTOP NORMAL HEADER (hidden on mobile via JS) -->
     <section class="topBar" aria-hidden="true">
       <div class="rateBlock">
         <div class="rateKicker">
@@ -434,7 +419,7 @@
 
     <div class="fullWidthBar" aria-hidden="true"></div>
 
-    <!-- CONTENT (pushed down on mobile so header stays fixed) -->
+    <!-- CONTENT -->
     <div class="mobileContent">
 
       <section class="card">
@@ -460,7 +445,7 @@
             <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/HELOCbutton.png" alt="HELOC">
           </button>
 
-          <button class="imgBtn spanAllMobile" type="button" data-choice="Reverse Mortgage" aria-pressed="false" title="Reverse Mortgage">
+          <button class="imgBtn" type="button" data-choice="Reverse Mortgage" aria-pressed="false" title="Reverse Mortgage">
             <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/reverseMortgage.png" alt="Reverse Mortgage">
           </button>
 
@@ -480,7 +465,6 @@
     function setPressed(el){
       btns.forEach(b => b.setAttribute("aria-pressed","false"));
       el.setAttribute("aria-pressed","true");
-      // console.log("Selected:", el.dataset.choice);
     }
 
     btns.forEach(el => {
@@ -493,12 +477,12 @@
       });
     });
 
-    /* Only show fixed header on mobile; hide duplicate desktop header on mobile */
+    /* Only show fixed header on mobile; hide duplicate desktop header + bar on mobile */
     function syncHeaderVisibility(){
       const isMobile = window.matchMedia("(max-width: 760px)").matches;
       const fixed = document.querySelector(".mobileFixedHeader");
       const desktopTop = document.querySelector('section.topBar[aria-hidden="true"]');
-      const desktopBar = desktopTop?.nextElementSibling; // the bar right after it
+      const desktopBar = desktopTop?.nextElementSibling;
 
       if(isMobile){
         fixed.style.display = "block";
