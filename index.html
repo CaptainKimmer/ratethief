@@ -49,7 +49,7 @@
       gap:18px;
     }
 
-    /* ===== Top layout ===== */
+    /* ===== Desktop top layout ===== */
     .topBar{
       display:grid;
       grid-template-columns: 1.25fr auto 1.25fr;
@@ -72,7 +72,7 @@
       margin: 0 auto;
     }
 
-    /* ===== FULL-WIDTH black bar (spans the whole "site") ===== */
+    /* ===== FULL-WIDTH black bar ===== */
     .fullWidthBar{
       height: 16px;
       width: 100%;
@@ -87,7 +87,6 @@
       );
 
       border-radius: 999px;
-
       box-shadow:
         0 10px 22px rgba(0,0,0,.30),
         inset 0 2px 2px rgba(255,255,255,.08),
@@ -199,8 +198,8 @@
       gap: 14px;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: nowrap; /* keep in ONE line */
-      overflow-x: auto;  /* if screen is too small, allow scroll instead of wrapping */
+      flex-wrap: nowrap;
+      overflow-x: auto; /* keep one line; scroll if needed */
       scrollbar-width: thin;
       -webkit-overflow-scrolling: touch;
     }
@@ -212,7 +211,7 @@
       box-shadow: 0 10px 22px rgba(2,6,23,.06);
       cursor:pointer;
       padding: 8px;
-      flex: 0 0 auto; /* don't shrink into weird shapes */
+      flex: 0 0 auto;
       transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
       user-select:none;
       outline: none;
@@ -232,8 +231,8 @@
 
     .imgBtn img{
       display:block;
-      width: 140px;      /* square visual */
-      height: 140px;     /* square visual */
+      width: 140px;
+      height: 140px;
       object-fit: contain;
       border-radius: 12px;
     }
@@ -246,18 +245,130 @@
       text-align:center;
     }
 
-    /* ===== Responsive ===== */
-    @media (max-width: 860px){
+    /* =========================================================
+       MOBILE LAYOUT: Mascot on top, small rates side-by-side
+       ========================================================= */
+    @media (max-width: 760px){
+      body{ padding: 14px; }
+
+      /* Make the header compact so buttons take most of page */
+      .wrap{ gap: 12px; }
+
+      /* Reorder: mascot first, then rates row */
       .topBar{
         grid-template-columns: 1fr;
+        gap: 10px;
         justify-items:center;
+        margin-top: 2px;
       }
-    }
 
-    @media (max-width: 760px){
-      body{padding:16px}
-      .brand img{width:min(190px, 72vw);}
-      .imgBtn img{ width: 124px; height: 124px; }
+      /* Mascot first */
+      .brand{ order: 0; }
+      .brand img{ width: min(190px, 68vw); }
+
+      /* Rates in one row, smaller */
+      .rateBlock{
+        min-height: unset;
+        padding: 0;
+      }
+
+      /* Put both rate blocks into a compact 2-column row */
+      .rateBlock:first-child{ order: 1; }
+      .rateBlock:last-child{ order: 2; }
+
+      /* Turn rate blocks into a shared row via a wrapper trick:
+         We can't change DOM, so we style the two rate blocks when stacked:
+         Each becomes 50% width by forcing them into a flex row container.
+      */
+      .topBar{
+        position: relative;
+      }
+
+      /* Wrap the two rate blocks visually into a row */
+      .topBar .rateBlock{
+        width: 100%;
+      }
+
+      /* Create a "ratesRow" look by making the two rateBlocks inline-grid */
+      .topBar{
+        display:grid;
+        grid-template-areas:
+          "brand"
+          "rates"
+          "rates";
+      }
+      .brand{ grid-area: brand; }
+
+      /* Use a nested grid effect by applying to a pseudo-container:
+         We'll just make each rate block half width and place them side-by-side
+         using a two-column grid on the topBar and explicitly placing brand full width.
+      */
+      .topBar{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        align-items:start;
+      }
+      .brand{
+        grid-column: 1 / -1;
+        grid-row: 1;
+        justify-self:center;
+      }
+      .rateBlock{
+        grid-row: 2;
+      }
+      .rateBlock:first-child{
+        grid-column: 1;
+      }
+      .rateBlock:last-child{
+        grid-column: 2;
+      }
+
+      /* Make rates compact */
+      .rateKicker{
+        font-size: .64rem;
+        letter-spacing: .12em;
+        margin-bottom: 6px;
+      }
+
+      .rateNumber{
+        font-size: clamp(2.0rem, 9vw, 2.6rem);
+      }
+      .pct{
+        top: -0.20em;
+      }
+      .rateHint{
+        font-size: .70rem;
+        letter-spacing: .06em;
+      }
+
+      /* Keep bar full width, but reduce vertical space */
+      .fullWidthBar{
+        height: 14px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+      }
+
+      /* Make buttons feel bigger / dominant on mobile */
+      .cardHeader{ padding: 12px 14px; }
+      .cardHeader h2{ font-size: 1.15rem; }
+
+      .buttonRow{
+        padding: 12px;
+        gap: 12px;
+      }
+      .imgBtn{
+        padding: 6px;
+        border-radius: 16px;
+      }
+      .imgBtn img{
+        width: 128px;
+        height: 128px;
+      }
+
+      .fineprint{
+        font-size: .78rem;
+        padding-top: 2px;
+      }
     }
   </style>
 </head>
@@ -348,7 +459,6 @@
     function setPressed(el){
       btns.forEach(b => b.setAttribute("aria-pressed","false"));
       el.setAttribute("aria-pressed","true");
-      // You can read the choice like this:
       // console.log("Selected:", el.dataset.choice);
     }
 
