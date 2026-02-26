@@ -78,14 +78,7 @@
       width: 100%;
       margin-top: 6px;
       margin-bottom: 4px;
-
-      background: linear-gradient(
-        to bottom,
-        #0b1220 0%,
-        #0b1220 60%,
-        #111827 100%
-      );
-
+      background: linear-gradient(to bottom, #0b1220 0%, #0b1220 60%, #111827 100%);
       border-radius: 999px;
       box-shadow:
         0 10px 22px rgba(0,0,0,.30),
@@ -191,17 +184,14 @@
       text-align:center;
     }
 
-    /* ===== Image Buttons Row ===== */
+    /* ===== Image Buttons (Desktop = single row) ===== */
     .buttonRow{
       padding: 16px;
       display:flex;
       gap: 14px;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: nowrap;
-      overflow-x: auto; /* keep one line; scroll if needed */
-      scrollbar-width: thin;
-      -webkit-overflow-scrolling: touch;
+      flex-wrap: nowrap; /* one line on desktop */
     }
 
     .imgBtn{
@@ -246,123 +236,88 @@
     }
 
     /* =========================================================
-       MOBILE LAYOUT: Mascot on top, small rates side-by-side
+       MOBILE LAYOUT:
+       - Mascot on top
+       - Rates small, side-by-side
+       - Buttons become a 2-column grid (NO SCROLL)
        ========================================================= */
     @media (max-width: 760px){
       body{ padding: 14px; }
-
-      /* Make the header compact so buttons take most of page */
       .wrap{ gap: 12px; }
 
-      /* Reorder: mascot first, then rates row */
-      .topBar{
-        grid-template-columns: 1fr;
-        gap: 10px;
-        justify-items:center;
-        margin-top: 2px;
-      }
-
-      /* Mascot first */
-      .brand{ order: 0; }
-      .brand img{ width: min(190px, 68vw); }
-
-      /* Rates in one row, smaller */
-      .rateBlock{
-        min-height: unset;
-        padding: 0;
-      }
-
-      /* Put both rate blocks into a compact 2-column row */
-      .rateBlock:first-child{ order: 1; }
-      .rateBlock:last-child{ order: 2; }
-
-      /* Turn rate blocks into a shared row via a wrapper trick:
-         We can't change DOM, so we style the two rate blocks when stacked:
-         Each becomes 50% width by forcing them into a flex row container.
-      */
-      .topBar{
-        position: relative;
-      }
-
-      /* Wrap the two rate blocks visually into a row */
-      .topBar .rateBlock{
-        width: 100%;
-      }
-
-      /* Create a "ratesRow" look by making the two rateBlocks inline-grid */
+      /* top: mascot then rates row */
       .topBar{
         display:grid;
-        grid-template-areas:
-          "brand"
-          "rates"
-          "rates";
-      }
-      .brand{ grid-area: brand; }
-
-      /* Use a nested grid effect by applying to a pseudo-container:
-         We'll just make each rate block half width and place them side-by-side
-         using a two-column grid on the topBar and explicitly placing brand full width.
-      */
-      .topBar{
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto;
+        gap: 10px;
         align-items:start;
+        margin-top: 2px;
       }
       .brand{
         grid-column: 1 / -1;
         grid-row: 1;
         justify-self:center;
       }
+      .brand img{ width: min(190px, 68vw); }
+
       .rateBlock{
         grid-row: 2;
+        min-height: unset;
+        padding: 0;
       }
-      .rateBlock:first-child{
-        grid-column: 1;
-      }
-      .rateBlock:last-child{
-        grid-column: 2;
-      }
+      .rateBlock:first-child{ grid-column: 1; }
+      .rateBlock:last-child{ grid-column: 2; }
 
-      /* Make rates compact */
       .rateKicker{
         font-size: .64rem;
         letter-spacing: .12em;
         margin-bottom: 6px;
       }
-
       .rateNumber{
         font-size: clamp(2.0rem, 9vw, 2.6rem);
       }
-      .pct{
-        top: -0.20em;
-      }
+      .pct{ top: -0.20em; }
       .rateHint{
         font-size: .70rem;
         letter-spacing: .06em;
       }
 
-      /* Keep bar full width, but reduce vertical space */
       .fullWidthBar{
         height: 14px;
         margin-top: 2px;
         margin-bottom: 2px;
       }
 
-      /* Make buttons feel bigger / dominant on mobile */
       .cardHeader{ padding: 12px 14px; }
       .cardHeader h2{ font-size: 1.15rem; }
 
+      /* ✅ Buttons become a 2-column grid on mobile */
       .buttonRow{
-        padding: 12px;
+        display:grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
+        padding: 12px;
+        justify-content: unset;
+        align-items: stretch;
+        flex-wrap: unset;
       }
+
       .imgBtn{
-        padding: 6px;
-        border-radius: 16px;
+        width: 100%;
+        padding: 8px;
       }
+
       .imgBtn img{
-        width: 128px;
-        height: 128px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1; /* keep square */
+        object-fit: contain;
+      }
+
+      /* Optional: make hover/tap feel nice on touch too */
+      .imgBtn:active{
+        transform: scale(0.98);
       }
 
       .fineprint{
@@ -421,7 +376,7 @@
         <h2>CHOOSE YOUR GOAL</h2>
       </header>
 
-      <!-- ONE HORIZONTAL LINE of square image buttons -->
+      <!-- Desktop: one row | Mobile: 2-column grid -->
       <div class="buttonRow" role="group" aria-label="Choose your goal">
 
         <button class="imgBtn" type="button" data-choice="Purchase" aria-pressed="false" title="Purchase">
@@ -440,7 +395,7 @@
           <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/HELOCbutton.png" alt="HELOC">
         </button>
 
-        <button class="imgBtn" type="button" data-choice="Reverse Mortgage" aria-pressed="false" title="Reverse Mortgage">
+        <button class="imgBtn" type="button" data-choice="Reverse Mortgage" aria-pressed="false" title="Reverse Mortgage" style="grid-column: 1 / -1;">
           <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/reverseMortgage.png" alt="Reverse Mortgage">
         </button>
 
