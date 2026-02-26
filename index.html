@@ -238,7 +238,6 @@
        ========================================================= */
     @media (max-width: 760px){
       :root{
-        /* ✅ Reduced header height estimate + reduced gap */
         --mobileHeaderH: 150px;
         --mobileGap: 6px;
       }
@@ -258,7 +257,6 @@
         box-shadow: 0 10px 28px rgba(2,6,23,.08);
       }
 
-      /* ✅ Smaller push-down so content hugs the bar */
       .mobileContent{
         margin-top: calc(var(--mobileHeaderH) + var(--mobileGap));
       }
@@ -305,7 +303,6 @@
         margin-bottom: 0;
       }
 
-      /* Tighten the card header so it sits closer */
       .cardHeader{
         padding: 10px 12px;
       }
@@ -421,7 +418,6 @@
 
     <!-- CONTENT -->
     <div class="mobileContent">
-
       <section class="card">
         <header class="cardHeader">
           <h2>CHOOSE YOUR GOAL</h2>
@@ -429,22 +425,32 @@
 
         <div class="buttonRow" role="group" aria-label="Choose your goal">
 
+          <!-- 1) Purchase -->
           <button class="imgBtn" type="button" data-choice="Purchase" aria-pressed="false" title="Purchase">
             <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/purchaseButton.png" alt="Purchase">
           </button>
 
+          <!-- 2) Refinance -->
           <button class="imgBtn" type="button" data-choice="Refinance" aria-pressed="false" title="Refinance">
             <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/refinanceButton.png" alt="Refinance">
           </button>
 
+          <!-- 3) Pay Off Debts (NEW) -->
+          <button class="imgBtn" type="button" data-choice="Pay Off Debts" aria-pressed="false" title="Pay Off Debts">
+            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/payOffDebts.png" alt="Pay Off Debts">
+          </button>
+
+          <!-- 4) Cash Out -->
           <button class="imgBtn" type="button" data-choice="Cash Out" aria-pressed="false" title="Cash Out">
             <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/cashOut.png" alt="Cash Out">
           </button>
 
+          <!-- 5) HELOC -->
           <button class="imgBtn" type="button" data-choice="HELOC" aria-pressed="false" title="HELOC">
             <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/HELOCbutton.png" alt="HELOC">
           </button>
 
+          <!-- 6) Reverse Mortgage -->
           <button class="imgBtn" type="button" data-choice="Reverse Mortgage" aria-pressed="false" title="Reverse Mortgage">
             <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/reverseMortgage.png" alt="Reverse Mortgage">
           </button>
@@ -455,7 +461,6 @@
       <div class="fineprint">
         Example rates shown for demonstration only. Final pricing depends on credit, equity, occupancy, and timing.
       </div>
-
     </div>
   </main>
 
