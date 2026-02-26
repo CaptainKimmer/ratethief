@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rate Options</title>
+  <style>
+    :root{
+      --bg1:#0b1220;
+      --bg2:#0f2233;
+      --card:#0f1a28cc;
+      --ink:#eaf2ff;
+      --muted:#b9c7dd;
+      --line:#ffffff22;
+      --accent:#7cf0c8;
+      --accent2:#8ab4ff;
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 14px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100svh;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 600px at 10% 10%, #1a2b44 0%, transparent 55%),
+        radial-gradient(900px 500px at 90% 30%, #15354a 0%, transparent 55%),
+        linear-gradient(160deg, var(--bg1) 0%, var(--bg2) 60%, #0a1624 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:22px;
+    }
+
+    .wrap{
+      width:min(980px, 100%);
+      display:grid;
+      gap:18px;
+    }
+
+    /* Top hero */
+    .hero{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      background: linear-gradient(135deg, #0f1b2b 0%, #0f2a2a 50%, #0f1b2b 100%);
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(700px 220px at 20% 10%, rgba(124,240,200,.18), transparent 60%),
+        radial-gradient(700px 220px at 80% 10%, rgba(138,180,255,.14), transparent 60%);
+      pointer-events:none;
+    }
+
+    .heroInner{
+      position:relative;
+      padding: 22px 18px 18px;
+      display:grid;
+      gap:12px;
+    }
+
+    .kicker{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--muted);
+      font-weight:600;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+      font-size:.82rem;
+    }
+    .pill{
+      border:1px solid var(--line);
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      font-weight:600;
+    }
+
+    .headline{
+      display:grid;
+      gap:10px;
+      align-items:end;
+    }
+
+    .rateRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px 18px;
+      align-items:baseline;
+    }
+
+    .bigRate{
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      line-height:1;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+    }
+    .bigRate .unit{
+      font-size: .42em;
+      opacity:.9;
+      font-weight:800;
+      margin-left:.12em;
+    }
+
+    .dividerDot{
+      width:10px;height:10px;border-radius:50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 6px rgba(124,240,200,.10);
+      margin-inline: 2px;
+    }
+
+    .sub{
+      color: var(--muted);
+      font-size: 1rem;
+      line-height:1.45;
+      max-width: 68ch;
+    }
+
+    .fine{
+      margin-top:2px;
+      color:#cfe0ffb3;
+      font-size:.86rem;
+    }
+
+    /* Main card */
+    .card{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(10,18,30,.55);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .cardHeader{
+      padding: 16px 18px 10px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .cardHeader h2{
+      margin:0;
+      font-size: 1.05rem;
+      letter-spacing:.01em;
+    }
+    .helper{
+      color: var(--muted);
+      font-size:.92rem;
+    }
+
+    .grid{
+      padding: 16px 14px 18px;
+      display:grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .option{
+      grid-column: span 2;
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      padding: 14px 12px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .option::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background: radial-gradient(220px 140px at 20% 20%, rgba(124,240,200,.14), transparent 70%);
+      opacity:0;
+      transition: opacity .12s ease;
+      pointer-events:none;
+    }
+
+    .option:hover{
+      transform: translateY(-2px);
+      border-color: rgba(124,240,200,.35);
+      background: linear-gradient(180deg, rgba(124,240,200,.10), rgba(255,255,255,.03));
+    }
+    .option:hover::before{opacity:1}
+
+    .icon{
+      width:44px;height:44px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      flex: 0 0 auto;
+    }
+    .icon svg{width:26px;height:26px;opacity:.95}
+
+    .labelBlock{
+      display:grid;
+      gap:4px;
+      min-width:0;
+    }
+    .label{
+      font-weight:800;
+      letter-spacing:.01em;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .desc{
+      color: var(--muted);
+      font-size:.86rem;
+      line-height:1.2;
+    }
+
+    .footer{
+      padding: 0 18px 18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .btn{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.16);
+      background: linear-gradient(135deg, rgba(124,240,200,.16), rgba(138,180,255,.10));
+      color: var(--ink);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      letter-spacing:.01em;
+      cursor:pointer;
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(124,240,200,.40);}
+    .note{
+      color: var(--muted);
+      font-size:.86rem;
+      line-height:1.3;
+      max-width: 70ch;
+    }
+
+    /* Responsive */
+    @media (max-width: 760px){
+      body{padding:16px}
+      .grid{grid-template-columns: repeat(2, minmax(0, 1fr));}
+      .option{grid-column: span 1;}
+      .footer{gap:12px}
+      .note{max-width:unset}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .option, .btn{transition:none}
+      .option:hover, .btn:hover{transform:none}
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap" role="main" aria-label="Mortgage rate options landing page">
+    <!-- HERO (original design: dark gradient, pill, dual headline) -->
+    <section class="hero" aria-label="Rate highlight">
+      <div class="heroInner">
+        <div class="kicker">
+          <span class="pill">Today’s Snapshot</span>
+          <span>Fixed-Rate Options</span>
+        </div>
+
+        <div class="headline">
+          <div class="rateRow" aria-label="Displayed rates">
+            <div class="bigRate">4.30<span class="unit">%</span></div>
+            <span class="dividerDot" aria-hidden="true"></span>
+            <div class="bigRate">4.60<span class="unit">APR</span></div>
+          </div>
+
+          <div class="sub">
+            Pick what you’re trying to accomplish and we’ll route you to the right refinance path.
+          </div>
+          <div class="fine">
+            Example rates shown for demonstration only. Final pricing depends on credit, equity, occupancy, and timing.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPTIONS -->
+    <section class="card" aria-label="Choose a goal">
+      <header class="cardHeader">
+        <h2>Choose your goal</h2>
+        <div class="helper">Tap an option to continue</div>
+      </header>
+
+      <div class="grid">
+        <!-- Refinance -->
+        <div class="option" role="button" tabindex="0" data-choice="Refinance" aria-label="Refinance option">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 7h10v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M17 17H7v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M17 11l2-2-2-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7 13l-2 2 2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="labelBlock">
+            <div class="label">Refinance</div>
+            <div class="desc">Lower rate or payment</div>
+          </div>
+        </div>
+
+        <!-- Purchase -->
+        <div class="option" role="button" tabindex="0" data-choice="Purchase" aria-label="Purchase option">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6.5 10.5V20h11V10.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10 20v-6h4v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="labelBlock">
+            <div class="label">Purchase</div>
+            <div class="desc">Buying a home</div>
+          </div>
+        </div>
+
+        <!-- Home Equity -->
+        <div class="option" role="button" tabindex="0" data-choice="Home Equity" aria-label="Home equity option">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 3l9 7.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9.5L12 3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M8 14h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10 11h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 8v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".75"/>
+            </svg>
+          </div>
+          <div class="labelBlock">
+            <div class="label">Home Equity</div>
+            <div class="desc">Tap equity strategically</div>
+          </div>
+        </div>
+
+        <!-- Cash Out -->
+        <div class="option" role="button" tabindex="0" data-choice="Cash Out" aria-label="Cash out option">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 3l9 7.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9.5L12 3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M8 16h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M9.5 12.5c.8-1 1.8-1.5 2.5-1.5s1.7.5 2.5 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="labelBlock">
+            <div class="label">Cash Out</div>
+            <div class="desc">Consolidate or renovate</div>
+          </div>
+        </div>
+
+        <!-- Improvements -->
+        <div class="option" role="button" tabindex="0" data-choice="Improvements" aria-label="Home improvements option">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M7 20V10l5-4 5 4v10" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M9 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 9v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="labelBlock">
+            <div class="label">Improve</div>
+            <div class="desc">Project-focused options</div>
+          </div>
+        </div>
+
+        <!-- HELOC -->
+        <div class="option" role="button" tabindex="0" data-choice="HELOC" aria-label="HELOC option">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 7h10v14H7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M9.5 10h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M9.5 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10 18h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M17 7l-2-3H9L7 7" stroke="currentColor" stroke-width="2" stroke-linejoin="round" opacity=".9"/>
+            </svg>
+          </div>
+          <div class="labelBlock">
+            <div class="label">HELOC</div>
+            <div class="desc">Flexible credit line</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button class="btn" id="continueBtn" type="button">Continue</button>
+        <div class="note" id="note">
+          No data is collected on this page yet. Next step can be a short qualifier (or a Google Form submit).
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Tiny UX: highlight selection + show chosen goal
+    const options = Array.from(document.querySelectorAll(".option"));
+    const note = document.getElementById("note");
+    const btn = document.getElementById("continueBtn");
+    let selected = null;
+
+    function select(el){
+      options.forEach(o => o.style.outline = "none");
+      el.style.outline = "2px solid rgba(124,240,200,.55)";
+      el.style.outlineOffset = "0px";
+      selected = el.dataset.choice;
+      note.textContent = `Selected: ${selected}. (Hook this to your next page or a Google Form entry.)`;
+      btn.textContent = `Continue with ${selected}`;
+    }
+
+    options.forEach(el => {
+      el.addEventListener("click", () => select(el));
+      el.addEventListener("keydown", (e) => {
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          select(el);
+        }
+      });
+    });
+
+    btn.addEventListener("click", () => {
+      if(!selected){
+        note.textContent = "Pick an option first, then continue.";
+        return;
+      }
+      // Replace this with navigation (multi-page) or a Google Forms submission.
+      alert(`Next step for: ${selected}`);
+    });
+  </script>
+</body>
+</html>
