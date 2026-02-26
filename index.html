@@ -17,326 +17,348 @@
   <style>
     :root{
       --bg: #ffffff;
-      --ink: #0b1220;
-      --muted: #6b7280;
       --card: #ffffff;
-      --stroke: #e5e7eb;
-      --shadow: 0 18px 40px rgba(11,18,32,.10);
-      --pillShadow: 0 12px 24px rgba(11,18,32,.22);
-      --accent: #18c39c;
-      --navy: #0c1426;
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: #e5e7eb;
+      --accent: #16a34a;
+      --accent2:#2563eb;
+      --shadow: 0 14px 40px rgba(2, 6, 23, .08);
+      --radius: 18px;
+      --radius2: 14px;
+      --maxw: 980px;
     }
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
+    *{box-sizing:border-box}
+
     body{
-      margin: 0;
+      margin:0;
+      min-height:100svh;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
       background: var(--bg);
-      color: var(--ink);
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding: 22px;
     }
 
-    /* Layout */
-    .page{
-      max-width: 1120px;
+    .wrap{
+      width:min(var(--maxw), 100%);
+      display:grid;
+      gap:18px;
+    }
+
+    /* ===== Top layout ===== */
+    .topBar{
+      display:grid;
+      grid-template-columns: 1.25fr auto 1.25fr;
+      gap:22px;
+      align-items:center;
+      margin-top: 6px;
+    }
+
+    .brand{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .brand img{
+      width: min(220px, 60vw);
+      height:auto;
+      filter: drop-shadow(0 10px 22px rgba(2,6,23,.14));
+      display:block;
       margin: 0 auto;
-      padding: 26px 18px 40px;
     }
 
-    .topRow{
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 18px;
-      margin-top: 4px;
+    /* ===== FULL-WIDTH black bar (spans the whole "site") ===== */
+    .fullWidthBar{
+      height: 16px;
+      width: 100%;
+      margin-top: 6px;
+      margin-bottom: 4px;
+
+      background: linear-gradient(
+        to bottom,
+        #0b1220 0%,
+        #0b1220 60%,
+        #111827 100%
+      );
+
+      border-radius: 999px;
+
+      box-shadow:
+        0 10px 22px rgba(0,0,0,.30),
+        inset 0 2px 2px rgba(255,255,255,.08),
+        inset 0 -3px 6px rgba(0,0,0,.45);
     }
 
-    /* Rate tiles */
-    .rateTile{
-      text-align: center;
+    /* ===== Rates ===== */
+    .rateBlock{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      min-height: 130px;
+      padding: 10px 8px;
     }
-    .rateLabel{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      font-weight: 800;
-      font-size: 12px;
+
+    .rateKicker{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      justify-content:center;
       color: var(--muted);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .78rem;
+      margin-bottom: 10px;
+    }
+
+    .rateValue{
+      display:flex;
+      align-items:baseline;
+      justify-content:center;
+      gap:12px;
+      line-height:1;
       margin-bottom: 8px;
     }
-    .dot{
-      width: 12px; height: 12px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(24,195,156,.15);
-    }
-    .rateValue{
-      font-size: clamp(44px, 5vw, 74px);
+
+    .rateNumber{
+      font-family: "Inter", sans-serif;
+      font-size: clamp(3.8rem, 7vw, 5.2rem);
       font-weight: 900;
-      color: #0a1222;
+      letter-spacing: -0.02em;
+      color: var(--ink);
       line-height: 1;
-      letter-spacing: -0.04em;
+      white-space: nowrap;
     }
-    .rateValue span{
-      font-size: .45em;
+
+    .pct{
+      font-size: .38em;
       font-weight: 900;
-      margin-left: 4px;
-      opacity: .9;
+      margin-left: .10em;
+      color: var(--ink);
+      position: relative;
+      top: -0.30em;
     }
-    .rateSub{
-      margin-top: 10px;
-      font-weight: 800;
-      font-size: 12px;
-      letter-spacing: .14em;
+
+    .rateHint{
+      color:#64748b;
+      font-weight: 700;
+      font-size:.86rem;
+      letter-spacing:.05em;
       text-transform: uppercase;
-      color: #4b5563;
     }
 
-    /* Center logo */
-    .logoWrap{
-      display: grid;
-      place-items: center;
-      gap: 12px;
-    }
-    .logo{
-      width: 130px;
-      height: auto;
-      display: block;
-    }
-    .pillShadow{
-      width: 240px;
-      height: 14px;
-      border-radius: 999px;
-      background: linear-gradient(180deg, rgba(12,20,38,.95), rgba(12,20,38,.55));
-      box-shadow: var(--pillShadow);
+    .pulseDot{
+      width:10px;height:10px;border-radius:50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 0 rgba(22,163,74,.26);
+      animation: pulse 1.7s ease-out infinite;
     }
 
-    /* Card */
+    @keyframes pulse{
+      0%{ box-shadow: 0 0 0 0 rgba(22,163,74,.28); transform: scale(1); }
+      60%{ box-shadow: 0 0 0 14px rgba(22,163,74,0); transform: scale(1.04); }
+      100%{ box-shadow: 0 0 0 0 rgba(22,163,74,0); transform: scale(1); }
+    }
+
+    /* ===== Main card ===== */
     .card{
-      margin: 22px auto 0;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
       background: var(--card);
-      border: 1px solid var(--stroke);
-      border-radius: 14px;
       box-shadow: var(--shadow);
-      overflow: hidden;
+      overflow:hidden;
     }
 
     .cardHeader{
-      padding: 18px 18px 12px;
-      border-bottom: 1px solid var(--stroke);
-      text-align: center;
+      padding: 16px 20px;
+      border-bottom:1px solid var(--line);
+      text-align:center;
     }
+
     .cardHeader h2{
-      margin: 0;
-      font-family: Cinzel, serif;
+      margin:0;
+      font-family: "Cinzel", serif;
+      font-size: 1.45rem;
+      letter-spacing:.06em;
       font-weight: 900;
-      letter-spacing: .12em;
-      font-size: 20px;
-      color: #0b1220;
+      text-transform: uppercase;
+      text-align:center;
     }
 
-    /* NEW: Square image buttons (one horizontal line) */
-    .goalStrip{
-      padding: 18px;
-    }
-
-    .goalButtons{
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    /* ===== Image Buttons Row ===== */
+    .buttonRow{
+      padding: 16px;
+      display:flex;
       gap: 14px;
-      flex-wrap: nowrap; /* one line on desktop */
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: nowrap; /* keep in ONE line */
+      overflow-x: auto;  /* if screen is too small, allow scroll instead of wrapping */
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
     }
 
-    .goalBtn{
-      display: inline-block;
-      width: 150px;              /* adjust if you want bigger/smaller */
-      aspect-ratio: 1 / 1;       /* perfect square */
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid var(--stroke);
+    .imgBtn{
+      border: 1px solid var(--line);
+      border-radius: 16px;
       background: #fff;
-      box-shadow: 0 10px 22px rgba(11,18,32,.10);
-      transform: translateZ(0);
-      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
-      cursor: pointer;
-      user-select: none;
+      box-shadow: 0 10px 22px rgba(2,6,23,.06);
+      cursor:pointer;
+      padding: 8px;
+      flex: 0 0 auto; /* don't shrink into weird shapes */
+      transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
+      user-select:none;
+      outline: none;
     }
 
-    .goalBtn img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* no warping */
-      display: block;
+    .imgBtn:hover{
+      transform: translateY(-2px) scale(1.05);
+      border-color: rgba(22,163,74,.35);
+      box-shadow: 0 18px 34px rgba(2,6,23,.10);
     }
 
-    .goalBtn:hover{
-      transform: scale(1.06);
-      box-shadow: 0 16px 34px rgba(11,18,32,.18);
-      border-color: rgba(24,195,156,.55);
+    .imgBtn[aria-pressed="true"]{
+      border-color: rgba(22,163,74,.60);
+      box-shadow: 0 18px 34px rgba(22,163,74,.12);
+      outline: 3px solid rgba(22,163,74,.18);
     }
 
-    .goalBtn:active{
-      transform: scale(1.02);
+    .imgBtn img{
+      display:block;
+      width: 140px;      /* square visual */
+      height: 140px;     /* square visual */
+      object-fit: contain;
+      border-radius: 12px;
     }
 
-    .goalBtn.isSelected{
-      border-color: rgba(24,195,156,.85);
-      box-shadow: 0 18px 40px rgba(24,195,156,.22);
-      transform: scale(1.03);
+    .fineprint{
+      color:#64748b;
+      font-size:.82rem;
+      font-weight:600;
+      padding: 0 4px 2px;
+      text-align:center;
     }
 
-    /* Footer note */
-    .note{
-      margin-top: 14px;
-      text-align: center;
-      color: #64748b;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    /* Responsive */
-    @media (max-width: 980px){
-      .topRow{
+    /* ===== Responsive ===== */
+    @media (max-width: 860px){
+      .topBar{
         grid-template-columns: 1fr;
-        gap: 16px;
-      }
-      .pillShadow{
-        width: 180px;
-      }
-
-      /* allow wrap on small screens so it doesn't overflow */
-      .goalButtons{
-        flex-wrap: wrap;
-      }
-      .goalBtn{
-        width: min(160px, 42vw);
+        justify-items:center;
       }
     }
 
-    @media (max-width: 460px){
-      .goalBtn{
-        width: 44vw;
-      }
+    @media (max-width: 760px){
+      body{padding:16px}
+      .brand img{width:min(190px, 72vw);}
+      .imgBtn img{ width: 124px; height: 124px; }
     }
   </style>
 </head>
 
 <body>
-  <main class="page">
+  <main class="wrap">
 
-    <!-- TOP: rates + logo -->
-    <section class="topRow">
-      <div class="rateTile">
-        <div class="rateLabel">
-          TODAY'S SNAPSHOT <span class="dot" aria-hidden="true"></span>
+    <!-- TOP -->
+    <section class="topBar">
+
+      <!-- Left rate -->
+      <div class="rateBlock">
+        <div class="rateKicker">
+          <span>Today’s Snapshot</span>
+          <span class="pulseDot"></span>
         </div>
-        <div class="rateValue" id="rateSnapshot">4.30<span>%</span></div>
-        <div class="rateSub">FIXED-RATE EXAMPLE</div>
-      </div>
-
-      <div class="logoWrap">
-        <img class="logo" alt="Rate Thief Logo"
-             src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/RateThiefLogo.png"
-             onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Logo/ratethiefLogo.png';">
-        <div class="pillShadow" aria-hidden="true"></div>
-      </div>
-
-      <div class="rateTile">
-        <div class="rateLabel">
-          FIXED-RATE OPTIONS <span class="dot" aria-hidden="true"></span>
+        <div class="rateValue">
+          <div class="rateNumber">4.30<span class="pct">%</span></div>
         </div>
-        <div class="rateValue" id="rateOptions">4.60<span>%</span></div>
-        <div class="rateSub">APR EXAMPLE</div>
+        <div class="rateHint">Fixed-rate example</div>
       </div>
+
+      <!-- Mascot -->
+      <div class="brand">
+        <img
+          src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Mascott.png"
+          alt="Rate Thief mascot logo">
+      </div>
+
+      <!-- Right rate -->
+      <div class="rateBlock">
+        <div class="rateKicker">
+          <span>Fixed-Rate Options</span>
+          <span class="pulseDot"></span>
+        </div>
+        <div class="rateValue">
+          <div class="rateNumber">4.60<span class="pct">%</span></div>
+        </div>
+        <div class="rateHint">APR example</div>
+      </div>
+
     </section>
 
-    <!-- GOALS CARD -->
-    <section class="card" aria-label="Choose your goal">
-      <div class="cardHeader">
+    <!-- FULL-WIDTH black bar -->
+    <div class="fullWidthBar" aria-hidden="true"></div>
+
+    <!-- OPTIONS -->
+    <section class="card">
+      <header class="cardHeader">
         <h2>CHOOSE YOUR GOAL</h2>
-      </div>
+      </header>
 
-      <div class="goalStrip">
-        <div class="goalButtons">
-          <!-- 1) PURCHASE -->
-          <a class="goalBtn" href="#"
-             data-goal="purchase"
-             aria-label="Purchase">
-            <img
-              src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/purchaseButton.png"
-              alt="Purchase">
-          </a>
+      <!-- ONE HORIZONTAL LINE of square image buttons -->
+      <div class="buttonRow" role="group" aria-label="Choose your goal">
 
-          <!-- 2) REFINANCE -->
-          <a class="goalBtn" href="#"
-             data-goal="refinance"
-             aria-label="Refinance">
-            <img
-              src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/refinanceButton.png"
-              alt="Refinance">
-          </a>
+        <button class="imgBtn" type="button" data-choice="Purchase" aria-pressed="false" title="Purchase">
+          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/purchaseButton.png" alt="Purchase">
+        </button>
 
-          <!-- 3) CASH OUT -->
-          <a class="goalBtn" href="#"
-             data-goal="cashout"
-             aria-label="Cash Out">
-            <img
-              src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/cashOut.png"
-              alt="Cash Out">
-          </a>
+        <button class="imgBtn" type="button" data-choice="Refinance" aria-pressed="false" title="Refinance">
+          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/refinanceButton.png" alt="Refinance">
+        </button>
 
-          <!-- 4) HELOC -->
-          <a class="goalBtn" href="#"
-             data-goal="heloc"
-             aria-label="HELOC">
-            <img
-              src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/HELOCbutton.png"
-              alt="HELOC">
-          </a>
+        <button class="imgBtn" type="button" data-choice="Cash Out" aria-pressed="false" title="Cash Out">
+          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/cashOut.png" alt="Cash Out">
+        </button>
 
-          <!-- 5) REVERSE MORTGAGE -->
-          <a class="goalBtn" href="#"
-             data-goal="reverse"
-             aria-label="Reverse Mortgage">
-            <img
-              src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/reverseMortgage.png"
-              alt="Reverse Mortgage">
-          </a>
-        </div>
+        <button class="imgBtn" type="button" data-choice="HELOC" aria-pressed="false" title="HELOC">
+          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/HELOCbutton.png" alt="HELOC">
+        </button>
 
-        <div class="note">
-          Example rates shown for demonstration only. Final pricing depends on credit, equity, occupancy, and timing.
-        </div>
+        <button class="imgBtn" type="button" data-choice="Reverse Mortgage" aria-pressed="false" title="Reverse Mortgage">
+          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/reverseMortgage.png" alt="Reverse Mortgage">
+        </button>
+
       </div>
     </section>
+
+    <div class="fineprint">
+      Example rates shown for demonstration only. Final pricing depends on credit, equity, occupancy, and timing.
+    </div>
 
   </main>
 
   <script>
-    // Click behavior: select a goal (adds a highlight), and you can route to your quiz step.
-    const goalButtons = document.querySelectorAll('.goalBtn');
+    const btns = Array.from(document.querySelectorAll(".imgBtn"));
 
-    function setSelected(btn) {
-      goalButtons.forEach(b => b.classList.remove('isSelected'));
-      btn.classList.add('isSelected');
+    function setPressed(el){
+      btns.forEach(b => b.setAttribute("aria-pressed","false"));
+      el.setAttribute("aria-pressed","true");
+      // You can read the choice like this:
+      // console.log("Selected:", el.dataset.choice);
     }
 
-    goalButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        setSelected(btn);
-
-        const goal = btn.getAttribute('data-goal');
-        // TODO: replace with your real navigation / state update
-        // Example:
-        // window.location.href = `/quiz.html?goal=${encodeURIComponent(goal)}`;
-        console.log('Selected goal:', goal);
+    btns.forEach(el => {
+      el.addEventListener("click", () => setPressed(el));
+      el.addEventListener("keydown", (e) => {
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          setPressed(el);
+        }
       });
     });
   </script>
