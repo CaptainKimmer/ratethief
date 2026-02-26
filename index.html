@@ -109,15 +109,18 @@
       font-weight: 900;
       letter-spacing: -0.02em;
       color: var(--ink);
+      line-height: 1;
+      white-space: nowrap;
     }
 
-    .rateUnit{
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--muted);
-      transform: translateY(-6px);
-      letter-spacing:.12em;
-      text-transform: uppercase;
+    /* % is now part of the number */
+    .pct{
+      font-size: .38em;
+      font-weight: 900;
+      margin-left: .10em;
+      color: var(--ink);
+      position: relative;
+      top: -0.30em;
     }
 
     .rateHint{
@@ -154,6 +157,7 @@
     .cardHeader{
       padding: 16px 20px;
       border-bottom:1px solid var(--line);
+      text-align: center; /* center the header area */
     }
 
     .cardHeader h2{
@@ -163,6 +167,7 @@
       letter-spacing:.06em;
       font-weight: 900;
       text-transform: uppercase;
+      text-align: center; /* center the text */
     }
 
     .grid{
@@ -266,8 +271,7 @@
           <span class="pulseDot"></span>
         </div>
         <div class="rateValue">
-          <div class="rateNumber">4.30</div>
-          <div class="rateUnit">%</div>
+          <div class="rateNumber">4.30<span class="pct">%</span></div>
         </div>
         <div class="rateHint">Fixed-rate example</div>
       </div>
@@ -286,8 +290,7 @@
           <span class="pulseDot"></span>
         </div>
         <div class="rateValue">
-          <div class="rateNumber">4.60</div>
-          <div class="rateUnit">APR</div>
+          <div class="rateNumber">4.60<span class="pct">%</span></div>
         </div>
         <div class="rateHint">APR example</div>
       </div>
