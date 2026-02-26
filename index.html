@@ -234,7 +234,7 @@
     }
 
     /* =========================================================
-       MOBILE: tighten gap under fixed header
+       MOBILE
        ========================================================= */
     @media (max-width: 760px){
       :root{
@@ -242,15 +242,11 @@
         --mobileGap: 6px;
       }
 
-      body{
-        padding: 12px;
-      }
+      body{ padding: 12px; }
 
       .mobileFixedHeader{
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
+        top: 0; left: 0; right: 0;
         z-index: 50;
         background: var(--bg);
         padding: 8px 12px 6px;
@@ -269,15 +265,9 @@
         align-items:center;
       }
 
-      .brand img{
-        width: 104px;
-      }
+      .brand img{ width: 104px; }
 
-      .rateBlock{
-        min-height: unset;
-        padding: 0;
-        text-align:center;
-      }
+      .rateBlock{ min-height: unset; padding: 0; text-align:center; }
 
       .rateKicker{
         font-size: .56rem;
@@ -288,37 +278,22 @@
 
       .pulseDot{ width:8px;height:8px; }
 
-      .rateNumber{
-        font-size: 1.58rem;
-      }
+      .rateNumber{ font-size: 1.58rem; }
 
-      .pct{
-        font-size: .42em;
-        top: -0.16em;
-      }
+      .pct{ font-size: .42em; top: -0.16em; }
 
-      .fullWidthBar{
-        height: 12px;
-        margin-top: 6px;
-        margin-bottom: 0;
-      }
+      .fullWidthBar{ height: 12px; margin-top: 6px; margin-bottom: 0; }
 
-      .cardHeader{
-        padding: 10px 12px;
-      }
-      .cardHeader h2{
-        font-size: 1.08rem;
-      }
+      .cardHeader{ padding: 10px 12px; }
+      .cardHeader h2{ font-size: 1.08rem; }
 
-      /* Buttons: 2-column grid, equal sizes */
+      /* Buttons: 2-column grid */
       .buttonRow{
         display:grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
         padding: 12px;
-        justify-content: unset;
         align-items: stretch;
-        flex-wrap: unset;
       }
 
       .imgBtn{
@@ -333,18 +308,11 @@
         width: 100%;
         height: auto;
         aspect-ratio: 1 / 1;
-        object-fit: contain;
-        border-radius: 12px;
       }
 
-      .imgBtn:active{
-        transform: scale(0.98);
-      }
+      .imgBtn:active{ transform: scale(0.98); }
 
-      .fineprint{
-        font-size: .78rem;
-        padding-top: 2px;
-      }
+      .fineprint{ font-size: .78rem; padding-top: 2px; }
     }
   </style>
 </head>
@@ -366,9 +334,8 @@
         </div>
 
         <div class="brand">
-          <img
-            src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Mascott.png"
-            alt="Rate Thief mascot logo">
+          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Mascott.png"
+               alt="Rate Thief mascot logo">
         </div>
 
         <div class="rateBlock">
@@ -382,25 +349,22 @@
         </div>
       </section>
 
-      <div class="fullWidthBar" aria-hidden="true"></div>
+      <div class="fullWidthBar"></div>
     </div>
 
-    <!-- DESKTOP NORMAL HEADER (hidden on mobile via JS) -->
+    <!-- DESKTOP HEADER -->
     <section class="topBar" aria-hidden="true">
       <div class="rateBlock">
         <div class="rateKicker">
           <span>Market Rate</span>
           <span class="pulseDot"></span>
         </div>
-        <div class="rateValue">
-          <div class="rateNumber">4.30<span class="pct">%</span></div>
-        </div>
+        <div class="rateNumber">4.30<span class="pct">%</span></div>
       </div>
 
       <div class="brand">
-        <img
-          src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Mascott.png"
-          alt="Rate Thief mascot logo">
+        <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Mascott.png"
+             alt="Rate Thief mascot logo">
       </div>
 
       <div class="rateBlock">
@@ -408,13 +372,11 @@
           <span>APR as low as</span>
           <span class="pulseDot"></span>
         </div>
-        <div class="rateValue">
-          <div class="rateNumber">4.60<span class="pct">%</span></div>
-        </div>
+        <div class="rateNumber">4.60<span class="pct">%</span></div>
       </div>
     </section>
 
-    <div class="fullWidthBar" aria-hidden="true"></div>
+    <div class="fullWidthBar"></div>
 
     <!-- CONTENT -->
     <div class="mobileContent">
@@ -423,36 +385,36 @@
           <h2>CHOOSE YOUR GOAL</h2>
         </header>
 
-        <div class="buttonRow" role="group" aria-label="Choose your goal">
+        <div class="buttonRow">
 
-          <!-- 1) Purchase -->
-          <button class="imgBtn" type="button" data-choice="Purchase" aria-pressed="false" title="Purchase">
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/purchaseButton.png" alt="Purchase">
+          <!-- 1 Purchase -->
+          <button class="imgBtn" data-choice="Purchase">
+            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/purchaseButton.png">
           </button>
 
-          <!-- 2) Refinance -->
-          <button class="imgBtn" type="button" data-choice="Refinance" aria-pressed="false" title="Refinance">
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/refinanceButton.png" alt="Refinance">
+          <!-- 2 Pay Off Debts -->
+          <button class="imgBtn" data-choice="Pay Off Debts">
+            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/payOffDebts.png">
           </button>
 
-          <!-- 3) Pay Off Debts (NEW) -->
-          <button class="imgBtn" type="button" data-choice="Pay Off Debts" aria-pressed="false" title="Pay Off Debts">
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/payOffDebts.png" alt="Pay Off Debts">
+          <!-- 3 HELOC -->
+          <button class="imgBtn" data-choice="HELOC">
+            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/HELOCbutton.png">
           </button>
 
-          <!-- 4) Cash Out -->
-          <button class="imgBtn" type="button" data-choice="Cash Out" aria-pressed="false" title="Cash Out">
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/cashOut.png" alt="Cash Out">
+          <!-- 4 Refinance -->
+          <button class="imgBtn" data-choice="Refinance">
+            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/refinanceButton.png">
           </button>
 
-          <!-- 5) HELOC -->
-          <button class="imgBtn" type="button" data-choice="HELOC" aria-pressed="false" title="HELOC">
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/HELOCbutton.png" alt="HELOC">
+          <!-- 5 Cash Out -->
+          <button class="imgBtn" data-choice="Cash Out">
+            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/cashOut.png">
           </button>
 
-          <!-- 6) Reverse Mortgage -->
-          <button class="imgBtn" type="button" data-choice="Reverse Mortgage" aria-pressed="false" title="Reverse Mortgage">
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/reverseMortgage.png" alt="Reverse Mortgage">
+          <!-- 6 Reverse Mortgage -->
+          <button class="imgBtn" data-choice="Reverse Mortgage">
+            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/reverseMortgage.png">
           </button>
 
         </div>
@@ -474,15 +436,8 @@
 
     btns.forEach(el => {
       el.addEventListener("click", () => setPressed(el));
-      el.addEventListener("keydown", (e) => {
-        if(e.key === "Enter" || e.key === " "){
-          e.preventDefault();
-          setPressed(el);
-        }
-      });
     });
 
-    /* Only show fixed header on mobile; hide duplicate desktop header + bar on mobile */
     function syncHeaderVisibility(){
       const isMobile = window.matchMedia("(max-width: 760px)").matches;
       const fixed = document.querySelector(".mobileFixedHeader");
@@ -492,11 +447,11 @@
       if(isMobile){
         fixed.style.display = "block";
         if(desktopTop) desktopTop.style.display = "none";
-        if(desktopBar && desktopBar.classList.contains("fullWidthBar")) desktopBar.style.display = "none";
+        if(desktopBar) desktopBar.style.display = "none";
       }else{
         fixed.style.display = "none";
         if(desktopTop) desktopTop.style.display = "grid";
-        if(desktopBar && desktopBar.classList.contains("fullWidthBar")) desktopBar.style.display = "block";
+        if(desktopBar) desktopBar.style.display = "block";
       }
     }
 
