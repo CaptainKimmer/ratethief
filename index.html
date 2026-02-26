@@ -9,10 +9,10 @@
   <link rel="icon" type="image/png" sizes="32x32"
         href="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/favicon_io/favicon-32x32.png">
 
-  <!-- Theme fonts (pirate vibe + more financial/pro for body) -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Pirata+One&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -45,10 +45,10 @@
     .wrap{
       width:min(980px, 100%);
       display:grid;
-      gap:16px;
+      gap:18px;
     }
 
-    /* ===== Top layout: rate - logo - rate ===== */
+    /* ===== Top layout ===== */
     .topBar{
       display:grid;
       grid-template-columns: 1.25fr auto 1.25fr;
@@ -62,23 +62,22 @@
       justify-content:center;
       align-items:center;
     }
+
     .brand img{
       width: min(220px, 60vw);
       height:auto;
-      display:block;
       filter: drop-shadow(0 10px 22px rgba(2,6,23,.14));
     }
 
-    /* ===== Rates: no boxes, just centered content left/right ===== */
+    /* ===== Rates ===== */
     .rateBlock{
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:center;
       text-align:center;
-      min-height: 120px;
+      min-height: 130px;
       padding: 10px 8px;
-      position:relative;
     }
 
     .rateKicker{
@@ -87,12 +86,11 @@
       gap:10px;
       justify-content:center;
       color: var(--muted);
-      font-family: "Inter", sans-serif;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: .14em;
       font-size: .78rem;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .rateValue{
@@ -101,46 +99,41 @@
       justify-content:center;
       gap:12px;
       line-height:1;
-      margin: 2px 0 6px;
+      margin-bottom: 8px;
     }
 
-    /* Big rates: still mascot-y but less wild */
+    /* ===== Professional financial rate font ===== */
     .rateNumber{
-      font-family: "Pirata One", "Cinzel", serif;
-      font-size: clamp(3.1rem, 6.2vw, 4.4rem);
-      letter-spacing: -0.01em;
+      font-family: "Inter", sans-serif;
+      font-size: clamp(3.8rem, 7vw, 5.2rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
       color: var(--ink);
-      text-shadow:
-        0 1px 0 rgba(255,255,255,.75),
-        0 18px 40px rgba(2,6,23,.14);
     }
 
     .rateUnit{
-      font-family: "Inter", sans-serif;
-      font-size: 1.05rem;
-      font-weight: 900;
+      font-size: 1.1rem;
+      font-weight: 800;
       color: var(--muted);
-      transform: translateY(-4px);
-      letter-spacing:.10em;
+      transform: translateY(-6px);
+      letter-spacing:.12em;
       text-transform: uppercase;
     }
 
     .rateHint{
-      font-family: "Inter", sans-serif;
       color:#64748b;
       font-weight: 700;
       font-size:.86rem;
-      letter-spacing:.04em;
+      letter-spacing:.05em;
       text-transform: uppercase;
     }
 
-    /* Dot animation stays */
+    /* Dot animation */
     .pulseDot{
       width:10px;height:10px;border-radius:50%;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       box-shadow: 0 0 0 0 rgba(22,163,74,.26);
       animation: pulse 1.7s ease-out infinite;
-      flex: 0 0 auto;
     }
 
     @keyframes pulse{
@@ -159,33 +152,21 @@
     }
 
     .cardHeader{
-      padding: 14px 18px;
+      padding: 16px 20px;
       border-bottom:1px solid var(--line);
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
     }
 
     .cardHeader h2{
       margin:0;
       font-family: "Cinzel", serif;
-      font-size: 1.35rem;
-      letter-spacing:.04em;
-      font-weight: 900;
-    }
-    .helper{
-      color: var(--muted);
-      font-size:.92rem;
-      font-weight:800;
+      font-size: 1.45rem;
       letter-spacing:.06em;
+      font-weight: 900;
       text-transform: uppercase;
-      font-family: "Inter", sans-serif;
     }
 
     .grid{
-      padding: 14px;
+      padding: 16px;
       display:grid;
       grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 12px;
@@ -203,7 +184,6 @@
       cursor:pointer;
       user-select:none;
       transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
-      position:relative;
     }
 
     .option:hover{
@@ -216,7 +196,6 @@
       border-color: rgba(22,163,74,.55);
       box-shadow: 0 12px 24px rgba(22,163,74,.10);
       outline: 2px solid rgba(22,163,74,.25);
-      outline-offset: 0px;
     }
 
     .icon{
@@ -226,79 +205,35 @@
       place-items:center;
       background: #f8fafc;
       border: 1px solid var(--line);
-      flex: 0 0 auto;
       color: var(--ink);
     }
-    .icon svg{width:26px;height:26px;opacity:.95}
+
+    .icon svg{width:26px;height:26px}
 
     .labelBlock{
       display:grid;
       gap:4px;
       min-width:0;
     }
+
     .label{
       font-family: "Cinzel", serif;
       font-weight: 900;
       letter-spacing:.04em;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
     }
+
     .desc{
       color: var(--muted);
       font-size:.86rem;
-      line-height:1.2;
-      font-weight:700;
-      letter-spacing:.01em;
-      font-family: "Inter", sans-serif;
-    }
-
-    .footer{
-      padding: 0 18px 16px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-    }
-
-    .btn{
-      appearance:none;
-      border:1px solid rgba(15,23,42,.14);
-      background: linear-gradient(135deg, rgba(22,163,74,.14), rgba(37,99,235,.10));
-      color: var(--ink);
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-weight: 900;
-      letter-spacing:.04em;
-      cursor:pointer;
-      transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
-      font-family: "Inter", sans-serif;
-      text-transform: uppercase;
-    }
-    .btn:hover{
-      transform: translateY(-1px);
-      border-color: rgba(22,163,74,.35);
-      box-shadow: 0 12px 24px rgba(2,6,23,.08);
-    }
-
-    .note{
-      color: var(--muted);
-      font-size:.88rem;
-      line-height:1.35;
-      max-width: 70ch;
-      font-weight:700;
-      font-family: "Inter", sans-serif;
+      font-weight:600;
     }
 
     .fineprint{
       color:#64748b;
       font-size:.82rem;
-      font-weight:700;
-      line-height:1.35;
+      font-weight:600;
       padding: 0 4px 2px;
-      letter-spacing:.01em;
-      font-family: "Inter", sans-serif;
+      text-align:center;
     }
 
     /* ===== Responsive ===== */
@@ -306,38 +241,29 @@
       .topBar{
         grid-template-columns: 1fr;
         justify-items:center;
-        gap:12px;
       }
-      .rateBlock{min-height:unset}
     }
 
     @media (max-width: 760px){
       body{padding:16px}
-      .grid{grid-template-columns: repeat(2, minmax(0, 1fr));}
+      .grid{grid-template-columns: repeat(2, 1fr);}
       .option{grid-column: span 1;}
-      .footer{gap:12px}
-      .note{max-width:unset}
       .brand img{width:min(190px, 72vw);}
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      .option, .btn{transition:none}
-      .option:hover, .btn:hover{transform:none}
-      .pulseDot{animation:none}
     }
   </style>
 </head>
 
 <body>
-  <main class="wrap" role="main" aria-label="Mortgage rate options landing page">
+  <main class="wrap">
 
-    <!-- TOP: left rate / mascot / right rate -->
-    <section class="topBar" aria-label="Rates and brand">
+    <!-- TOP -->
+    <section class="topBar">
+
       <!-- Left rate -->
-      <div class="rateBlock" aria-label="Interest rate highlight">
+      <div class="rateBlock">
         <div class="rateKicker">
           <span>Today’s Snapshot</span>
-          <span class="pulseDot" aria-hidden="true"></span>
+          <span class="pulseDot"></span>
         </div>
         <div class="rateValue">
           <div class="rateNumber">4.30</div>
@@ -346,18 +272,18 @@
         <div class="rateHint">Fixed-rate example</div>
       </div>
 
-      <!-- Center logo -->
-      <div class="brand" aria-label="Rate Thief logo">
+      <!-- Mascot -->
+      <div class="brand">
         <img
           src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Mascott.png"
           alt="Rate Thief mascot logo">
       </div>
 
       <!-- Right rate -->
-      <div class="rateBlock" aria-label="APR highlight">
+      <div class="rateBlock">
         <div class="rateKicker">
           <span>Fixed-Rate Options</span>
-          <span class="pulseDot" aria-hidden="true"></span>
+          <span class="pulseDot"></span>
         </div>
         <div class="rateValue">
           <div class="rateNumber">4.60</div>
@@ -365,24 +291,21 @@
         </div>
         <div class="rateHint">APR example</div>
       </div>
+
     </section>
 
     <!-- OPTIONS -->
-    <section class="card" aria-label="Choose a goal">
+    <section class="card">
       <header class="cardHeader">
-        <h2>Choose your goal</h2>
-        <div class="helper">Tap an option to continue</div>
+        <h2>CHOOSE YOUR GOAL</h2>
       </header>
 
       <div class="grid">
-        <!-- Refinance -->
-        <div class="option" role="button" tabindex="0" aria-pressed="false" data-choice="Refinance" aria-label="Refinance option">
-          <div class="icon" aria-hidden="true">
+
+        <div class="option" role="button" tabindex="0" data-choice="Refinance">
+          <div class="icon">
             <svg viewBox="0 0 24 24" fill="none">
-              <path d="M7 7h10v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M17 17H7v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M17 11l2-2-2-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M7 13l-2 2 2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7 7h10v4M17 17H7v-4" stroke="currentColor" stroke-width="2"/>
             </svg>
           </div>
           <div class="labelBlock">
@@ -391,13 +314,10 @@
           </div>
         </div>
 
-        <!-- Purchase -->
-        <div class="option" role="button" tabindex="0" aria-pressed="false" data-choice="Purchase" aria-label="Purchase option">
-          <div class="icon" aria-hidden="true">
+        <div class="option" role="button" tabindex="0" data-choice="Purchase">
+          <div class="icon">
             <svg viewBox="0 0 24 24" fill="none">
-              <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M6.5 10.5V20h11V10.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M10 20v-6h4v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="2"/>
             </svg>
           </div>
           <div class="labelBlock">
@@ -406,14 +326,10 @@
           </div>
         </div>
 
-        <!-- Home Equity -->
-        <div class="option" role="button" tabindex="0" aria-pressed="false" data-choice="Home Equity" aria-label="Home equity option">
-          <div class="icon" aria-hidden="true">
+        <div class="option" role="button" tabindex="0" data-choice="Home Equity">
+          <div class="icon">
             <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 3l9 7.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9.5L12 3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M8 14h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M10 11h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M12 8v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".75"/>
+              <path d="M12 3l9 7.5V20H3V10.5L12 3z" stroke="currentColor" stroke-width="2"/>
             </svg>
           </div>
           <div class="labelBlock">
@@ -422,14 +338,10 @@
           </div>
         </div>
 
-        <!-- Cash Out -->
-        <div class="option" role="button" tabindex="0" aria-pressed="false" data-choice="Cash Out" aria-label="Cash out option">
-          <div class="icon" aria-hidden="true">
+        <div class="option" role="button" tabindex="0" data-choice="Cash Out">
+          <div class="icon">
             <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 3l9 7.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9.5L12 3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M8 16h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M9.5 12.5c.8-1 1.8-1.5 2.5-1.5s1.7.5 2.5 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M12 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 3l9 7.5V20H3V10.5L12 3z" stroke="currentColor" stroke-width="2"/>
             </svg>
           </div>
           <div class="labelBlock">
@@ -438,14 +350,10 @@
           </div>
         </div>
 
-        <!-- Improvements -->
-        <div class="option" role="button" tabindex="0" aria-pressed="false" data-choice="Improvements" aria-label="Home improvements option">
-          <div class="icon" aria-hidden="true">
+        <div class="option" role="button" tabindex="0" data-choice="Improve">
+          <div class="icon">
             <svg viewBox="0 0 24 24" fill="none">
-              <path d="M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M7 20V10l5-4 5 4v10" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M9 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M12 9v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M4 20h16M7 20V10l5-4 5 4v10" stroke="currentColor" stroke-width="2"/>
             </svg>
           </div>
           <div class="labelBlock">
@@ -454,15 +362,10 @@
           </div>
         </div>
 
-        <!-- HELOC -->
-        <div class="option" role="button" tabindex="0" aria-pressed="false" data-choice="HELOC" aria-label="HELOC option">
-          <div class="icon" aria-hidden="true">
+        <div class="option" role="button" tabindex="0" data-choice="HELOC">
+          <div class="icon">
             <svg viewBox="0 0 24 24" fill="none">
-              <path d="M7 7h10v14H7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M9.5 10h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M9.5 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M10 18h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M17 7l-2-3H9L7 7" stroke="currentColor" stroke-width="2" stroke-linejoin="round" opacity=".9"/>
+              <path d="M7 7h10v14H7z" stroke="currentColor" stroke-width="2"/>
             </svg>
           </div>
           <div class="labelBlock">
@@ -470,52 +373,23 @@
             <div class="desc">Flexible credit line</div>
           </div>
         </div>
-      </div>
 
-      <div class="footer">
-        <button class="btn" id="continueBtn" type="button">Continue</button>
-        <div class="note" id="note">
-          No data is collected on this page yet. Next step can be a short qualifier (or a Google Form submit).
-        </div>
       </div>
     </section>
 
     <div class="fineprint">
       Example rates shown for demonstration only. Final pricing depends on credit, equity, occupancy, and timing.
     </div>
+
   </main>
 
   <script>
-    // Tiny UX: highlight selection + show chosen goal
     const options = Array.from(document.querySelectorAll(".option"));
-    const note = document.getElementById("note");
-    const btn = document.getElementById("continueBtn");
-    let selected = null;
-
-    function select(el){
-      options.forEach(o => o.setAttribute("aria-pressed", "false"));
-      el.setAttribute("aria-pressed", "true");
-      selected = el.dataset.choice;
-      note.textContent = `Selected: ${selected}. (Hook this to your next page or a Google Form entry.)`;
-      btn.textContent = `Continue with ${selected}`;
-    }
-
     options.forEach(el => {
-      el.addEventListener("click", () => select(el));
-      el.addEventListener("keydown", (e) => {
-        if(e.key === "Enter" || e.key === " "){
-          e.preventDefault();
-          select(el);
-        }
+      el.addEventListener("click", () => {
+        options.forEach(o => o.setAttribute("aria-pressed","false"));
+        el.setAttribute("aria-pressed","true");
       });
-    });
-
-    btn.addEventListener("click", () => {
-      if(!selected){
-        note.textContent = "Pick an option first, then continue.";
-        return;
-      }
-      alert(`Next step for: ${selected}`);
     });
   </script>
 </body>
