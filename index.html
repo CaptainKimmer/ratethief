@@ -351,12 +351,13 @@
     <!-- MOBILE FIXED HEADER -->
     <div class="mobileFixedHeader">
       <section class="topBar">
+        <!-- LEFT: 10Y Treasury (DGS10) -->
         <div class="rateBlock">
           <div class="rateKicker">
-            <span>Market Rate</span>
+            <span>10Y Treasury</span>
             <span class="pulseDot"></span>
           </div>
-          <div class="rateNumber">4.30<span class="pct">%</span></div>
+          <div class="rateNumber"><span id="dgs10Mobile">4.30</span><span class="pct">%</span></div>
         </div>
 
         <div class="brand">
@@ -364,12 +365,13 @@
                alt="Rate Thief mascot logo">
         </div>
 
+        <!-- RIGHT: 30Y Mortgage (MORTGAGE30US) -->
         <div class="rateBlock">
           <div class="rateKicker">
-            <span>10Y Treasury</span>
+            <span>30Y Mortgage</span>
             <span class="pulseDot"></span>
           </div>
-          <div class="rateNumber"><span id="tenYrMobile">4.60</span><span class="pct">%</span></div>
+          <div class="rateNumber"><span id="mort30Mobile">4.60</span><span class="pct">%</span></div>
         </div>
       </section>
 
@@ -386,12 +388,13 @@
 
     <!-- DESKTOP HEADER -->
     <section class="topBar" aria-hidden="true">
+      <!-- LEFT: 10Y Treasury (DGS10) -->
       <div class="rateBlock">
         <div class="rateKicker">
-          <span>Market Rate</span>
+          <span>10Y Treasury</span>
           <span class="pulseDot"></span>
         </div>
-        <div class="rateNumber">4.30<span class="pct">%</span></div>
+        <div class="rateNumber"><span id="dgs10Desktop">4.30</span><span class="pct">%</span></div>
       </div>
 
       <div class="brand">
@@ -399,12 +402,13 @@
              alt="Rate Thief mascot logo">
       </div>
 
+      <!-- RIGHT: 30Y Mortgage (MORTGAGE30US) -->
       <div class="rateBlock">
         <div class="rateKicker">
-          <span>10Y Treasury</span>
+          <span>30Y Mortgage</span>
           <span class="pulseDot"></span>
         </div>
-        <div class="rateNumber"><span id="tenYrDesktop">4.60</span><span class="pct">%</span></div>
+        <div class="rateNumber"><span id="mort30Desktop">4.60</span><span class="pct">%</span></div>
       </div>
     </section>
 
@@ -464,11 +468,12 @@
   <script>
     const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfkCsj5cuTngElW-Nz7Ybi3zW_FT_xLdJ2jaKhEzYBFtd50wA/viewform?usp=header";
 
-    // ⚠️ Best practice: do NOT expose keys in client-side code.
-    // If you still want to run it directly in the browser, paste your key below.
-    const FRED_API_KEY = ""; // <-- paste your FRED key here if you insist
+    // NOTE: This API key will be visible to anyone who views page source.
+    // Best practice is to proxy this through your own backend/serverless function.
+    const FRED_API_KEY = "371712da6c408b9c433ebc7d7c9316e5";
 
-    const FRED_SERIES_ID = "DGS10"; // 10-Year Treasury Constant Maturity Rate
+    const SERIES_LEFT  = "DGS10";          // 10Y Treasury
+    const SERIES_RIGHT = "MORTGAGE30US";   // 30Y Fixed Mortgage Average
 
     const btns = Array.from(document.querySelectorAll(".imgBtn"));
 
@@ -514,47 +519,53 @@
     syncHeaderVisibility();
     window.addEventListener("resize", syncHeaderVisibility);
 
-    function setTenYearYield(valueStr){
+    function setRateText(ids, valueStr){
       const num = Number(valueStr);
       if (!Number.isFinite(num)) return;
-
       const formatted = num.toFixed(2);
-      const elD = document.getElementById("tenYrDesktop");
-      const elM = document.getElementById("tenYrMobile");
-      if (elD) elD.textContent = formatted;
-      if (elM) elM.textContent = formatted;
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = formatted;
+      });
     }
 
-    async function fetchTenYearYield(){
-      if (!FRED_API_KEY) {
-        // Leave the default value if no key is provided.
-        // If you want, you can also call a serverless endpoint instead.
-        return;
-      }
-
+    async function fetchLatestSeriesValue(seriesId){
       const url =
         "https://api.stlouisfed.org/fred/series/observations" +
-        "?series_id=" + encodeURIComponent(FRED_SERIES_ID) +
+        "?series_id=" + encodeURIComponent(seriesId) +
         "&api_key=" + encodeURIComponent(FRED_API_KEY) +
         "&file_type=json" +
         "&sort_order=desc" +
         "&limit=1";
 
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) throw new Error("FRED fetch failed: " + seriesId);
+
+      const data = await res.json();
+      const obs = data && data.observations && data.observations[0];
+      if (!obs || !obs.value || obs.value === ".") throw new Error("No value for: " + seriesId);
+
+      return obs.value; // percent as string
+    }
+
+    async function updateHeaderRates(){
       try{
-        const res = await fetch(url, { cache: "no-store" });
-        if(!res.ok) return;
+        const [leftVal, rightVal] = await Promise.all([
+          fetchLatestSeriesValue(SERIES_LEFT),
+          fetchLatestSeriesValue(SERIES_RIGHT)
+        ]);
 
-        const data = await res.json();
-        const obs = data && data.observations && data.observations[0];
-        if (!obs || !obs.value || obs.value === ".") return;
+        // Left = DGS10
+        setRateText(["dgs10Desktop","dgs10Mobile"], leftVal);
 
-        setTenYearYield(obs.value);
+        // Right = MORTGAGE30US
+        setRateText(["mort30Desktop","mort30Mobile"], rightVal);
       }catch(e){
-        // fail silently, keep default
+        // Fail silently (keeps defaults) so page never breaks
       }
     }
 
-    fetchTenYearYield();
+    updateHeaderRates();
   </script>
 </body>
 </html>
