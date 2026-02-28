@@ -25,7 +25,6 @@
       --accent2:#2563eb;
       --shadow:0 14px 40px rgba(2,6,23,.08);
       --radius:18px;
-      --radius2:14px;
       --maxw:980px;
 
       --mobileHeaderH:0px;
@@ -41,23 +40,22 @@
       color:var(--ink);
       background:#f8f7f3;
       display:flex;
-      align-items:flex-start;
       justify-content:center;
-      padding:18px; /* tighter */
+      padding:18px;
     }
 
     .wrap{
       width:min(var(--maxw),100%);
       display:grid;
-      gap:10px; /* tighter */
+      gap:10px;
     }
 
     .topBar{
       display:grid;
       grid-template-columns:1.25fr auto 1.25fr;
-      gap:18px; /* tighter */
+      gap:18px;
       align-items:center;
-      margin-top:2px; /* tighter */
+      margin-top:2px;
     }
 
     .brand{
@@ -67,25 +65,24 @@
     }
 
     .brand img{
-      width:min(210px,58vw); /* slightly tighter */
+      width:min(210px,58vw);
       height:auto;
       filter:drop-shadow(0 10px 22px rgba(2,6,23,.14));
     }
 
-    /* GOLD GLINT TAGLINE */
+    /* TAGLINE */
     .tagline{
       text-align:center;
       font-family:"Cinzel",serif;
       font-weight:900;
       text-transform:uppercase;
       letter-spacing:.05em;
-      font-size:clamp(1.05rem,2.0vw,1.45rem); /* slightly smaller */
-      margin:0; /* tighter */
-      position:relative;
-      width:100%;
-      overflow:hidden;
-      padding:0 8px 2px; /* tighter */
+      font-size:clamp(1.05rem,2vw,1.45rem);
+      margin:0;
+      padding:0 8px 2px;
       line-height:1.15;
+      position:relative;
+      overflow:hidden;
     }
 
     .tagline span{
@@ -137,17 +134,30 @@
       100%{ left:125%; }
     }
 
+    /* GREEN HIGHLIGHTS */
+    .highlight-rates{
+      background:linear-gradient(180deg,#22c55e,#16a34a,#0f7a38);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      text-shadow:0 2px 6px rgba(22,163,74,.25);
+    }
+
+    .highlight-steal{
+      background:linear-gradient(180deg,#15803d,#065f46,#064e3b);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      text-shadow:0 2px 6px rgba(6,95,70,.35);
+    }
+
     .fullWidthBar{
-      height:14px;              /* slightly slimmer */
+      height:14px;
       width:100%;
-      margin-top:4px;           /* tighter */
-      margin-bottom:2px;        /* tighter */
+      margin-top:4px;
       background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
       border-radius:999px;
-      box-shadow:
-        0 10px 22px rgba(0,0,0,.30),
-        inset 0 2px 2px rgba(255,255,255,.08),
-        inset 0 -3px 6px rgba(0,0,0,.45);
+      box-shadow:0 10px 22px rgba(0,0,0,.30);
     }
 
     .rateBlock{
@@ -155,12 +165,10 @@
       flex-direction:column;
       align-items:center;
       text-align:center;
-      min-height:118px; /* tighter */
     }
 
     .rateKicker{
       display:flex;
-      align-items:center;
       gap:10px;
       justify-content:center;
       color:var(--muted);
@@ -168,11 +176,11 @@
       text-transform:uppercase;
       letter-spacing:.14em;
       font-size:.78rem;
-      margin-bottom:8px; /* tighter */
+      margin-bottom:8px;
     }
 
     .rateNumber{
-      font-size:clamp(3.4rem,6.6vw,5.0rem); /* slightly smaller */
+      font-size:clamp(3.4rem,6.6vw,5rem);
       font-weight:900;
       line-height:1;
     }
@@ -200,12 +208,10 @@
       border-radius:var(--radius);
       background:var(--card);
       box-shadow:var(--shadow);
-      overflow:hidden;
-      margin-top:2px; /* tighter */
     }
 
     .cardHeader{
-      padding:12px 16px; /* tighter */
+      padding:12px 16px;
       border-bottom:1px solid var(--line);
       text-align:center;
     }
@@ -213,47 +219,35 @@
     .cardHeader h2{
       margin:0;
       font-family:"Cinzel",serif;
-      font-size:1.30rem; /* slightly smaller */
-      letter-spacing:.06em;
+      font-size:1.30rem;
       font-weight:900;
       text-transform:uppercase;
     }
 
-    /* FIX: make buttons always fit */
     .buttonRow{
-      padding:14px; /* tighter */
+      padding:14px;
       display:flex;
       gap:12px;
+      flex-wrap:wrap;
       justify-content:space-between;
-      align-items:center;
-      flex-wrap:wrap; /* allow wrap if needed */
     }
 
     .imgBtn{
+      flex:1 1 calc((100% - 5*12px)/6);
+      min-width:120px;
+      max-width:160px;
       border:1px solid var(--line);
       border-radius:16px;
       background:#fff;
-      box-shadow:0 10px 22px rgba(2,6,23,.06);
-      cursor:pointer;
       padding:8px;
+      cursor:pointer;
       transition:.14s;
-      flex:1 1 calc((100% - 5*12px)/6); /* 6 across, responsive */
-      min-width:120px; /* prevents being too tiny */
-      max-width:160px;
-    }
-
-    .imgBtn:hover{
-      transform:translateY(-2px) scale(1.03);
-      border-color:rgba(22,163,74,.35);
-      box-shadow:0 18px 34px rgba(2,6,23,.10);
     }
 
     .imgBtn img{
       width:100%;
-      height:auto;
       aspect-ratio:1/1;
       object-fit:contain;
-      border-radius:12px;
       display:block;
     }
 
@@ -261,64 +255,21 @@
       color:#64748b;
       font-size:.82rem;
       text-align:center;
-      margin-top:2px; /* tighter */
+      margin-top:4px;
     }
 
     @media (max-width:760px){
-
       :root{
-        /* IMPORTANT: includes tagline inside fixed header */
         --mobileHeaderH:190px;
         --mobileGap:6px;
       }
 
       body{padding:12px}
 
-      .mobileFixedHeader{
-        position:fixed;
-        top:0;left:0;right:0;
-        z-index:50;
-        background:var(--bg);
-        padding:8px 12px 6px;
-      }
-
-      .mobileContent{
-        margin-top:calc(var(--mobileHeaderH) + var(--mobileGap));
-      }
-
-      .topBar{
-        margin-top:0;
-        grid-template-columns:1fr auto 1fr;
-        gap:8px;
-      }
-
-      .brand img{ width:104px; }
-
-      .rateBlock{ min-height:unset; }
-
-      .rateKicker{
-        font-size:.56rem;
-        margin-bottom:3px;
-      }
-
-      .rateNumber{ font-size:1.58rem; }
-
-      .tagline{
-        font-size:.92rem;
-        margin:2px 0 2px;
-        letter-spacing:.06em;
-      }
-
-      .fullWidthBar{ height:12px; margin-top:6px; }
-
-      .cardHeader{ padding:10px 12px; }
-      .cardHeader h2{ font-size:1.08rem; }
-
       .buttonRow{
         display:grid;
         grid-template-columns:repeat(2,1fr);
         gap:12px;
-        padding:12px;
       }
 
       .imgBtn{
@@ -333,41 +284,7 @@
 <body>
   <main class="wrap">
 
-    <!-- MOBILE FIXED HEADER -->
-    <div class="mobileFixedHeader">
-      <section class="topBar">
-        <div class="rateBlock">
-          <div class="rateKicker">
-            <span>Market Rate</span>
-            <span class="pulseDot"></span>
-          </div>
-          <div class="rateNumber">4.30<span class="pct">%</span></div>
-        </div>
-
-        <div class="brand">
-          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Mascott.png"
-               alt="Rate Thief mascot logo">
-        </div>
-
-        <div class="rateBlock">
-          <div class="rateKicker">
-            <span>APR as low as</span>
-            <span class="pulseDot"></span>
-          </div>
-          <div class="rateNumber">4.60<span class="pct">%</span></div>
-        </div>
-      </section>
-
-      <!-- TAGLINE: below mascot/topbar, above bar -->
-      <div class="tagline">
-        <span>Rates so low it feels like stealing!</span>
-      </div>
-
-      <div class="fullWidthBar"></div>
-    </div>
-
-    <!-- DESKTOP HEADER -->
-    <section class="topBar" aria-hidden="true">
+    <section class="topBar">
       <div class="rateBlock">
         <div class="rateKicker">
           <span>Market Rate</span>
@@ -377,8 +294,7 @@
       </div>
 
       <div class="brand">
-        <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Mascott.png"
-             alt="Rate Thief mascot logo">
+        <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Mascott.png">
       </div>
 
       <div class="rateBlock">
@@ -390,106 +306,66 @@
       </div>
     </section>
 
-    <!-- TAGLINE: desktop location -->
-    <div class="tagline" aria-hidden="true">
-      <span>Rates so low it feels like stealing!</span>
+    <div class="tagline">
+      <span>
+        <span class="highlight-rates">Rates</span>
+        so low it feels like
+        <span class="highlight-steal">Stealing!</span>
+      </span>
     </div>
 
     <div class="fullWidthBar"></div>
 
-    <!-- CONTENT -->
-    <div class="mobileContent">
-      <section class="card">
-        <header class="cardHeader">
-          <h2>CHOOSE YOUR GOAL</h2>
-        </header>
+    <section class="card">
+      <header class="cardHeader">
+        <h2>CHOOSE YOUR GOAL</h2>
+      </header>
 
-        <div class="buttonRow">
+      <div class="buttonRow">
 
-          <!-- 1 Pay Off Debts -->
-          <button class="imgBtn" data-choice="Pay Off Debts">
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/payOffDebts.png" alt="Pay Off Debts">
-          </button>
+        <button class="imgBtn" data-choice="Pay Off Debts">
+          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/payOffDebts.png">
+        </button>
 
-          <!-- 2 Cash Out -->
-          <button class="imgBtn" data-choice="Cash Out">
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/cashOut.png" alt="Cash Out">
-          </button>
+        <button class="imgBtn" data-choice="Cash Out">
+          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/cashOut.png">
+        </button>
 
-          <!-- 3 Lower Rate (Refinance) -->
-          <button class="imgBtn" data-choice="Lower Rate">
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/refinanceButton.png" alt="Lower Rate">
-          </button>
+        <button class="imgBtn" data-choice="Lower Rate">
+          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/refinanceButton.png">
+        </button>
 
-          <!-- 4 HELOC -->
-          <button class="imgBtn" data-choice="HELOC">
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/HELOCbutton.png" alt="HELOC">
-          </button>
+        <button class="imgBtn" data-choice="HELOC">
+          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/HELOCbutton.png">
+        </button>
 
-          <!-- 5 Purchase -->
-          <button class="imgBtn" data-choice="Purchase">
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/purchaseButton.png" alt="Purchase">
-          </button>
+        <button class="imgBtn" data-choice="Purchase">
+          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/purchaseButton.png">
+        </button>
 
-          <!-- 6 Reverse Mortgage -->
-          <button class="imgBtn" data-choice="Reverse Mortgage">
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/reverseMortgage.png" alt="Reverse Mortgage">
-          </button>
+        <button class="imgBtn" data-choice="Reverse Mortgage">
+          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/reverseMortgage.png">
+        </button>
 
-        </div>
-      </section>
-
-      <div class="fineprint">
-        Example rates shown for demonstration only. Final pricing depends on credit, equity, occupancy, and timing.
       </div>
+    </section>
+
+    <div class="fineprint">
+      Example rates shown for demonstration only. Final pricing depends on credit, equity, occupancy, and timing.
     </div>
+
   </main>
 
   <script>
     const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfkCsj5cuTngElW-Nz7Ybi3zW_FT_xLdJ2jaKhEzYBFtd50wA/viewform?usp=header";
-    const btns = Array.from(document.querySelectorAll(".imgBtn"));
-
-    function openFormWithChoice(choice){
-      const url = FORM_URL + (FORM_URL.includes("?") ? "&" : "?") + "choice=" + encodeURIComponent(choice);
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-
-    function setPressed(el){
-      btns.forEach(b => b.setAttribute("aria-pressed","false"));
-      el.setAttribute("aria-pressed","true");
-    }
-
-    btns.forEach(el => {
-      el.setAttribute("aria-pressed","false");
-      el.addEventListener("click", () => {
-        const choice = el.getAttribute("data-choice") || "Unknown";
-        setPressed(el);
-        openFormWithChoice(choice);
+    document.querySelectorAll(".imgBtn").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        const choice = btn.getAttribute("data-choice");
+        const url = FORM_URL + "&choice=" + encodeURIComponent(choice);
+        window.open(url,"_blank");
       });
     });
-
-    function syncHeaderVisibility(){
-      const isMobile = window.matchMedia("(max-width: 760px)").matches;
-      const fixed = document.querySelector(".mobileFixedHeader");
-      const desktopTop = document.querySelector('section.topBar[aria-hidden="true"]');
-      const desktopTagline = document.querySelector('.tagline[aria-hidden="true"]');
-      const desktopBar = desktopTagline?.nextElementSibling; // fullWidthBar
-
-      if(isMobile){
-        fixed.style.display = "block";
-        if(desktopTop) desktopTop.style.display = "none";
-        if(desktopTagline) desktopTagline.style.display = "none";
-        if(desktopBar) desktopBar.style.display = "none";
-      }else{
-        fixed.style.display = "none";
-        if(desktopTop) desktopTop.style.display = "grid";
-        if(desktopTagline) desktopTagline.style.display = "block";
-        if(desktopBar) desktopBar.style.display = "block";
-      }
-    }
-
-    syncHeaderVisibility();
-    window.addEventListener("resize", syncHeaderVisibility);
   </script>
+
 </body>
 </html>
