@@ -72,6 +72,42 @@
       filter:drop-shadow(0 10px 22px rgba(2,6,23,.14));
     }
 
+    /* NEW: tagline styling */
+    .tagline{
+      margin:4px 0 2px;
+      text-align:center;
+      font-family:"Cinzel",serif;
+      font-weight:900;
+      letter-spacing:.04em;
+      font-size:clamp(1.05rem,2.2vw,1.55rem);
+      line-height:1.15;
+      text-transform:uppercase;
+      background:linear-gradient(90deg,#0b1220 0%, #1f2937 45%, #0b1220 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      text-shadow:0 2px 0 rgba(15,23,42,.06);
+      padding:2px 8px;
+    }
+
+    .tagline span{
+      display:inline-block;
+      position:relative;
+    }
+
+    .tagline span::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:-8px;
+      width:min(420px,72vw);
+      height:2px;
+      border-radius:999px;
+      background:linear-gradient(90deg,rgba(22,163,74,.0),rgba(22,163,74,.55),rgba(37,99,235,.55),rgba(22,163,74,.0));
+      opacity:.85;
+    }
+
     .fullWidthBar{
       height:16px;
       width:100%;
@@ -220,6 +256,18 @@
 
       .brand img{ width:104px; }
 
+      /* NEW: tagline tighter on mobile */
+      .tagline{
+        font-size:.92rem;
+        letter-spacing:.06em;
+        margin:2px 0 2px;
+      }
+      .tagline span::after{
+        bottom:-6px;
+        height:2px;
+        width:min(320px,78vw);
+      }
+
       .rateBlock{ min-height:unset; }
 
       .rateKicker{
@@ -277,6 +325,9 @@
         </div>
       </section>
 
+      <!-- NEW: tagline placed below mascot/topbar and above black bar -->
+      <div class="tagline"><span>Rates so low it feels like stealing!</span></div>
+
       <div class="fullWidthBar"></div>
     </div>
 
@@ -303,6 +354,9 @@
         <div class="rateNumber">4.60<span class="pct">%</span></div>
       </div>
     </section>
+
+    <!-- NEW: desktop tagline placed below mascot/topbar and above black bar -->
+    <div class="tagline" aria-hidden="true"><span>Rates so low it feels like stealing!</span></div>
 
     <div class="fullWidthBar"></div>
 
@@ -370,15 +424,18 @@
       const isMobile = window.matchMedia("(max-width: 760px)").matches;
       const fixed = document.querySelector(".mobileFixedHeader");
       const desktopTop = document.querySelector('section.topBar[aria-hidden="true"]');
-      const desktopBar = desktopTop?.nextElementSibling;
+      const desktopTagline = document.querySelector('.tagline[aria-hidden="true"]');
+      const desktopBar = desktopTagline?.nextElementSibling; // fullWidthBar
 
       if(isMobile){
         fixed.style.display = "block";
         if(desktopTop) desktopTop.style.display = "none";
+        if(desktopTagline) desktopTagline.style.display = "none";
         if(desktopBar) desktopBar.style.display = "none";
       }else{
         fixed.style.display = "none";
         if(desktopTop) desktopTop.style.display = "grid";
+        if(desktopTagline) desktopTagline.style.display = "block";
         if(desktopBar) desktopBar.style.display = "block";
       }
     }
