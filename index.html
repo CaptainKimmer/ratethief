@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Rate Options</title>
+  <title>Get a Rate!</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32"
@@ -30,7 +30,7 @@
 
       /* mobile header spacing now auto-measured in JS */
       --mobileHeaderH:0px;
-      --mobileGap:10px;
+      --mobileGap:4px; /* was 10px: brings body closer to black bar */
     }
 
     *{box-sizing:border-box}
@@ -50,7 +50,7 @@
     .wrap{
       width:min(var(--maxw),100%);
       display:grid;
-      gap:12px;
+      gap:10px; /* slightly tighter */
     }
 
     .topBar{
@@ -155,7 +155,7 @@
       height:14px;
       width:100%;
       margin-top:2px;
-      margin-bottom:2px;
+      margin-bottom:0px; /* tighter: brings body closer */
       background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
       border-radius:999px;
       box-shadow:
@@ -215,22 +215,24 @@
       background:var(--card);
       box-shadow:var(--shadow);
       overflow:hidden;
-      margin-top:2px;
+      margin-top:0px; /* tighter to bar */
     }
 
     .cardHeader{
-      padding:12px 16px;
+      padding:14px 16px;
       border-bottom:1px solid var(--line);
       text-align:center;
     }
 
+    /* BIGGER "CHOOSE YOUR GOAL" (desktop especially) */
     .cardHeader h2{
       margin:0;
       font-family:"Cinzel",serif;
-      font-size:1.25rem;
-      letter-spacing:.06em;
+      font-size:1.85rem; /* was ~1.25rem */
+      letter-spacing:.07em;
       font-weight:900;
       text-transform:uppercase;
+      line-height:1.05;
     }
 
     .buttonRow{
@@ -287,7 +289,7 @@
         padding:8px 12px 6px;
       }
 
-      /* THIS is what makes body start below the header+bar */
+      /* Body starts below fixed header+bar */
       .mobileContent{
         margin-top:calc(var(--mobileHeaderH) + var(--mobileGap));
       }
@@ -315,16 +317,23 @@
         margin:2px 0 2px;
         letter-spacing:.04em;
         padding-bottom:0;
-        white-space:nowrap;       /* <-- keeps it on one line */
+        white-space:nowrap;
       }
-      .tagline > span{
-        white-space:nowrap;       /* <-- keeps inner span on one line too */
+      .tagline > span{ white-space:nowrap; }
+
+      .fullWidthBar{
+        height:12px;
+        margin-top:6px;
+        margin-bottom:0px;
       }
 
-      .fullWidthBar{ height:12px; margin-top:6px; }
+      .cardHeader{ padding:12px 12px; }
 
-      .cardHeader{ padding:10px 12px; }
-      .cardHeader h2{ font-size:1.08rem; }
+      /* Bigger on mobile too */
+      .cardHeader h2{
+        font-size:1.35rem; /* was ~1.08rem */
+        letter-spacing:.06em;
+      }
 
       .buttonRow{
         display:grid;
@@ -333,9 +342,7 @@
         padding:12px;
       }
 
-      .imgBtn{
-        max-width:unset;
-      }
+      .imgBtn{ max-width:unset; }
     }
   </style>
 </head>
@@ -467,7 +474,6 @@
 
       if(isMobile){
         fixed.style.display = "block";
-        // Measure after layout/paint
         requestAnimationFrame(() => {
           const h = fixed.getBoundingClientRect().height;
           document.documentElement.style.setProperty("--mobileHeaderH", Math.ceil(h) + "px");
