@@ -30,7 +30,7 @@
 
       /* mobile header spacing now auto-measured in JS */
       --mobileHeaderH:0px;
-      --mobileGap:4px; /* was 10px: brings body closer to black bar */
+      --mobileGap:4px; /* brings body closer to black bar */
     }
 
     *{box-sizing:border-box}
@@ -50,7 +50,7 @@
     .wrap{
       width:min(var(--maxw),100%);
       display:grid;
-      gap:10px; /* slightly tighter */
+      gap:10px;
     }
 
     .topBar{
@@ -155,7 +155,7 @@
       height:14px;
       width:100%;
       margin-top:2px;
-      margin-bottom:0px; /* tighter: brings body closer */
+      margin-bottom:0px;
       background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
       border-radius:999px;
       box-shadow:
@@ -215,7 +215,7 @@
       background:var(--card);
       box-shadow:var(--shadow);
       overflow:hidden;
-      margin-top:0px; /* tighter to bar */
+      margin-top:0px;
     }
 
     .cardHeader{
@@ -228,7 +228,7 @@
     .cardHeader h2{
       margin:0;
       font-family:"Cinzel",serif;
-      font-size:1.85rem; /* was ~1.25rem */
+      font-size:1.85rem;
       letter-spacing:.07em;
       font-weight:900;
       text-transform:uppercase;
@@ -254,6 +254,7 @@
       transition:.14s;
       flex:1 1 140px;
       max-width:160px;
+      transform-origin:center;
     }
 
     .imgBtn:hover{
@@ -278,6 +279,24 @@
       margin-top:2px;
     }
 
+    /* ATTENTION: Pay Off Debts pulse + thin red border */
+    @keyframes ctaPulse{
+      0%   { transform:scale(1); }
+      50%  { transform:scale(1.06); }
+      100% { transform:scale(1); }
+    }
+
+    .imgBtn.ctaDebts{
+      border:2px solid #dc2626; /* thin but noticeable red */
+      animation:ctaPulse 1.25s ease-in-out infinite;
+    }
+
+    /* keep hover feeling good (slightly stronger) */
+    .imgBtn.ctaDebts:hover{
+      transform:translateY(-2px) scale(1.08);
+      border-color:#b91c1c;
+    }
+
     @media (max-width:760px){
       body{padding:12px}
 
@@ -289,7 +308,6 @@
         padding:8px 12px 6px;
       }
 
-      /* Body starts below fixed header+bar */
       .mobileContent{
         margin-top:calc(var(--mobileHeaderH) + var(--mobileGap));
       }
@@ -329,9 +347,8 @@
 
       .cardHeader{ padding:12px 12px; }
 
-      /* Bigger on mobile too */
       .cardHeader h2{
-        font-size:1.35rem; /* was ~1.08rem */
+        font-size:1.35rem;
         letter-spacing:.06em;
       }
 
@@ -343,6 +360,16 @@
       }
 
       .imgBtn{ max-width:unset; }
+
+      /* Slightly softer pulse on mobile so it doesn't feel jumpy */
+      @keyframes ctaPulseMobile{
+        0%   { transform:scale(1); }
+        50%  { transform:scale(1.04); }
+        100% { transform:scale(1); }
+      }
+      .imgBtn.ctaDebts{
+        animation:ctaPulseMobile 1.25s ease-in-out infinite;
+      }
     }
   </style>
 </head>
@@ -430,7 +457,8 @@
 
         <div class="buttonRow">
 
-          <button class="imgBtn" data-choice="Pay Off Debts">
+          <!-- Pay Off Debts CTA -->
+          <button class="imgBtn ctaDebts" data-choice="Pay Off Debts" aria-label="Pay Off Debts">
             <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/payOffDebts.png" alt="Pay Off Debts">
           </button>
 
