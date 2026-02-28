@@ -28,6 +28,7 @@
       --radius2:14px;
       --maxw:980px;
 
+      /* mobile header spacing now auto-measured in JS */
       --mobileHeaderH:0px;
       --mobileGap:10px;
     }
@@ -49,7 +50,7 @@
     .wrap{
       width:min(var(--maxw),100%);
       display:grid;
-      gap:12px; /* tighter */
+      gap:12px;
     }
 
     .topBar{
@@ -238,7 +239,7 @@
       gap:12px;
       justify-content:space-between;
       align-items:center;
-      flex-wrap:wrap; /* prevents overflow */
+      flex-wrap:wrap;
     }
 
     .imgBtn{
@@ -276,12 +277,6 @@
     }
 
     @media (max-width:760px){
-      :root{
-        /* allow space for tagline inside fixed header */
-        --mobileHeaderH:190px;
-        --mobileGap:6px;
-      }
-
       body{padding:12px}
 
       .mobileFixedHeader{
@@ -292,6 +287,7 @@
         padding:8px 12px 6px;
       }
 
+      /* THIS is what makes body start below the header+bar */
       .mobileContent{
         margin-top:calc(var(--mobileHeaderH) + var(--mobileGap));
       }
@@ -313,11 +309,16 @@
 
       .rateNumber{ font-size:1.58rem; }
 
+      /* Force motto to stay ONE LINE on mobile */
       .tagline{
-        font-size:.92rem;
+        font-size:.82rem;
         margin:2px 0 2px;
-        letter-spacing:.06em;
+        letter-spacing:.04em;
         padding-bottom:0;
+        white-space:nowrap;       /* <-- keeps it on one line */
+      }
+      .tagline > span{
+        white-space:nowrap;       /* <-- keeps inner span on one line too */
       }
 
       .fullWidthBar{ height:12px; margin-top:6px; }
@@ -456,8 +457,25 @@
   </main>
 
   <script>
-    // Your worker base (this is correct from your screenshots)
     const PROXY_BASE = "https://yellow-sea-71b2.captainkimmer07.workers.dev";
+
+    // Auto-measure the fixed header height so content never starts underneath it
+    function updateMobileHeaderHeight(){
+      const isMobile = window.matchMedia("(max-width: 760px)").matches;
+      const fixed = document.querySelector(".mobileFixedHeader");
+      if(!fixed) return;
+
+      if(isMobile){
+        fixed.style.display = "block";
+        // Measure after layout/paint
+        requestAnimationFrame(() => {
+          const h = fixed.getBoundingClientRect().height;
+          document.documentElement.style.setProperty("--mobileHeaderH", Math.ceil(h) + "px");
+        });
+      }else{
+        document.documentElement.style.setProperty("--mobileHeaderH", "0px");
+      }
+    }
 
     function setRateText(ids, valueStr){
       const num = Number(valueStr);
@@ -472,14 +490,11 @@
     async function fetchRate(series){
       const url = `${PROXY_BASE}?series=${encodeURIComponent(series)}`;
       const res = await fetch(url, { cache: "no-store" });
-
-      // If your worker returns an error JSON, surface it in console
       if(!res.ok){
         let details = "";
         try { details = await res.text(); } catch {}
         throw new Error(`Worker ${res.status} for ${series}: ${details}`);
       }
-
       const data = await res.json();
       if (!data || !data.value) throw new Error(`Bad JSON for ${series}: ${JSON.stringify(data)}`);
       return data.value;
@@ -491,16 +506,13 @@
           fetchRate("DGS10"),
           fetchRate("MORTGAGE30US")
         ]);
-
         setRateText(["dgs10Desktop","dgs10Mobile"], dgs10);
         setRateText(["mort30Desktop","mort30Mobile"], mort30);
       }catch(e){
         console.error("Rate update failed:", e);
-        // Keep placeholders instead of N/A so it doesn't look broken
       }
     }
 
-    // Keep your original mobile header behavior
     function syncHeaderVisibility(){
       const isMobile = window.matchMedia("(max-width: 760px)").matches;
       const fixed = document.querySelector(".mobileFixedHeader");
@@ -509,22 +521,33 @@
       const desktopBar = desktopTagline?.nextElementSibling;
 
       if(isMobile){
-        fixed.style.display = "block";
+        if(fixed) fixed.style.display = "block";
         if(desktopTop) desktopTop.style.display = "none";
         if(desktopTagline) desktopTagline.style.display = "none";
         if(desktopBar) desktopBar.style.display = "none";
       }else{
-        fixed.style.display = "none";
+        if(fixed) fixed.style.display = "none";
         if(desktopTop) desktopTop.style.display = "grid";
         if(desktopTagline) desktopTagline.style.display = "block";
         if(desktopBar) desktopBar.style.display = "block";
       }
     }
 
-    syncHeaderVisibility();
-    window.addEventListener("resize", syncHeaderVisibility);
+    function refreshLayout(){
+      syncHeaderVisibility();
+      updateMobileHeaderHeight();
+    }
 
+    refreshLayout();
     updateHeaderRates();
+
+    window.addEventListener("resize", refreshLayout);
+
+    // Fonts/images can load after first paint; measure again so nothing gets cut off.
+    window.addEventListener("load", () => {
+      refreshLayout();
+      updateHeaderRates();
+    });
   </script>
 </body>
 </html>
