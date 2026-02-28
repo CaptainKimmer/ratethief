@@ -39,25 +39,25 @@
       min-height:100svh;
       font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--ink);
-      background:#f8f7f3; /* off-white */
+      background:#f8f7f3;
       display:flex;
       align-items:flex-start;
       justify-content:center;
-      padding:22px;
+      padding:18px; /* tighter */
     }
 
     .wrap{
       width:min(var(--maxw),100%);
       display:grid;
-      gap:18px;
+      gap:10px; /* tighter */
     }
 
     .topBar{
       display:grid;
       grid-template-columns:1.25fr auto 1.25fr;
-      gap:22px;
+      gap:18px; /* tighter */
       align-items:center;
-      margin-top:6px;
+      margin-top:2px; /* tighter */
     }
 
     .brand{
@@ -67,7 +67,7 @@
     }
 
     .brand img{
-      width:min(220px,60vw);
+      width:min(210px,58vw); /* slightly tighter */
       height:auto;
       filter:drop-shadow(0 10px 22px rgba(2,6,23,.14));
     }
@@ -79,12 +79,13 @@
       font-weight:900;
       text-transform:uppercase;
       letter-spacing:.05em;
-      font-size:clamp(1.1rem,2.4vw,1.65rem);
-      margin:4px 0 2px;
+      font-size:clamp(1.05rem,2.0vw,1.45rem); /* slightly smaller */
+      margin:0; /* tighter */
       position:relative;
       width:100%;
       overflow:hidden;
-      padding:2px 8px;
+      padding:0 8px 2px; /* tighter */
+      line-height:1.15;
     }
 
     .tagline span{
@@ -137,10 +138,10 @@
     }
 
     .fullWidthBar{
-      height:16px;
+      height:14px;              /* slightly slimmer */
       width:100%;
-      margin-top:6px;
-      margin-bottom:4px;
+      margin-top:4px;           /* tighter */
+      margin-bottom:2px;        /* tighter */
       background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
       border-radius:999px;
       box-shadow:
@@ -154,7 +155,7 @@
       flex-direction:column;
       align-items:center;
       text-align:center;
-      min-height:130px;
+      min-height:118px; /* tighter */
     }
 
     .rateKicker{
@@ -167,11 +168,11 @@
       text-transform:uppercase;
       letter-spacing:.14em;
       font-size:.78rem;
-      margin-bottom:10px;
+      margin-bottom:8px; /* tighter */
     }
 
     .rateNumber{
-      font-size:clamp(3.8rem,7vw,5.2rem);
+      font-size:clamp(3.4rem,6.6vw,5.0rem); /* slightly smaller */
       font-weight:900;
       line-height:1;
     }
@@ -200,10 +201,11 @@
       background:var(--card);
       box-shadow:var(--shadow);
       overflow:hidden;
+      margin-top:2px; /* tighter */
     }
 
     .cardHeader{
-      padding:16px 20px;
+      padding:12px 16px; /* tighter */
       border-bottom:1px solid var(--line);
       text-align:center;
     }
@@ -211,19 +213,20 @@
     .cardHeader h2{
       margin:0;
       font-family:"Cinzel",serif;
-      font-size:1.45rem;
+      font-size:1.30rem; /* slightly smaller */
       letter-spacing:.06em;
       font-weight:900;
       text-transform:uppercase;
     }
 
+    /* FIX: make buttons always fit */
     .buttonRow{
-      padding:16px;
+      padding:14px; /* tighter */
       display:flex;
-      gap:14px;
+      gap:12px;
       justify-content:space-between;
       align-items:center;
-      flex-wrap:nowrap;
+      flex-wrap:wrap; /* allow wrap if needed */
     }
 
     .imgBtn{
@@ -234,31 +237,37 @@
       cursor:pointer;
       padding:8px;
       transition:.14s;
+      flex:1 1 calc((100% - 5*12px)/6); /* 6 across, responsive */
+      min-width:120px; /* prevents being too tiny */
+      max-width:160px;
     }
 
     .imgBtn:hover{
-      transform:translateY(-2px) scale(1.05);
+      transform:translateY(-2px) scale(1.03);
       border-color:rgba(22,163,74,.35);
       box-shadow:0 18px 34px rgba(2,6,23,.10);
     }
 
     .imgBtn img{
-      width:140px;
-      height:140px;
+      width:100%;
+      height:auto;
+      aspect-ratio:1/1;
       object-fit:contain;
       border-radius:12px;
+      display:block;
     }
 
     .fineprint{
       color:#64748b;
       font-size:.82rem;
       text-align:center;
+      margin-top:2px; /* tighter */
     }
 
     @media (max-width:760px){
 
       :root{
-        /* IMPORTANT: increased to account for the new tagline inside the fixed header */
+        /* IMPORTANT: includes tagline inside fixed header */
         --mobileHeaderH:190px;
         --mobileGap:6px;
       }
@@ -312,10 +321,10 @@
         padding:12px;
       }
 
-      .imgBtn img{
-        width:100%;
-        aspect-ratio:1/1;
-        height:auto;
+      .imgBtn{
+        min-width:unset;
+        max-width:unset;
+        flex:unset;
       }
     }
   </style>
@@ -441,7 +450,6 @@
     const btns = Array.from(document.querySelectorAll(".imgBtn"));
 
     function openFormWithChoice(choice){
-      // Pass the clicked choice so you can see it in analytics / logs if needed
       const url = FORM_URL + (FORM_URL.includes("?") ? "&" : "?") + "choice=" + encodeURIComponent(choice);
       window.open(url, "_blank", "noopener,noreferrer");
     }
