@@ -261,7 +261,7 @@
       border-color:#b91c1c;
     }
 
-    /* ===== NEW: Advertising Disclosure link (under buttons) ===== */
+    /* ===== Advertising Disclosure link (under buttons) ===== */
     .adDisclosure{
       text-align:center;
       margin:10px 0 6px;
@@ -275,7 +275,7 @@
     }
     .adDisclosure a:hover{ opacity:.75; }
 
-    /* ===== NEW: Footer ===== */
+    /* ===== Footer ===== */
     footer.siteFooter{
       margin-top:18px;
       border-top:1px solid var(--line);
@@ -313,6 +313,82 @@
       font-size:.78rem;
       color:#94a3b8;
     }
+
+    /* ===== Modal (Advertising Disclosure popup) ===== */
+    .modalOverlay{
+      position:fixed;
+      inset:0;
+      background:rgba(2,6,23,.62);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:999;
+    }
+    .modalOverlay.open{ display:flex; }
+
+    .modal{
+      width:min(860px,100%);
+      background:#fff;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:18px;
+      box-shadow:0 22px 60px rgba(2,6,23,.25);
+      overflow:hidden;
+      transform:translateY(6px);
+      animation:modalIn .16s ease-out forwards;
+    }
+    @keyframes modalIn{
+      to{ transform:translateY(0px); }
+    }
+
+    .modalHeader{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      padding:14px 14px 12px;
+      border-bottom:1px solid var(--line);
+      background:linear-gradient(to bottom,#ffffff 0%, #fbfbfb 100%);
+    }
+
+    .modalTitle{
+      margin:0;
+      font-family:"Cinzel",serif;
+      letter-spacing:.06em;
+      font-weight:900;
+      text-transform:uppercase;
+      font-size:1.05rem;
+      color:#0b1220;
+      line-height:1.1;
+    }
+
+    .modalClose{
+      border:1px solid rgba(148,163,184,.55);
+      background:#fff;
+      border-radius:12px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-weight:900;
+      color:#0f172a;
+      line-height:1;
+      transition:.12s ease;
+    }
+    .modalClose:hover{ transform:translateY(-1px); opacity:.9; }
+
+    .modalBody{
+      padding:14px 16px 16px;
+      max-height:min(72vh,720px);
+      overflow:auto;
+      color:#0f172a;
+    }
+
+    /* Loading/error states for fetched disclosure */
+    .modalStatus{
+      font-size:.92rem;
+      color:#334155;
+      line-height:1.55;
+    }
+    .modalStatus strong{ color:#0b1220; }
 
     @media (max-width:760px){
       body{padding:12px}
@@ -393,6 +469,9 @@
         font-size:.80rem;
       }
       .footerMeta{ font-size:.76rem; }
+
+      .modalBody{ max-height:74vh; }
+      .modalTitle{ font-size:1rem; }
     }
   </style>
 </head>
@@ -549,28 +628,28 @@
         </div>
       </section>
 
-      <!-- NEW: Advertising Disclosure link under buttons -->
+      <!-- Advertising Disclosure link under buttons (opens modal, no page navigation) -->
       <div class="adDisclosure">
-        <a href="#" aria-label="Advertising Disclosure">*Advertising Disclosure</a>
+        <a href="#" class="js-openDisclosure" aria-label="Advertising Disclosure">*Advertising Disclosure</a>
       </div>
 
       <div class="fineprint">
         Example rates shown for demonstration only. Final pricing depends on credit, equity, occupancy, and timing.
       </div>
 
-      <!-- NEW: Footer -->
+      <!-- Footer -->
       <footer class="siteFooter" role="contentinfo">
         <div class="footerLinks" aria-label="Footer links">
           <a href="#" aria-label="Privacy Policy">Privacy Policy</a>
           <a href="#" aria-label="Terms of Use">Terms of Use</a>
-          <a href="#" aria-label="Advertising Disclosure">Advertising Disclosure</a>
+          <a href="#" class="js-openDisclosure" aria-label="Advertising Disclosure">Advertising Disclosure</a>
           <a href="#" aria-label="Do Not Sell or Share My Personal Information">Do Not Sell/Share My Info</a>
           <a href="#" aria-label="Contact">Contact</a>
         </div>
 
         <div class="footerLegal">
           <div>
-            <strong>Important:</strong> This website is a lead-generation and information service and is <strong>not</strong> a lender, does not make credit decisions,
+            <strong>Important:</strong> RateThief.com is a lead-generation and information service and is <strong>not</strong> a lender, does not make credit decisions,
             and does not issue loan commitments or lock rates. Any rates, APRs, and payment examples are for advertising and educational purposes only and may not be available to all consumers.
             Final terms are determined solely by participating lenders based on your application, verification, credit profile, property, and other eligibility factors.
             Rates are subject to change without notice. Not available in all states.
@@ -583,12 +662,30 @@
         </div>
 
         <div class="footerMeta">
-          © <span id="footerYear"></span> FreeRateUpdate.com. All rights reserved.
+          © <span id="footerYear"></span> RateThief.com. All rights reserved.
         </div>
       </footer>
 
     </div>
   </main>
+
+  <!-- MODAL: Advertising Disclosure (popup) -->
+  <div class="modalOverlay" id="adDisclosureModal" role="dialog" aria-modal="true" aria-labelledby="adDiscTitle" aria-hidden="true">
+    <div class="modal" role="document">
+      <div class="modalHeader">
+        <h2 class="modalTitle" id="adDiscTitle">Important Advertising Disclosures</h2>
+        <button class="modalClose" type="button" id="closeAdModal" aria-label="Close disclosure">✕</button>
+      </div>
+
+      <!-- This content loads from advertising-disclosure.html -->
+      <div class="modalBody" id="adDisclosureBody" aria-label="Disclosure text">
+        <div class="modalStatus">
+          <strong>Loading…</strong>
+          <div style="margin-top:8px;">If this takes more than a second, your host may be blocking local file requests. Upload both files to the same folder on your website.</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     const PROXY_BASE = "https://yellow-sea-71b2.captainkimmer07.workers.dev";
@@ -678,6 +775,82 @@
       if(el) el.textContent = y;
     })();
 
+    // ===== Modal logic (Advertising Disclosure) =====
+    const modalOverlay = document.getElementById("adDisclosureModal");
+    const closeBtn = document.getElementById("closeAdModal");
+    const modalBody = document.getElementById("adDisclosureBody");
+    let disclosureLoaded = false;
+
+    async function loadDisclosureOnce(){
+      if(disclosureLoaded) return;
+      disclosureLoaded = true;
+
+      try{
+        const res = await fetch("advertising-disclosure.html", { cache: "no-store" });
+        if(!res.ok) throw new Error(`HTTP ${res.status}`);
+        const html = await res.text();
+        modalBody.innerHTML = html;
+      }catch(err){
+        console.error("Disclosure load failed:", err);
+        modalBody.innerHTML = `
+          <div class="modalStatus">
+            <strong>Couldn’t load the disclosure file.</strong>
+            <div style="margin-top:8px;">
+              Make sure <code>advertising-disclosure.html</code> is in the <strong>same folder</strong> as this file on your website.
+              (Loading won’t work reliably if you’re opening the file locally on your computer.)
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function openDisclosureModal(){
+      if(!modalOverlay) return;
+      modalOverlay.classList.add("open");
+      modalOverlay.setAttribute("aria-hidden","false");
+      document.body.style.overflow = "hidden";
+      loadDisclosureOnce();
+      if(closeBtn) closeBtn.focus();
+    }
+
+    function closeDisclosureModal(){
+      if(!modalOverlay) return;
+      modalOverlay.classList.remove("open");
+      modalOverlay.setAttribute("aria-hidden","true");
+      document.body.style.overflow = "";
+    }
+
+    // Open from any link with .js-openDisclosure
+    document.addEventListener("click", (e) => {
+      const trigger = e.target.closest(".js-openDisclosure");
+      if(trigger){
+        e.preventDefault();
+        openDisclosureModal();
+      }
+    });
+
+    // Close button
+    if(closeBtn){
+      closeBtn.addEventListener("click", closeDisclosureModal);
+    }
+
+    // Close when clicking outside modal (overlay)
+    if(modalOverlay){
+      modalOverlay.addEventListener("click", (e) => {
+        if(e.target === modalOverlay){
+          closeDisclosureModal();
+        }
+      });
+    }
+
+    // Close on ESC
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape" && modalOverlay && modalOverlay.classList.contains("open")){
+        closeDisclosureModal();
+      }
+    });
+
+    // Initial layout + rates
     refreshLayout();
     updateHeaderRates();
 
