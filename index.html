@@ -329,7 +329,7 @@
 
       .rateNumber{ font-size:1.58rem; }
 
-      /* keep motto ONE LINE on mobile */
+      /* Force motto to stay ONE LINE on mobile */
       .tagline{
         font-size:.82rem;
         margin:2px 0 4px;
@@ -361,6 +361,7 @@
 
       .imgBtn{ max-width:unset; }
 
+      /* Slightly softer pulse on mobile so it doesn't feel jumpy */
       @keyframes ctaPulseMobile{
         0%   { transform:scale(1); }
         50%  { transform:scale(1.04); }
@@ -378,12 +379,10 @@
 
     <!-- MOBILE FIXED HEADER -->
     <div class="mobileFixedHeader">
-      <!-- Motto moved to TOP -->
+      <!-- Motto at TOP -->
       <div class="tagline">
         <span>
-          <span class="highlight-rates">Rates</span>
-          so low it feels like
-          <span class="highlight-steal">Stealing!</span>
+          Get a rate so low it feels like a <span class="highlight-steal">Steal!</span>
         </span>
       </div>
 
@@ -440,9 +439,7 @@
     <!-- TAGLINE: desktop location -->
     <div class="tagline" aria-hidden="true">
       <span>
-        <span class="highlight-rates">Rates</span>
-        so low it feels like
-        <span class="highlight-steal">Stealing!</span>
+        Get a rate so low it feels like a <span class="highlight-steal">Steal!</span>
       </span>
     </div>
 
@@ -481,7 +478,7 @@
 
           <!-- Lower Rate -->
           <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLScz6O9QfEpzHetkUYGnqlfmLZ-ZMcoc9fSKCEnUATlDr4-XcQ/viewform?usp=header"
+            href="https://docs.google.com/forms/d/e/1FAIpQLScz6O9QfEpzHetkUYGnqlfmLZ-ZMcoc9fSKCEnUATlDr4d-XcQ/viewform?usp=header"
             target="_blank"
             rel="noopener noreferrer"
             class="imgBtn"
@@ -535,7 +532,6 @@
   <script>
     const PROXY_BASE = "https://yellow-sea-71b2.captainkimmer07.workers.dev";
 
-    // Auto-measure the fixed header height so content never starts underneath it
     function updateMobileHeaderHeight(){
       const isMobile = window.matchMedia("(max-width: 760px)").matches;
       const fixed = document.querySelector(".mobileFixedHeader");
@@ -618,7 +614,6 @@
 
     window.addEventListener("resize", refreshLayout);
 
-    // Fonts/images can load after first paint; measure again so nothing gets cut off.
     window.addEventListener("load", () => {
       refreshLayout();
       updateHeaderRates();
