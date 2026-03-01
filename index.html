@@ -224,7 +224,6 @@
       text-align:center;
     }
 
-    /* BIGGER "CHOOSE YOUR GOAL" (desktop especially) */
     .cardHeader h2{
       margin:0;
       font-family:"Cinzel",serif;
@@ -282,7 +281,6 @@
       margin-top:2px;
     }
 
-    /* ATTENTION: Pay Off Debts pulse + thin red border */
     @keyframes ctaPulse{
       0%   { transform:scale(1); }
       50%  { transform:scale(1.06); }
@@ -290,11 +288,10 @@
     }
 
     .imgBtn.ctaDebts{
-      border:2px solid #dc2626; /* thin but noticeable red */
+      border:2px solid #dc2626;
       animation:ctaPulse 1.25s ease-in-out infinite;
     }
 
-    /* keep hover feeling good (slightly stronger) */
     .imgBtn.ctaDebts:hover{
       transform:translateY(-2px) scale(1.08);
       border-color:#b91c1c;
@@ -332,14 +329,15 @@
 
       .rateNumber{ font-size:1.58rem; }
 
-      /* Motto now above mascot on mobile: allow wrap if needed */
+      /* keep motto ONE LINE on mobile */
       .tagline{
-        font-size:.78rem;
+        font-size:.82rem;
         margin:2px 0 4px;
         letter-spacing:.04em;
         padding-bottom:0;
-        white-space:normal;
+        white-space:nowrap;
       }
+      .tagline > span{ white-space:nowrap; }
 
       .fullWidthBar{
         height:12px;
@@ -363,7 +361,6 @@
 
       .imgBtn{ max-width:unset; }
 
-      /* Slightly softer pulse on mobile so it doesn't feel jumpy */
       @keyframes ctaPulseMobile{
         0%   { transform:scale(1); }
         50%  { transform:scale(1.04); }
@@ -381,11 +378,12 @@
 
     <!-- MOBILE FIXED HEADER -->
     <div class="mobileFixedHeader">
-      <!-- Motto moved to TOP (above mascot + rates) -->
+      <!-- Motto moved to TOP -->
       <div class="tagline">
         <span>
-          <span class="highlight-rates">Rates</span> as low as 3.75%, now that's a
-          <span class="highlight-steal">Steal!</span>
+          <span class="highlight-rates">Rates</span>
+          so low it feels like
+          <span class="highlight-steal">Stealing!</span>
         </span>
       </div>
 
@@ -439,11 +437,12 @@
       </div>
     </section>
 
-    <!-- TAGLINE: desktop location (motto moved ABOVE mascot + rates) -->
+    <!-- TAGLINE: desktop location -->
     <div class="tagline" aria-hidden="true">
       <span>
-        <span class="highlight-rates">Rates</span> as low as 3.75%, now that's a
-        <span class="highlight-steal">Steal!</span>
+        <span class="highlight-rates">Rates</span>
+        so low it feels like
+        <span class="highlight-steal">Stealing!</span>
       </span>
     </div>
 
