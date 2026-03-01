@@ -332,15 +332,14 @@
 
       .rateNumber{ font-size:1.58rem; }
 
-      /* Force motto to stay ONE LINE on mobile */
+      /* Motto now above mascot on mobile: allow wrap if needed */
       .tagline{
-        font-size:.82rem;
-        margin:2px 0 2px;
+        font-size:.78rem;
+        margin:2px 0 4px;
         letter-spacing:.04em;
         padding-bottom:0;
-        white-space:nowrap;
+        white-space:normal;
       }
-      .tagline > span{ white-space:nowrap; }
 
       .fullWidthBar{
         height:12px;
@@ -382,6 +381,14 @@
 
     <!-- MOBILE FIXED HEADER -->
     <div class="mobileFixedHeader">
+      <!-- Motto moved to TOP (above mascot + rates) -->
+      <div class="tagline">
+        <span>
+          <span class="highlight-rates">Rates</span> as low as 3.75%, now that's a
+          <span class="highlight-steal">Steal!</span>
+        </span>
+      </div>
+
       <section class="topBar">
         <div class="rateBlock">
           <div class="rateKicker">
@@ -404,14 +411,6 @@
           <div class="rateNumber"><span id="mort30Mobile">--</span><span class="pct">%</span></div>
         </div>
       </section>
-
-      <div class="tagline">
-        <span>
-          <span class="highlight-rates">Rates</span>
-          so low it feels like
-          <span class="highlight-steal">Stealing!</span>
-        </span>
-      </div>
 
       <div class="fullWidthBar"></div>
     </div>
@@ -440,12 +439,11 @@
       </div>
     </section>
 
-    <!-- TAGLINE: desktop location -->
+    <!-- TAGLINE: desktop location (motto moved ABOVE mascot + rates) -->
     <div class="tagline" aria-hidden="true">
       <span>
-        <span class="highlight-rates">Rates</span>
-        so low it feels like
-        <span class="highlight-steal">Stealing!</span>
+        <span class="highlight-rates">Rates</span> as low as 3.75%, now that's a
+        <span class="highlight-steal">Steal!</span>
       </span>
     </div>
 
@@ -471,7 +469,7 @@
             <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/payOffDebts.png" alt="Pay Off Debts">
           </a>
 
-          <!-- Cash Out (UPDATED) -->
+          <!-- Cash Out -->
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLScFYCtuU4iNegSrucvQ5Tz8tMsKxyD3mwFF3mopfJevJhEdIQ/viewform?usp=header"
             target="_blank"
@@ -482,6 +480,7 @@
             <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/cashOut.png" alt="Cash Out">
           </a>
 
+          <!-- Lower Rate -->
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLScz6O9QfEpzHetkUYGnqlfmLZ-ZMcoc9fSKCEnUATlDr4-XcQ/viewform?usp=header"
             target="_blank"
@@ -492,6 +491,7 @@
             <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/refinanceButton.png" alt="Lower Rate">
           </a>
 
+          <!-- HELOC -->
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLSdmRAt6WcB-cUTCobeTR0gKiMDEzMxaVW-ctiyE2UetciNPrw/viewform?usp=header"
             target="_blank"
@@ -502,7 +502,7 @@
             <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/HELOCbutton.png" alt="HELOC">
           </a>
 
-          <!-- Purchase (UPDATED) -->
+          <!-- Purchase -->
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLScUlpvQFDrtU_1UAJMy8gfrl9oKtEsYzWkcikm3LqxsP7DYrQ/viewform?usp=header"
             target="_blank"
@@ -513,7 +513,7 @@
             <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/purchaseButton.png" alt="Purchase">
           </a>
 
-          <!-- Reverse Mortgage (UPDATED) -->
+          <!-- Reverse Mortgage -->
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLScxf2q9AjG-onoDL151EGvLw4AvpYO63863rvuKHDTReeqelQ/viewform?usp=header"
             target="_blank"
