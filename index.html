@@ -1,866 +1,263 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Get a Rate!</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Get a Rate!</title>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="32x32"
-        href="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="32x32"
+href="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/favicon_io/favicon-32x32.png">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --bg:#ffffff;
-      --card:#ffffff;
-      --ink:#0f172a;
-      --muted:#475569;
-      --line:#e5e7eb;
-      --accent:#16a34a;
-      --accent2:#2563eb;
-      --shadow:0 14px 40px rgba(2,6,23,.08);
-      --radius:18px;
-      --radius2:14px;
-      --maxw:980px;
+<style>
+:root{
+--bg:#ffffff;
+--card:#ffffff;
+--ink:#0f172a;
+--muted:#475569;
+--line:#e5e7eb;
+--shadow:0 14px 40px rgba(2,6,23,.08);
+--radius:18px;
+--maxw:980px;
+}
 
-      /* mobile header spacing now auto-measured in JS */
-      --mobileHeaderH:0px;
-      --mobileGap:4px; /* brings body closer to black bar */
-    }
+*{box-sizing:border-box}
 
-    *{box-sizing:border-box}
+body{
+margin:0;
+font-family:"Inter",sans-serif;
+background:#f8f7f3;
+color:var(--ink);
+display:flex;
+justify-content:center;
+padding:18px;
+}
 
-    body{
-      margin:0;
-      min-height:100svh;
-      font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--ink);
-      background:#f8f7f3;
-      display:flex;
-      align-items:flex-start;
-      justify-content:center;
-      padding:18px;
-    }
+.wrap{
+width:min(var(--maxw),100%);
+display:grid;
+gap:10px;
+}
 
-    .wrap{
-      width:min(var(--maxw),100%);
-      display:grid;
-      gap:10px;
-    }
+.card{
+border:1px solid var(--line);
+border-radius:var(--radius);
+background:var(--card);
+box-shadow:var(--shadow);
+overflow:hidden;
+}
 
-    .topBar{
-      display:grid;
-      grid-template-columns:1.25fr auto 1.25fr;
-      gap:18px;
-      align-items:center;
-      margin-top:2px;
-    }
+.cardHeader{
+padding:14px 16px;
+border-bottom:1px solid var(--line);
+text-align:center;
+}
 
-    .brand{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-    }
+.cardHeader h2{
+margin:0;
+font-family:"Cinzel",serif;
+font-size:1.85rem;
+letter-spacing:.07em;
+font-weight:900;
+text-transform:uppercase;
+}
 
-    .brand img{
-      width:min(210px,58vw);
-      height:auto;
-      filter:drop-shadow(0 10px 22px rgba(2,6,23,.14));
-    }
+.buttonRow{
+padding:14px;
+display:flex;
+gap:12px;
+justify-content:space-between;
+flex-wrap:wrap;
+}
 
-    /* TAGLINE (READABLE GOLD - no washed-out gradient) */
-    .tagline{
-      text-align:center;
-      font-family:"Cinzel",serif;
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.05em;
-      font-size:clamp(1.05rem,2vw,1.45rem);
-      margin:0;
-      padding:0 8px 0;
-      line-height:1.15;
-      position:relative;
-      display:block;
-      width:100%;
-      overflow:hidden;
-    }
+.imgBtn{
+border:1px solid var(--line);
+border-radius:16px;
+background:#fff;
+padding:8px;
+flex:1 1 140px;
+max-width:160px;
+text-decoration:none;
+}
 
-    /* Use solid, darker gold so it reads on off-white */
-    .tagline > span{
-      color:#b8860b; /* dark readable gold */
-      text-shadow:
-        0 2px 6px rgba(0,0,0,.18),
-        0 1px 0 rgba(255,255,255,.30);
-      position:relative;
-      display:inline-block;
-    }
+.imgBtn img{
+width:100%;
+aspect-ratio:1/1;
+object-fit:contain;
+border-radius:12px;
+}
 
-    /* Keep the “Rates” and “Stealing!” emphasis (optional) */
-    .highlight-rates{
-      color:#16a34a;
-      -webkit-text-fill-color:#16a34a;
-      text-shadow:0 2px 8px rgba(22,163,74,.18);
-    }
-    .highlight-steal{
-      color:#065f46;
-      -webkit-text-fill-color:#065f46;
-      text-shadow:0 2px 8px rgba(6,95,70,.18);
-    }
+.adDisclosure{
+text-align:center;
+margin:12px 0;
+font-size:.8rem;
+}
 
-    .fullWidthBar{
-      height:14px;
-      width:100%;
-      margin-top:2px;
-      margin-bottom:0px;
-      background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
-      border-radius:999px;
-      box-shadow:
-        0 10px 22px rgba(0,0,0,.30),
-        inset 0 2px 2px rgba(255,255,255,.08),
-        inset 0 -3px 6px rgba(0,0,0,.45);
-    }
+.adDisclosure a{
+color:#64748b;
+font-weight:700;
+text-decoration:underline;
+}
 
-    .rateBlock{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      text-align:center;
-      min-height:118px;
-    }
+footer.siteFooter{
+margin-top:20px;
+border-top:1px solid var(--line);
+padding:16px;
+font-size:.82rem;
+text-align:center;
+color:#64748b;
+}
 
-    .rateKicker{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      justify-content:center;
-      color:var(--muted);
-      font-weight:800;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      font-size:.78rem;
-      margin-bottom:8px;
-    }
+.footerLinks{
+display:flex;
+gap:14px;
+justify-content:center;
+flex-wrap:wrap;
+margin-bottom:10px;
+font-weight:700;
+}
 
-    .rateNumber{
-      font-size:clamp(3.2rem,6.2vw,4.9rem);
-      font-weight:900;
-      line-height:1;
-    }
+.footerLinks a{
+color:#475569;
+text-decoration:underline;
+}
 
-    .pct{
-      font-size:.38em;
-      position:relative;
-      top:-0.30em;
-    }
+.footerMeta{
+margin-top:10px;
+font-size:.75rem;
+color:#94a3b8;
+}
 
-    .pulseDot{
-      width:10px;height:10px;border-radius:50%;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      animation:pulse 1.7s ease-out infinite;
-    }
+/* MODAL */
+.modalOverlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.6);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:999;
+padding:18px;
+}
 
-    @keyframes pulse{
-      0%{box-shadow:0 0 0 0 rgba(22,163,74,.28)}
-      60%{box-shadow:0 0 0 14px rgba(22,163,74,0)}
-      100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}
-    }
+.modalOverlay.open{display:flex;}
 
-    .card{
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:var(--card);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      margin-top:0px;
-    }
+.modal{
+background:#fff;
+width:min(900px,100%);
+border-radius:18px;
+box-shadow:0 22px 60px rgba(0,0,0,.25);
+overflow:hidden;
+}
 
-    .cardHeader{
-      padding:14px 16px;
-      border-bottom:1px solid var(--line);
-      text-align:center;
-    }
+.modalHeader{
+display:flex;
+justify-content:space-between;
+padding:16px;
+border-bottom:1px solid var(--line);
+}
 
-    /* BIGGER "CHOOSE YOUR GOAL" (desktop especially) */
-    .cardHeader h2{
-      margin:0;
-      font-family:"Cinzel",serif;
-      font-size:1.85rem;
-      letter-spacing:.07em;
-      font-weight:900;
-      text-transform:uppercase;
-      line-height:1.05;
-    }
+.modalTitle{
+font-family:"Cinzel",serif;
+font-weight:900;
+letter-spacing:.05em;
+}
 
-    .buttonRow{
-      padding:14px;
-      display:flex;
-      gap:12px;
-      justify-content:space-between;
-      align-items:center;
-      flex-wrap:wrap;
-    }
+.modalClose{
+cursor:pointer;
+font-weight:900;
+border:none;
+background:none;
+font-size:18px;
+}
 
-    .imgBtn{
-      border:1px solid var(--line);
-      border-radius:16px;
-      background:#fff;
-      box-shadow:0 10px 22px rgba(2,6,23,.06);
-      cursor:pointer;
-      padding:8px;
-      transition:.14s;
-      flex:1 1 140px;
-      max-width:160px;
-      transform-origin:center;
-      display:block;
-      text-decoration:none;
-      color:inherit;
-    }
-
-    .imgBtn:hover{
-      transform:translateY(-2px) scale(1.03);
-      border-color:rgba(22,163,74,.35);
-      box-shadow:0 18px 34px rgba(2,6,23,.10);
-    }
-
-    .imgBtn img{
-      width:100%;
-      height:auto;
-      aspect-ratio:1/1;
-      object-fit:contain;
-      border-radius:12px;
-      display:block;
-    }
-
-    .fineprint{
-      color:#64748b;
-      font-size:.82rem;
-      text-align:center;
-      margin-top:2px;
-    }
-
-    /* ATTENTION: Pay Off Debts pulse + thin red border */
-    @keyframes ctaPulse{
-      0%   { transform:scale(1); }
-      50%  { transform:scale(1.06); }
-      100% { transform:scale(1); }
-    }
-
-    .imgBtn.ctaDebts{
-      border:2px solid #dc2626; /* thin but noticeable red */
-      animation:ctaPulse 1.25s ease-in-out infinite;
-    }
-
-    /* keep hover feeling good (slightly stronger) */
-    .imgBtn.ctaDebts:hover{
-      transform:translateY(-2px) scale(1.08);
-      border-color:#b91c1c;
-    }
-
-    /* ===== Advertising Disclosure link (under buttons) ===== */
-    .adDisclosure{
-      text-align:center;
-      margin:10px 0 6px;
-    }
-    .adDisclosure a{
-      font-size:.78rem;
-      color:#64748b;
-      text-decoration:underline;
-      font-weight:700;
-      transition:.15s ease;
-    }
-    .adDisclosure a:hover{ opacity:.75; }
-
-    /* ===== Footer ===== */
-    footer.siteFooter{
-      margin-top:18px;
-      border-top:1px solid var(--line);
-      padding:16px 12px 22px;
-      color:#64748b;
-      font-size:.82rem;
-      text-align:center;
-    }
-
-    .footerLinks{
-      display:flex;
-      gap:14px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-bottom:10px;
-      font-weight:700;
-    }
-
-    .footerLinks a{
-      color:#475569;
-      text-decoration:underline;
-      text-underline-offset:2px;
-      transition:.15s ease;
-    }
-    .footerLinks a:hover{ opacity:.75; }
-
-    .footerLegal{
-      max-width:860px;
-      margin:0 auto;
-      line-height:1.45;
-    }
-
-    .footerMeta{
-      margin-top:10px;
-      font-size:.78rem;
-      color:#94a3b8;
-    }
-
-    /* ===== Modal (Advertising Disclosure popup) ===== */
-    .modalOverlay{
-      position:fixed;
-      inset:0;
-      background:rgba(2,6,23,.62);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      z-index:999;
-    }
-    .modalOverlay.open{ display:flex; }
-
-    .modal{
-      width:min(860px,100%);
-      background:#fff;
-      border:1px solid rgba(148,163,184,.35);
-      border-radius:18px;
-      box-shadow:0 22px 60px rgba(2,6,23,.25);
-      overflow:hidden;
-      transform:translateY(6px);
-      animation:modalIn .16s ease-out forwards;
-    }
-    @keyframes modalIn{
-      to{ transform:translateY(0px); }
-    }
-
-    .modalHeader{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-      padding:14px 14px 12px;
-      border-bottom:1px solid var(--line);
-      background:linear-gradient(to bottom,#ffffff 0%, #fbfbfb 100%);
-    }
-
-    .modalTitle{
-      margin:0;
-      font-family:"Cinzel",serif;
-      letter-spacing:.06em;
-      font-weight:900;
-      text-transform:uppercase;
-      font-size:1.05rem;
-      color:#0b1220;
-      line-height:1.1;
-    }
-
-    .modalClose{
-      border:1px solid rgba(148,163,184,.55);
-      background:#fff;
-      border-radius:12px;
-      padding:8px 10px;
-      cursor:pointer;
-      font-weight:900;
-      color:#0f172a;
-      line-height:1;
-      transition:.12s ease;
-    }
-    .modalClose:hover{ transform:translateY(-1px); opacity:.9; }
-
-    .modalBody{
-      padding:14px 16px 16px;
-      max-height:min(72vh,720px);
-      overflow:auto;
-      color:#0f172a;
-    }
-
-    /* Loading/error states for fetched disclosure */
-    .modalStatus{
-      font-size:.92rem;
-      color:#334155;
-      line-height:1.55;
-    }
-    .modalStatus strong{ color:#0b1220; }
-
-    @media (max-width:760px){
-      body{padding:12px}
-
-      .mobileFixedHeader{
-        position:fixed;
-        top:0;left:0;right:0;
-        z-index:50;
-        background:var(--bg);
-        padding:8px 12px 6px;
-      }
-
-      .mobileContent{
-        margin-top:calc(var(--mobileHeaderH) + var(--mobileGap));
-      }
-
-      .topBar{
-        margin-top:0;
-        grid-template-columns:1fr auto 1fr;
-        gap:8px;
-      }
-
-      .brand img{ width:104px; }
-
-      .rateBlock{ min-height:unset; }
-
-      .rateKicker{
-        font-size:.56rem;
-        margin-bottom:3px;
-      }
-
-      .rateNumber{ font-size:1.58rem; }
-
-      /* Force motto to stay ONE LINE on mobile */
-      .tagline{
-        font-size:.82rem;
-        margin:2px 0 2px;
-        letter-spacing:.04em;
-        padding-bottom:0;
-        white-space:nowrap;
-      }
-      .tagline > span{ white-space:nowrap; }
-
-      .fullWidthBar{
-        height:12px;
-        margin-top:6px;
-        margin-bottom:0px;
-      }
-
-      .cardHeader{ padding:12px 12px; }
-
-      .cardHeader h2{
-        font-size:1.35rem;
-        letter-spacing:.06em;
-      }
-
-      .buttonRow{
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
-        gap:12px;
-        padding:12px;
-      }
-
-      .imgBtn{ max-width:unset; }
-
-      /* Slightly softer pulse on mobile so it doesn't feel jumpy */
-      @keyframes ctaPulseMobile{
-        0%   { transform:scale(1); }
-        50%  { transform:scale(1.04); }
-        100% { transform:scale(1); }
-      }
-      .imgBtn.ctaDebts{
-        animation:ctaPulseMobile 1.25s ease-in-out infinite;
-      }
-
-      footer.siteFooter{
-        padding:14px 10px 20px;
-        font-size:.80rem;
-      }
-      .footerMeta{ font-size:.76rem; }
-
-      .modalBody{ max-height:74vh; }
-      .modalTitle{ font-size:1rem; }
-    }
-  </style>
+.modalBody{
+padding:16px;
+max-height:70vh;
+overflow:auto;
+}
+</style>
 </head>
 
 <body>
-  <main class="wrap">
+<main class="wrap">
 
-    <!-- MOBILE FIXED HEADER -->
-    <div class="mobileFixedHeader">
-      <section class="topBar">
-        <div class="rateBlock">
-          <div class="rateKicker">
-            <span>10Y Treasury</span>
-            <span class="pulseDot"></span>
-          </div>
-          <div class="rateNumber"><span id="dgs10Mobile">--</span><span class="pct">%</span></div>
-        </div>
+<section class="card">
+<header class="cardHeader">
+<h2>CHOOSE YOUR GOAL</h2>
+</header>
 
-        <div class="brand">
-          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Mascott.png"
-               alt="Rate Thief mascot logo">
-        </div>
+<div class="buttonRow">
+<a href="#" class="imgBtn"><img src="https://via.placeholder.com/300" /></a>
+<a href="#" class="imgBtn"><img src="https://via.placeholder.com/300" /></a>
+<a href="#" class="imgBtn"><img src="https://via.placeholder.com/300" /></a>
+<a href="#" class="imgBtn"><img src="https://via.placeholder.com/300" /></a>
+<a href="#" class="imgBtn"><img src="https://via.placeholder.com/300" /></a>
+<a href="#" class="imgBtn"><img src="https://via.placeholder.com/300" /></a>
+</div>
+</section>
 
-        <div class="rateBlock">
-          <div class="rateKicker">
-            <span>30Y Mortgage</span>
-            <span class="pulseDot"></span>
-          </div>
-          <div class="rateNumber"><span id="mort30Mobile">--</span><span class="pct">%</span></div>
-        </div>
-      </section>
+<div class="adDisclosure">
+<a href="#" data-modal="advertising-disclosure.html">*Advertising Disclosure</a>
+</div>
 
-      <div class="tagline">
-        <span>
-          <span class="highlight-rates">Rates</span>
-          so low it feels like
-          <span class="highlight-steal">stealing!</span>
-        </span>
-      </div>
+<footer class="siteFooter">
+<div class="footerLinks">
+<a href="#" data-modal="privacyPolicy.html">Privacy Policy</a>
+<a href="#" data-modal="advertising-disclosure.html">Advertising Disclosure</a>
+</div>
 
-      <div class="fullWidthBar"></div>
-    </div>
+<div class="footerMeta">
+© <span id="footerYear"></span> RateThief.com. All rights reserved.
+</div>
+</footer>
 
-    <!-- DESKTOP HEADER -->
-    <section class="topBar" aria-hidden="true">
-      <div class="rateBlock">
-        <div class="rateKicker">
-          <span>10Y Treasury</span>
-          <span class="pulseDot"></span>
-        </div>
-        <div class="rateNumber"><span id="dgs10Desktop">--</span><span class="pct">%</span></div>
-      </div>
+</main>
 
-      <div class="brand">
-        <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Mascott.png"
-             alt="Rate Thief mascot logo">
-      </div>
+<!-- MODAL -->
+<div class="modalOverlay" id="modal">
+<div class="modal">
+<div class="modalHeader">
+<div class="modalTitle" id="modalTitle">Loading...</div>
+<button class="modalClose" id="modalClose">✕</button>
+</div>
+<div class="modalBody" id="modalBody"></div>
+</div>
+</div>
 
-      <div class="rateBlock">
-        <div class="rateKicker">
-          <span>30Y Mortgage</span>
-          <span class="pulseDot"></span>
-        </div>
-        <div class="rateNumber"><span id="mort30Desktop">--</span><span class="pct">%</span></div>
-      </div>
-    </section>
+<script>
+document.getElementById("footerYear").textContent = new Date().getFullYear();
 
-    <!-- TAGLINE: desktop location -->
-    <div class="tagline" aria-hidden="true">
-      <span>
-        <span class="highlight-rates">Rates</span>
-        so low it feels like
-        <span class="highlight-steal">stealing!</span>
-      </span>
-    </div>
+const modal = document.getElementById("modal");
+const modalBody = document.getElementById("modalBody");
+const modalTitle = document.getElementById("modalTitle");
 
-    <div class="fullWidthBar"></div>
+document.addEventListener("click", async (e) => {
+const link = e.target.closest("[data-modal]");
+if(!link) return;
 
-    <!-- CONTENT -->
-    <div class="mobileContent">
-      <section class="card">
-        <header class="cardHeader">
-          <h2>CHOOSE YOUR GOAL</h2>
-        </header>
+e.preventDefault();
+const file = link.getAttribute("data-modal");
 
-        <div class="buttonRow">
+modal.classList.add("open");
+modalTitle.textContent = "Loading...";
 
-          <!-- Pay Off Debts CTA -->
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSfkCsj5cuTngElW-Nz7Ybi3zW_FT_xLdJ2jaKhEzYBFtd50wA/viewform?usp=header"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="imgBtn ctaDebts"
-            aria-label="Pay Off Debts"
-          >
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/payOffDebts.png" alt="Pay Off Debts">
-          </a>
+try{
+const res = await fetch(file);
+const html = await res.text();
+modalBody.innerHTML = html;
+modalTitle.textContent = file.replace(".html","").replace(/([A-Z])/g," $1").trim();
+}catch{
+modalBody.innerHTML = "<p>Unable to load file.</p>";
+}
+});
 
-          <!-- Cash Out -->
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLScFYCtuU4iNegSrucvQ5Tz8tMsKxyD3mwFF3mopfJevJhEdIQ/viewform?usp=header"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="imgBtn"
-            aria-label="Cash Out"
-          >
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/cashOut.png" alt="Cash Out">
-          </a>
+document.getElementById("modalClose").onclick = () => modal.classList.remove("open");
+modal.onclick = e => { if(e.target === modal) modal.classList.remove("open"); };
+</script>
 
-          <!-- Lower Rate -->
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLScz6O9QfEpzHetkUYGnqlfmLZ-ZMcoc9fSKCEnUATlDr4-XcQ/viewform?usp=header"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="imgBtn"
-            aria-label="Lower Rate"
-          >
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/refinanceButton.png" alt="Lower Rate">
-          </a>
-
-          <!-- HELOC -->
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSdmRAt6WcB-cUTCobeTR0gKiMDEzMxaVW-ctiyE2UetciNPrw/viewform?usp=header"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="imgBtn"
-            aria-label="HELOC"
-          >
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/HELOCbutton.png" alt="HELOC">
-          </a>
-
-          <!-- Purchase -->
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLScUlpvQFDrtU_1UAJMy8gfrl9oKtEsYzWkcikm3LqxsP7DYrQ/viewform?usp=header"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="imgBtn"
-            aria-label="Purchase"
-          >
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/purchaseButton.png" alt="Purchase">
-          </a>
-
-          <!-- Reverse Mortgage -->
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLScxf2q9AjG-onoDL151EGvLw4AvpYO63863rvuKHDTReeqelQ/viewform?usp=header"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="imgBtn"
-            aria-label="Reverse Mortgage"
-          >
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/reverseMortgage.png" alt="Reverse Mortgage">
-          </a>
-
-        </div>
-      </section>
-
-      <!-- Advertising Disclosure link under buttons (opens modal, no page navigation) -->
-      <div class="adDisclosure">
-        <a href="#" class="js-openDisclosure" aria-label="Advertising Disclosure">*Advertising Disclosure</a>
-      </div>
-
-      <div class="fineprint">
-        Example rates shown for demonstration only. Final pricing depends on credit, equity, occupancy, and timing.
-      </div>
-
-      <!-- Footer -->
-      <footer class="siteFooter" role="contentinfo">
-        <div class="footerLinks" aria-label="Footer links">
-          <a href="#" aria-label="Privacy Policy">Privacy Policy</a>
-          <a href="#" aria-label="Terms of Use">Terms of Use</a>
-          <a href="#" class="js-openDisclosure" aria-label="Advertising Disclosure">Advertising Disclosure</a>
-          <a href="#" aria-label="Do Not Sell or Share My Personal Information">Do Not Sell/Share My Info</a>
-          <a href="#" aria-label="Contact">Contact</a>
-        </div>
-
-        <div class="footerLegal">
-          <div>
-            <strong>Important:</strong> RateThief.com is a lead-generation and information service and is <strong>not</strong> a lender, does not make credit decisions,
-            and does not issue loan commitments or lock rates. Any rates, APRs, and payment examples are for advertising and educational purposes only and may not be available to all consumers.
-            Final terms are determined solely by participating lenders based on your application, verification, credit profile, property, and other eligibility factors.
-            Rates are subject to change without notice. Not available in all states.
-          </div>
-
-          <div style="margin-top:10px;">
-            By submitting your information or clicking through to a form, you may be contacted by phone, email, and/or text (including automated dialing systems and prerecorded messages)
-            regarding mortgage products and services. Consent is not a condition of purchase. Message and data rates may apply. You can opt out at any time.
-          </div>
-        </div>
-
-        <div class="footerMeta">
-          © <span id="footerYear"></span> RateThief.com. All rights reserved.
-        </div>
-      </footer>
-
-    </div>
-  </main>
-
-  <!-- MODAL: Advertising Disclosure (popup) -->
-  <div class="modalOverlay" id="adDisclosureModal" role="dialog" aria-modal="true" aria-labelledby="adDiscTitle" aria-hidden="true">
-    <div class="modal" role="document">
-      <div class="modalHeader">
-        <h2 class="modalTitle" id="adDiscTitle">Important Advertising Disclosures</h2>
-        <button class="modalClose" type="button" id="closeAdModal" aria-label="Close disclosure">✕</button>
-      </div>
-
-      <!-- This content loads from advertising-disclosure.html -->
-      <div class="modalBody" id="adDisclosureBody" aria-label="Disclosure text">
-        <div class="modalStatus">
-          <strong>Loading…</strong>
-          <div style="margin-top:8px;">If this takes more than a second, your host may be blocking local file requests. Upload both files to the same folder on your website.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const PROXY_BASE = "https://yellow-sea-71b2.captainkimmer07.workers.dev";
-
-    // Auto-measure the fixed header height so content never starts underneath it
-    function updateMobileHeaderHeight(){
-      const isMobile = window.matchMedia("(max-width: 760px)").matches;
-      const fixed = document.querySelector(".mobileFixedHeader");
-      if(!fixed) return;
-
-      if(isMobile){
-        fixed.style.display = "block";
-        requestAnimationFrame(() => {
-          const h = fixed.getBoundingClientRect().height;
-          document.documentElement.style.setProperty("--mobileHeaderH", Math.ceil(h) + "px");
-        });
-      }else{
-        document.documentElement.style.setProperty("--mobileHeaderH", "0px");
-      }
-    }
-
-    function setRateText(ids, valueStr){
-      const num = Number(valueStr);
-      if (!Number.isFinite(num)) return;
-      const formatted = num.toFixed(2);
-      ids.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = formatted;
-      });
-    }
-
-    async function fetchRate(series){
-      const url = `${PROXY_BASE}?series=${encodeURIComponent(series)}`;
-      const res = await fetch(url, { cache: "no-store" });
-      if(!res.ok){
-        let details = "";
-        try { details = await res.text(); } catch {}
-        throw new Error(`Worker ${res.status} for ${series}: ${details}`);
-      }
-      const data = await res.json();
-      if (!data || !data.value) throw new Error(`Bad JSON for ${series}: ${JSON.stringify(data)}`);
-      return data.value;
-    }
-
-    async function updateHeaderRates(){
-      try{
-        const [dgs10, mort30] = await Promise.all([
-          fetchRate("DGS10"),
-          fetchRate("MORTGAGE30US")
-        ]);
-        setRateText(["dgs10Desktop","dgs10Mobile"], dgs10);
-        setRateText(["mort30Desktop","mort30Mobile"], mort30);
-      }catch(e){
-        console.error("Rate update failed:", e);
-      }
-    }
-
-    function syncHeaderVisibility(){
-      const isMobile = window.matchMedia("(max-width: 760px)").matches;
-      const fixed = document.querySelector(".mobileFixedHeader");
-      const desktopTop = document.querySelector('section.topBar[aria-hidden="true"]');
-      const desktopTagline = document.querySelector('.tagline[aria-hidden="true"]');
-      const desktopBar = desktopTagline?.nextElementSibling;
-
-      if(isMobile){
-        if(fixed) fixed.style.display = "block";
-        if(desktopTop) desktopTop.style.display = "none";
-        if(desktopTagline) desktopTagline.style.display = "none";
-        if(desktopBar) desktopBar.style.display = "none";
-      }else{
-        if(fixed) fixed.style.display = "none";
-        if(desktopTop) desktopTop.style.display = "grid";
-        if(desktopTagline) desktopTagline.style.display = "block";
-        if(desktopBar) desktopBar.style.display = "block";
-      }
-    }
-
-    function refreshLayout(){
-      syncHeaderVisibility();
-      updateMobileHeaderHeight();
-    }
-
-    // Footer year
-    (function setFooterYear(){
-      const y = new Date().getFullYear();
-      const el = document.getElementById("footerYear");
-      if(el) el.textContent = y;
-    })();
-
-    // ===== Modal logic (Advertising Disclosure) =====
-    const modalOverlay = document.getElementById("adDisclosureModal");
-    const closeBtn = document.getElementById("closeAdModal");
-    const modalBody = document.getElementById("adDisclosureBody");
-    let disclosureLoaded = false;
-
-    async function loadDisclosureOnce(){
-      if(disclosureLoaded) return;
-      disclosureLoaded = true;
-
-      try{
-        const res = await fetch("advertising-disclosure.html", { cache: "no-store" });
-        if(!res.ok) throw new Error(`HTTP ${res.status}`);
-        const html = await res.text();
-        modalBody.innerHTML = html;
-      }catch(err){
-        console.error("Disclosure load failed:", err);
-        modalBody.innerHTML = `
-          <div class="modalStatus">
-            <strong>Couldn’t load the disclosure file.</strong>
-            <div style="margin-top:8px;">
-              Make sure <code>advertising-disclosure.html</code> is in the <strong>same folder</strong> as this file on your website.
-              (Loading won’t work reliably if you’re opening the file locally on your computer.)
-            </div>
-          </div>
-        `;
-      }
-    }
-
-    function openDisclosureModal(){
-      if(!modalOverlay) return;
-      modalOverlay.classList.add("open");
-      modalOverlay.setAttribute("aria-hidden","false");
-      document.body.style.overflow = "hidden";
-      loadDisclosureOnce();
-      if(closeBtn) closeBtn.focus();
-    }
-
-    function closeDisclosureModal(){
-      if(!modalOverlay) return;
-      modalOverlay.classList.remove("open");
-      modalOverlay.setAttribute("aria-hidden","true");
-      document.body.style.overflow = "";
-    }
-
-    // Open from any link with .js-openDisclosure
-    document.addEventListener("click", (e) => {
-      const trigger = e.target.closest(".js-openDisclosure");
-      if(trigger){
-        e.preventDefault();
-        openDisclosureModal();
-      }
-    });
-
-    // Close button
-    if(closeBtn){
-      closeBtn.addEventListener("click", closeDisclosureModal);
-    }
-
-    // Close when clicking outside modal (overlay)
-    if(modalOverlay){
-      modalOverlay.addEventListener("click", (e) => {
-        if(e.target === modalOverlay){
-          closeDisclosureModal();
-        }
-      });
-    }
-
-    // Close on ESC
-    document.addEventListener("keydown", (e) => {
-      if(e.key === "Escape" && modalOverlay && modalOverlay.classList.contains("open")){
-        closeDisclosureModal();
-      }
-    });
-
-    // Initial layout + rates
-    refreshLayout();
-    updateHeaderRates();
-
-    window.addEventListener("resize", refreshLayout);
-
-    // Fonts/images can load after first paint; measure again so nothing gets cut off.
-    window.addEventListener("load", () => {
-      refreshLayout();
-      updateHeaderRates();
-    });
-  </script>
 </body>
 </html>
