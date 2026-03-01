@@ -185,7 +185,6 @@
       text-align:center;
     }
 
-    /* BIGGER "CHOOSE YOUR GOAL" (desktop especially) */
     .cardHeader h2{
       margin:0;
       font-family:"Cinzel",serif;
@@ -244,7 +243,7 @@
     }
 
     .imgBtn.ctaDebts{
-      border:2px solid #dc2626; /* thin but noticeable red */
+      border:2px solid #dc2626;
       animation:ctaPulse 1.25s ease-in-out infinite;
     }
 
@@ -253,7 +252,7 @@
       border-color:#b91c1c;
     }
 
-    /* ===== Advertising Disclosure link (under buttons) ===== */
+    /* Advertising Disclosure link (under buttons) */
     .adDisclosure{
       text-align:center;
       margin:10px 0 6px;
@@ -267,7 +266,7 @@
     }
     .adDisclosure a:hover{ opacity:.75; }
 
-    /* ===== Footer ===== */
+    /* ===== Footer (FULL) ===== */
     footer.siteFooter{
       margin-top:18px;
       border-top:1px solid var(--line);
@@ -306,7 +305,7 @@
       color:#94a3b8;
     }
 
-    /* ===== Modal (shared) ===== */
+    /* ===== Shared Modal ===== */
     .modalOverlay{
       position:fixed;
       inset:0;
@@ -329,9 +328,7 @@
       transform:translateY(6px);
       animation:modalIn .16s ease-out forwards;
     }
-    @keyframes modalIn{
-      to{ transform:translateY(0px); }
-    }
+    @keyframes modalIn{ to{ transform:translateY(0px); } }
 
     .modalHeader{
       display:flex;
@@ -412,7 +409,6 @@
 
       .rateNumber{ font-size:1.58rem; }
 
-      /* Force motto to stay ONE LINE on mobile */
       .tagline{
         font-size:.82rem;
         margin:2px 0 2px;
@@ -444,7 +440,6 @@
 
       .imgBtn{ max-width:unset; }
 
-      /* Slightly softer pulse on mobile so it doesn't feel jumpy */
       @keyframes ctaPulseMobile{
         0%   { transform:scale(1); }
         50%  { transform:scale(1.04); }
@@ -629,7 +624,7 @@
         </a>
       </div>
 
-      <!-- Footer -->
+      <!-- FULL Footer -->
       <footer class="siteFooter" role="contentinfo">
         <div class="footerLinks" aria-label="Footer links">
           <a href="#"
@@ -641,12 +636,41 @@
           </a>
 
           <a href="#"
+             aria-label="Terms of Use">
+            Terms of Use
+          </a>
+
+          <a href="#"
              class="js-openModal"
              data-modal="advertising-disclosure.html"
              data-title="Advertising Disclosure"
              aria-label="Advertising Disclosure">
             Advertising Disclosure
           </a>
+
+          <a href="#"
+             aria-label="Do Not Sell or Share My Personal Information">
+            Do Not Sell/Share My Info
+          </a>
+
+          <a href="#"
+             aria-label="Contact">
+            Contact
+          </a>
+        </div>
+
+        <div class="footerLegal">
+          <div>
+            <strong>Important:</strong> RateThief.com is a lead-generation and information service and is <strong>not</strong> a lender, does not make credit decisions,
+            and does not issue loan commitments or lock rates. Any rates, APRs, and payment examples are for advertising and educational purposes only and may not be available to all consumers.
+            Final terms are determined solely by participating lenders based on your application, verification, credit profile, property, and other eligibility factors.
+            Rates are subject to change without notice. Not available in all states.
+          </div>
+
+          <div style="margin-top:10px;">
+            By submitting your information or clicking through to a form, you may be contacted by phone, email, and/or text (including automated dialing systems and prerecorded messages)
+            regarding mortgage products and services. Consent is not a condition of purchase. Message and data rates may apply. You can opt out at any time.
+          </div>
         </div>
 
         <div class="footerMeta">
@@ -786,7 +810,6 @@
         `;
       }
 
-      // focus close for accessibility
       if(sharedModalClose) sharedModalClose.focus();
     }
 
@@ -827,7 +850,6 @@
 
     window.addEventListener("resize", refreshLayout);
 
-    // Fonts/images can load after first paint; measure again so nothing gets cut off.
     window.addEventListener("load", () => {
       refreshLayout();
       updateHeaderRates();
