@@ -708,7 +708,7 @@
     <div class="modal" role="document">
       <div class="modalHeader">
         <h2 class="modalTitle" id="modalTitle">Welcome to Rate Thief!</h2>
-        <button class="modalClose" type="button" id="modalClose" aria-label="Exit popup">EXIT ↩</button>
+        <button class="modalClose" type="button" id="modalClose" aria-label="Exit popup">EXIT</button>
       </div>
       <div class="modalBody" id="modalBody"></div>
     </div>
@@ -822,11 +822,24 @@
       setTimeout(updateMobileHeaderHeight, 60);
     }
 
-    function closeModal(){
+    // NEW: close modal + jump to top of page (so user lands at top of main content)
+    function closeModalAndGoTop(){
       if(!modalOverlay) return;
+
       modalOverlay.classList.remove("open");
       modalOverlay.setAttribute("aria-hidden","true");
       document.body.style.overflow = "";
+
+      // Ensure header height is calculated before we scroll
+      updateMobileHeaderHeight();
+
+      // Jump to top of the document
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+
+      // Extra: some mobile browsers need a second tick after layout settles
+      setTimeout(() => window.scrollTo({ top: 0, left: 0, behavior: "auto" }), 0);
+
+      // Keep your mobile header measurements stable
       setTimeout(updateMobileHeaderHeight, 0);
     }
 
@@ -861,22 +874,22 @@
       await loadModalFile(file);
     });
 
-    // Close button
+    // Close button (UPDATED)
     if(closeBtn){
-      closeBtn.addEventListener("click", closeModal);
+      closeBtn.addEventListener("click", closeModalAndGoTop);
     }
 
     // Close when clicking outside modal
     if(modalOverlay){
       modalOverlay.addEventListener("click", (e) => {
-        if(e.target === modalOverlay) closeModal();
+        if(e.target === modalOverlay) closeModalAndGoTop();
       });
     }
 
-    // Close on ESC
+    // Close on ESC (UPDATED)
     document.addEventListener("keydown", (e) => {
       if(e.key === "Escape" && modalOverlay && modalOverlay.classList.contains("open")){
-        closeModal();
+        closeModalAndGoTop();
       }
     });
 
