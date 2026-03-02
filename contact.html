@@ -1,0 +1,200 @@
+<!-- contact.html -->
+<section class="contactWrap" aria-label="About the Site Owner">
+  <div class="contactTop">
+    <div class="contactPhoto">
+      <!-- Replace this with YOUR photo URL -->
+      <img
+        src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Kimmer.png"
+        alt="Kimmer O'Reilly"
+        onerror="this.style.display='none'; this.parentElement.classList.add('noImg');"
+      />
+      <div class="imgFallback" aria-hidden="true">Add your photo</div>
+    </div>
+
+    <div class="contactIntro">
+      <h2 class="contactName">Kimmer O’Reilly</h2>
+      <p class="contactTag">Founder of RateThief.com • Mortgage Professional</p>
+
+      <div class="contactCards">
+        <div class="miniCard">
+          <div class="miniLabel">Phone</div>
+          <div class="miniValue"><a href="tel:+15095281992">1 (509) 528-1992</a></div>
+        </div>
+
+        <div class="miniCard">
+          <div class="miniLabel">Email</div>
+          <div class="miniValue"><a href="mailto:koreilly@federalfirstlending.com">koreilly@federalfirstlending.com</a></div>
+        </div>
+
+        <div class="miniCard">
+          <div class="miniLabel">NMLS</div>
+          <div class="miniValue">2398363</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contactBody">
+    <h3>My story</h3>
+    <p>
+      I built RateThief.com to make refinancing feel simple, honest, and fast. I’ve seen how confusing mortgage shopping can be — and how easy it is
+      for people to get stuck with the wrong loan, the wrong fees, or the wrong timing.
+    </p>
+
+    <p>
+      My life has been anything but typical: I went through cancer, found my footing again through the mortgage industry, then faced cancer again.
+      In between, I sailed solo across the Atlantic during hurricane season. That experience taught me a lot about pressure, clarity, and doing things the right way.
+      I brought that same mindset into mortgages.
+    </p>
+
+    <h3>Why I created RateThief.com</h3>
+    <ul>
+      <li>To help homeowners quickly understand their options without the usual runaround.</li>
+      <li>To connect people with the right lender for their goals (lower payment, cash out, payoff debt, HELOC, purchase, etc.).</li>
+      <li>To keep the process straightforward, transparent, and focused on what actually helps you.</li>
+    </ul>
+
+    <div class="contactNote">
+      <strong>Note:</strong> RateThief.com is a lead-generation and information service. We are not a lender and do not make credit decisions.
+      If you submit your information, you may be contacted by phone, email, and/or text about mortgage products and services.
+    </div>
+  </div>
+</section>
+
+<style>
+  .contactWrap{
+    font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:#0f172a;
+  }
+
+  .contactTop{
+    display:grid;
+    grid-template-columns: 140px 1fr;
+    gap:14px;
+    align-items:start;
+    margin-bottom:14px;
+  }
+
+  .contactPhoto{
+    width:140px;
+    height:140px;
+    border-radius:18px;
+    border:1px solid rgba(148,163,184,.45);
+    background:#f8fafc;
+    overflow:hidden;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .contactPhoto img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  .contactPhoto.noImg .imgFallback{ display:flex; }
+  .imgFallback{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:10px;
+    color:#64748b;
+    font-weight:800;
+    font-size:.85rem;
+  }
+
+  .contactName{
+    margin:0 0 6px;
+    font-family:"Cinzel", serif;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    font-weight:900;
+    font-size:1.15rem;
+    line-height:1.1;
+  }
+
+  .contactTag{
+    margin:0 0 12px;
+    color:#475569;
+    font-weight:700;
+    font-size:.92rem;
+  }
+
+  .contactCards{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0,1fr));
+    gap:10px;
+  }
+
+  .miniCard{
+    border:1px solid rgba(148,163,184,.45);
+    background:#ffffff;
+    border-radius:14px;
+    padding:10px 10px;
+  }
+
+  .miniLabel{
+    font-size:.72rem;
+    color:#64748b;
+    font-weight:900;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+
+  .miniValue{
+    font-weight:900;
+    color:#0f172a;
+    font-size:.92rem;
+    word-break:break-word;
+  }
+
+  .miniValue a{
+    color:#0f172a;
+    text-decoration:underline;
+    text-underline-offset:2px;
+  }
+  .miniValue a:hover{ opacity:.8; }
+
+  .contactBody h3{
+    margin:14px 0 8px;
+    font-size:1rem;
+    color:#0b1220;
+  }
+
+  .contactBody p{
+    margin:0 0 10px;
+    line-height:1.55;
+    color:#334155;
+    font-size:.95rem;
+  }
+
+  .contactBody ul{
+    margin:0 0 12px 18px;
+    padding:0;
+    line-height:1.55;
+    color:#334155;
+    font-size:.95rem;
+  }
+
+  .contactNote{
+    margin-top:12px;
+    padding:12px 12px;
+    border:1px solid rgba(148,163,184,.45);
+    background:#f8fafc;
+    border-radius:14px;
+    color:#334155;
+    font-size:.9rem;
+    line-height:1.5;
+  }
+
+  @media (max-width:560px){
+    .contactTop{ grid-template-columns:1fr; }
+    .contactPhoto{ width:100%; height:220px; }
+    .contactCards{ grid-template-columns:1fr; }
+  }
+</style>

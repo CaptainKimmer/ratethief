@@ -307,7 +307,7 @@
       color:#94a3b8;
     }
 
-    /* NEW: extra live-data disclaimer line */
+    /* extra live-data disclaimer line */
     .footerDataNote{
       max-width:860px;
       margin:10px auto 0;
@@ -338,9 +338,7 @@
       transform:translateY(6px);
       animation:modalIn .16s ease-out forwards;
     }
-    @keyframes modalIn{
-      to{ transform:translateY(0px); }
-    }
+    @keyframes modalIn{ to{ transform:translateY(0px); } }
 
     .modalHeader{
       display:flex;
@@ -453,9 +451,7 @@
         50%  { transform:scale(1.04); }
         100% { transform:scale(1); }
       }
-      .imgBtn.ctaDebts{
-        animation:ctaPulseMobile 1.25s ease-in-out infinite;
-      }
+      .imgBtn.ctaDebts{ animation:ctaPulseMobile 1.25s ease-in-out infinite; }
 
       footer.siteFooter{
         padding:14px 10px 20px;
@@ -621,7 +617,7 @@
         </div>
       </section>
 
-      <!-- Advertising Disclosure link under buttons (opens modal, no page navigation) -->
+      <!-- Advertising Disclosure link under buttons -->
       <div class="adDisclosure">
         <a href="#" data-modal="advertising-disclosure.html" aria-label="Advertising Disclosure">*Advertising Disclosure</a>
       </div>
@@ -630,9 +626,8 @@
       <footer class="siteFooter" role="contentinfo">
         <div class="footerLinks" aria-label="Footer links">
           <a href="#" data-modal="privacy.html" aria-label="Privacy Policy">Privacy Policy</a>
-          <a href="#" data-modal="advertising-disclosure.html" aria-label="Advertising Disclosure">Advertising Disclosure</a>
-          <a href="#" aria-label="Do Not Sell or Share My Personal Information">Do Not Sell/Share My Info</a>
-          <a href="#" aria-label="Contact">Contact</a>
+          <!-- Removed duplicate Advertising Disclosure + removed Do Not Sell/Share link -->
+          <a href="#" data-modal="contact.html" aria-label="Contact">Contact</a>
         </div>
 
         <div class="footerLegal">
@@ -648,7 +643,6 @@
             regarding mortgage products and services. Consent is not a condition of purchase. Message and data rates may apply. You can opt out at any time.
           </div>
 
-          <!-- NEW DISCLAIMER: live public data, not advertised rates -->
           <div class="footerDataNote">
             <strong>Market Data Notice:</strong> The live 10-year Treasury and 30-year mortgage numbers displayed on this website are public market data
             provided for general informational purposes only. They are <strong>not</strong> RateThief.com advertised loan offers, quotes, locked rates, or guarantees,
@@ -795,12 +789,16 @@
         const html = await res.text();
         modalBody.innerHTML = html;
 
-        // Pretty title from filename
-        const pretty = file
-          .replace(".html","")
-          .replace(/[-_]/g," ")
-          .replace(/\b\w/g, c => c.toUpperCase());
-        modalTitle.textContent = pretty;
+        // Pretty title from filename, with override for contact
+        if(file === "contact.html"){
+          modalTitle.textContent = "Kimmer O'Reilly";
+        }else{
+          const pretty = file
+            .replace(".html","")
+            .replace(/[-_]/g," ")
+            .replace(/\b\w/g, c => c.toUpperCase());
+          modalTitle.textContent = pretty;
+        }
       }catch(e){
         console.error("Modal load failed:", e);
         modalTitle.textContent = "Error";
