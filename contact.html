@@ -2,13 +2,12 @@
 <section class="contactWrap" aria-label="About the Site Owner">
   <div class="contactTop">
     <div class="contactPhoto">
-      <!-- Replace this with YOUR photo URL -->
       <img
-        src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Kimmer.png"
-        alt="Kimmer O'Reilly"
-        onerror="this.style.display='none'; this.parentElement.classList.add('noImg');"
+        src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/contactPhotos/headShot.PNG"
+        alt="Kimmer O'Reilly headshot"
+        loading="lazy"
+        decoding="async"
       />
-      <div class="imgFallback" aria-hidden="true">Add your photo</div>
     </div>
 
     <div class="contactIntro">
@@ -35,24 +34,46 @@
   </div>
 
   <div class="contactBody">
+    <h3>What RateThief.com is</h3>
+    <p>
+      RateThief.com is built to connect homeowners with <strong>me</strong> and a small group of <strong>trusted loan officers</strong>—so you can explore options
+      without getting bombarded by spam calls, random texts, and endless “rate quote” follow-ups.
+    </p>
+
+    <p>
+      The goal is simple: build a long-term relationship with you as a homeowner, and help you make smart mortgage moves over time—refinances, cash-out,
+      debt consolidation, HELOCs, or purchases—when it actually saves you money across your home-owning life.
+    </p>
+
+    <div class="sailingBlock" aria-label="Kimmer sailing photo">
+      <img
+        src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/contactPhotos/sailing.jpg"
+        alt="Kimmer sailing"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="sailingCaption">
+        One of the reasons I built this site: I care about doing hard things the right way—and keeping it simple for you.
+      </div>
+    </div>
+
     <h3>My story</h3>
     <p>
-      I built RateThief.com to make refinancing feel simple, honest, and fast. I’ve seen how confusing mortgage shopping can be — and how easy it is
-      for people to get stuck with the wrong loan, the wrong fees, or the wrong timing.
+      I had a great life, then got cancer. I was saved—literally—by the mortgage industry and the people in it. After that, I got cancer again.
+      Somewhere in the middle of all of it, I sailed across the Atlantic Ocean solo during hurricane season.
     </p>
 
     <p>
-      My life has been anything but typical: I went through cancer, found my footing again through the mortgage industry, then faced cancer again.
-      In between, I sailed solo across the Atlantic during hurricane season. That experience taught me a lot about pressure, clarity, and doing things the right way.
-      I brought that same mindset into mortgages.
+      I came back with one mission: become the best mortgage professional I can be, build something real, start a family, and help homeowners
+      win long-term—not just on one transaction.
     </p>
 
-    <h3>Why I created RateThief.com</h3>
-    <ul>
-      <li>To help homeowners quickly understand their options without the usual runaround.</li>
-      <li>To connect people with the right lender for their goals (lower payment, cash out, payoff debt, HELOC, purchase, etc.).</li>
-      <li>To keep the process straightforward, transparent, and focused on what actually helps you.</li>
-    </ul>
+    <h3>How to reach me</h3>
+    <p class="contactReach">
+      Call/text: <a href="tel:+15095281992">1 (509) 528-1992</a><br>
+      Email: <a href="mailto:koreilly@federalfirstlending.com">koreilly@federalfirstlending.com</a><br>
+      NMLS: <strong>2398363</strong>
+    </p>
 
     <div class="contactNote">
       <strong>Note:</strong> RateThief.com is a lead-generation and information service. We are not a lender and do not make credit decisions.
@@ -83,9 +104,6 @@
     background:#f8fafc;
     overflow:hidden;
     position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
   }
 
   .contactPhoto img{
@@ -93,18 +111,6 @@
     height:100%;
     object-fit:cover;
     display:block;
-  }
-
-  .contactPhoto.noImg .imgFallback{ display:flex; }
-  .imgFallback{
-    display:none;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:10px;
-    color:#64748b;
-    font-weight:800;
-    font-size:.85rem;
   }
 
   .contactName{
@@ -173,12 +179,42 @@
     font-size:.95rem;
   }
 
-  .contactBody ul{
-    margin:0 0 12px 18px;
-    padding:0;
-    line-height:1.55;
-    color:#334155;
-    font-size:.95rem;
+  .contactBody strong{ color:#0b1220; }
+
+  .contactReach{
+    margin-top:2px;
+    line-height:1.6;
+  }
+  .contactReach a{
+    color:#0f172a;
+    text-decoration:underline;
+    text-underline-offset:2px;
+    font-weight:800;
+  }
+  .contactReach a:hover{ opacity:.8; }
+
+  .sailingBlock{
+    margin:12px 0 14px;
+    border:1px solid rgba(148,163,184,.45);
+    background:#ffffff;
+    border-radius:16px;
+    overflow:hidden;
+  }
+  .sailingBlock img{
+    width:100%;
+    height:auto;
+    display:block;
+    object-fit:cover;
+    max-height:320px;
+  }
+  .sailingCaption{
+    padding:10px 12px;
+    color:#475569;
+    font-size:.9rem;
+    line-height:1.45;
+    border-top:1px solid rgba(148,163,184,.35);
+    background:#f8fafc;
+    font-weight:700;
   }
 
   .contactNote{
@@ -196,5 +232,6 @@
     .contactTop{ grid-template-columns:1fr; }
     .contactPhoto{ width:100%; height:220px; }
     .contactCards{ grid-template-columns:1fr; }
+    .sailingBlock img{ max-height:260px; }
   }
 </style>
