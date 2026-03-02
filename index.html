@@ -30,7 +30,7 @@
 
       /* mobile header spacing now auto-measured in JS */
       --mobileHeaderH:0px;
-      --mobileGap:10px; /* ✅ give the content breathing room below the black bar */
+      --mobileGap:4px; /* brings body closer to black bar */
     }
 
     *{box-sizing:border-box}
@@ -319,11 +319,11 @@
     .modalOverlay{
       position:fixed;
       inset:0;
-      background:rgba(2,6,23,.62);
+      background:rgba(2,6,23,.72);
       display:none;
       align-items:center;
       justify-content:center;
-      padding:18px;
+      padding:16px;
       z-index:999;
     }
     .modalOverlay.open{ display:flex; }
@@ -333,7 +333,7 @@
       background:#fff;
       border:1px solid rgba(148,163,184,.35);
       border-radius:18px;
-      box-shadow:0 22px 60px rgba(2,6,23,.25);
+      box-shadow:0 22px 60px rgba(2,6,23,.28);
       overflow:hidden;
       transform:translateY(6px);
       animation:modalIn .16s ease-out forwards;
@@ -345,7 +345,7 @@
       align-items:flex-start;
       justify-content:space-between;
       gap:10px;
-      padding:14px 14px 12px;
+      padding:12px 12px 10px;
       border-bottom:1px solid var(--line);
       background:linear-gradient(to bottom,#ffffff 0%, #fbfbfb 100%);
     }
@@ -356,31 +356,78 @@
       letter-spacing:.06em;
       font-weight:900;
       text-transform:uppercase;
-      font-size:1.05rem;
+      font-size:1.02rem;
       color:#0b1220;
       line-height:1.1;
     }
 
     .modalClose{
-      border:1px solid rgba(148,163,184,.55);
-      background:#fff;
-      border-radius:12px;
-      padding:8px 10px;
+      border:2px solid rgba(15,23,42,.75);
+      background:#ffffff;
+      border-radius:14px;
+      padding:10px 12px;
       cursor:pointer;
       font-weight:900;
       color:#0f172a;
       line-height:1;
       transition:.12s ease;
+      box-shadow:0 10px 22px rgba(2,6,23,.12);
     }
-    .modalClose:hover{ transform:translateY(-1px); opacity:.9; }
+    .modalClose:hover{ transform:translateY(-1px); opacity:.95; }
 
     .modalBody{
       padding:14px 16px 16px;
-      max-height:min(72vh,720px);
+      max-height:min(72vh,760px);
       overflow:auto;
       color:#0f172a;
     }
 
+    /* BIG obvious exit strip inside the modal body */
+    .modalExitStrip{
+      position:sticky;
+      top:0;
+      z-index:5;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin:-14px -16px 12px; /* flush with modalBody padding */
+      padding:10px 12px;
+      border-bottom:1px solid rgba(148,163,184,.45);
+      background:rgba(248,250,252,.98);
+      backdrop-filter:saturate(180%) blur(10px);
+    }
+
+    .modalExitStrip .exitText{
+      color:#334155;
+      font-weight:900;
+      font-size:.9rem;
+    }
+
+    .exitBtnBig{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:2px solid rgba(15,23,42,.82);
+      background:#0f172a;
+      color:#ffffff;
+      border-radius:999px;
+      padding:10px 14px;
+      cursor:pointer;
+      font-weight:900;
+      letter-spacing:.02em;
+      box-shadow:0 12px 26px rgba(2,6,23,.18);
+      transition:.12s ease;
+    }
+    .exitBtnBig:hover{ transform:translateY(-1px); opacity:.96; }
+    .exitBtnBig span{
+      display:inline-block;
+      transform:translateY(-.5px);
+      font-size:1rem;
+      line-height:1;
+    }
+
+    /* Mobile header rules */
     @media (max-width:760px){
       body{padding:12px}
 
@@ -392,10 +439,8 @@
         padding:8px 12px 6px;
       }
 
-      /* ✅ Fix: always push content below the fixed header (no reliance on JS timing) */
       .mobileContent{
-        margin-top:0 !important;
-        padding-top:calc(var(--mobileHeaderH) + var(--mobileGap) + env(safe-area-inset-top));
+        margin-top:calc(var(--mobileHeaderH) + var(--mobileGap));
       }
 
       .topBar{
@@ -461,8 +506,12 @@
       }
       .footerMeta{ font-size:.76rem; }
 
-      .modalBody{ max-height:74vh; }
-      .modalTitle{ font-size:1rem; }
+      /* Modal tweaks */
+      .modalOverlay{ padding:10px; }
+      .modalBody{ max-height:78vh; }
+      .modalTitle{ font-size:.98rem; }
+      .exitBtnBig{ padding:10px 12px; }
+      .modalExitStrip .exitText{ font-size:.86rem; }
     }
   </style>
 </head>
@@ -664,7 +713,7 @@
     <div class="modal" role="document">
       <div class="modalHeader">
         <h2 class="modalTitle" id="modalTitle">Loading...</h2>
-        <button class="modalClose" type="button" id="modalClose" aria-label="Close modal">✕</button>
+        <button class="modalClose" type="button" id="modalClose" aria-label="Close modal">EXIT ↩</button>
       </div>
       <div class="modalBody" id="modalBody"></div>
     </div>
@@ -756,13 +805,10 @@
     function refreshLayout(){
       syncHeaderVisibility();
       updateMobileHeaderHeight();
-
-      // ✅ Extra safety: after we set --mobileHeaderH, force a second measure a tick later
-      // (images/fonts sometimes change header height right after first paint on mobile)
-      if(window.matchMedia("(max-width: 760px)").matches){
-        setTimeout(updateMobileHeaderHeight, 120);
-        setTimeout(updateMobileHeaderHeight, 350);
-      }
+      // One more nudge after layout settles (prevents "cut off" on initial mobile paint)
+      requestAnimationFrame(() => updateMobileHeaderHeight());
+      setTimeout(updateMobileHeaderHeight, 60);
+      setTimeout(updateMobileHeaderHeight, 180);
     }
 
     // ===== Modal logic (loads external HTML pages) =====
@@ -784,6 +830,8 @@
       modalOverlay.classList.remove("open");
       modalOverlay.setAttribute("aria-hidden","true");
       document.body.style.overflow = "";
+      // re-measure once modal is closed (mobile layout can shift)
+      setTimeout(updateMobileHeaderHeight, 40);
     }
 
     async function loadModalFile(file){
@@ -794,8 +842,17 @@
       try{
         const res = await fetch(file, { cache: "no-store" });
         if(!res.ok) throw new Error("Fetch failed");
-        const html = await res.text();
-        modalBody.innerHTML = html;
+        let html = await res.text();
+
+        // Inject a BIG, sticky exit strip at the top of the modal content
+        const exitStrip = `
+          <div class="modalExitStrip" aria-label="Exit modal strip">
+            <div class="exitText">You’re viewing an info popup. Tap EXIT to go to the main page.</div>
+            <button class="exitBtnBig" type="button" data-close-modal="1"><span>✕</span> EXIT</button>
+          </div>
+        `;
+
+        modalBody.innerHTML = exitStrip + html;
 
         // Pretty title from filename, with override for contact
         if(file === "contact.html"){
@@ -810,24 +867,37 @@
       }catch(e){
         console.error("Modal load failed:", e);
         modalTitle.textContent = "Error";
-        modalBody.innerHTML = "<p style='margin:0;color:#b91c1c;line-height:1.5'>Unable to load this content right now.</p>";
+        modalBody.innerHTML = `
+          <div class="modalExitStrip">
+            <div class="exitText">Tap EXIT to return to the main page.</div>
+            <button class="exitBtnBig" type="button" data-close-modal="1"><span>✕</span> EXIT</button>
+          </div>
+          <p style="margin:0;color:#b91c1c;line-height:1.5">Unable to load this content right now.</p>
+        `;
       }
     }
 
     // Open modal from any link with data-modal="file.html"
     document.addEventListener("click", async (e) => {
       const trigger = e.target.closest("[data-modal]");
-      if(!trigger) return;
+      if(trigger){
+        e.preventDefault();
+        const file = trigger.getAttribute("data-modal");
+        if(!file) return;
+        openModal();
+        await loadModalFile(file);
+        return;
+      }
 
-      e.preventDefault();
-      const file = trigger.getAttribute("data-modal");
-      if(!file) return;
-
-      openModal();
-      await loadModalFile(file);
+      // Close from the BIG sticky button inside loaded HTML
+      const closeTrigger = e.target.closest("[data-close-modal]");
+      if(closeTrigger){
+        e.preventDefault();
+        closeModal();
+      }
     });
 
-    // Close button
+    // Close button (top-right)
     if(closeBtn){
       closeBtn.addEventListener("click", closeModal);
     }
@@ -846,6 +916,25 @@
       }
     });
 
+    // ===== Show contact popup immediately on first load =====
+    // If you want it to open EVERY time, keep as-is.
+    // If you want it only once per browser, change `OPEN_CONTACT_EVERY_TIME` to false.
+    const OPEN_CONTACT_EVERY_TIME = true;
+    const CONTACT_SEEN_KEY = "ratethief_contact_seen_v1";
+
+    async function openContactOnLoad(){
+      try{
+        if(!OPEN_CONTACT_EVERY_TIME){
+          const seen = localStorage.getItem(CONTACT_SEEN_KEY);
+          if(seen) return;
+          localStorage.setItem(CONTACT_SEEN_KEY, "1");
+        }
+      }catch{}
+
+      openModal();
+      await loadModalFile("contact.html");
+    }
+
     // Initial layout + rates
     refreshLayout();
     updateHeaderRates();
@@ -853,16 +942,11 @@
     window.addEventListener("resize", refreshLayout);
 
     // Fonts/images can load after first paint; measure again so nothing gets cut off.
-    window.addEventListener("load", () => {
+    window.addEventListener("load", async () => {
       refreshLayout();
       updateHeaderRates();
-    });
-
-    // ✅ iOS/Safari sometimes restores scroll/layout from cache — re-measure when page becomes visible again
-    document.addEventListener("visibilitychange", () => {
-      if(document.visibilityState === "visible"){
-        refreshLayout();
-      }
+      // open contact AFTER layout is settled to avoid header overlap on mobile
+      setTimeout(openContactOnLoad, 120);
     });
   </script>
 </body>
