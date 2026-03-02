@@ -30,7 +30,7 @@
 
       /* mobile header spacing now auto-measured in JS */
       --mobileHeaderH:0px;
-      --mobileGap:4px; /* brings body closer to black bar */
+      --mobileGap:10px; /* ✅ give the content breathing room below the black bar */
     }
 
     *{box-sizing:border-box}
@@ -392,8 +392,10 @@
         padding:8px 12px 6px;
       }
 
+      /* ✅ Fix: always push content below the fixed header (no reliance on JS timing) */
       .mobileContent{
-        margin-top:calc(var(--mobileHeaderH) + var(--mobileGap));
+        margin-top:0 !important;
+        padding-top:calc(var(--mobileHeaderH) + var(--mobileGap) + env(safe-area-inset-top));
       }
 
       .topBar{
@@ -626,7 +628,6 @@
       <footer class="siteFooter" role="contentinfo">
         <div class="footerLinks" aria-label="Footer links">
           <a href="#" data-modal="privacy.html" aria-label="Privacy Policy">Privacy Policy</a>
-          <!-- Removed duplicate Advertising Disclosure + removed Do Not Sell/Share link -->
           <a href="#" data-modal="contact.html" aria-label="Contact">Contact</a>
         </div>
 
@@ -755,6 +756,13 @@
     function refreshLayout(){
       syncHeaderVisibility();
       updateMobileHeaderHeight();
+
+      // ✅ Extra safety: after we set --mobileHeaderH, force a second measure a tick later
+      // (images/fonts sometimes change header height right after first paint on mobile)
+      if(window.matchMedia("(max-width: 760px)").matches){
+        setTimeout(updateMobileHeaderHeight, 120);
+        setTimeout(updateMobileHeaderHeight, 350);
+      }
     }
 
     // ===== Modal logic (loads external HTML pages) =====
@@ -848,6 +856,13 @@
     window.addEventListener("load", () => {
       refreshLayout();
       updateHeaderRates();
+    });
+
+    // ✅ iOS/Safari sometimes restores scroll/layout from cache — re-measure when page becomes visible again
+    document.addEventListener("visibilitychange", () => {
+      if(document.visibilityState === "visible"){
+        refreshLayout();
+      }
     });
   </script>
 </body>
