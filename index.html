@@ -5,11 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Get a Rate!</title>
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32"
         href="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/favicon_io/favicon-32x32.png">
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -17,29 +15,20 @@
   <style>
     :root{
       --bg:#ffffff;
-      --card:#ffffff;
       --ink:#0f172a;
-      --muted:#475569;
       --line:#e5e7eb;
       --accent:#16a34a;
-      --accent2:#2563eb;
       --shadow:0 14px 40px rgba(2,6,23,.08);
-      --radius:18px;
       --maxw:980px;
-      --mobileHeaderH:0px;
-      --mobileGap:4px;
     }
 
     *{box-sizing:border-box}
 
     body{
       margin:0;
-      min-height:100svh;
       font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--ink);
       background:#f8f7f3;
       display:flex;
-      align-items:flex-start;
       justify-content:center;
       padding:18px;
     }
@@ -47,26 +36,18 @@
     .wrap{
       width:min(var(--maxw),100%);
       display:grid;
-      gap:10px;
+      gap:14px;
     }
 
-    .topBar{
-      display:grid;
-      grid-template-columns:1.25fr auto 1.25fr;
-      gap:18px;
-      align-items:center;
-      margin-top:2px;
-    }
+    /* ================= HEADER ================= */
 
     .brand{
       display:flex;
       justify-content:center;
-      align-items:center;
     }
 
     .brand img{
-      width:min(210px,58vw);
-      height:auto;
+      width:180px;
       filter:drop-shadow(0 10px 22px rgba(2,6,23,.14));
     }
 
@@ -74,24 +55,21 @@
       text-align:center;
       font-family:"Cinzel",serif;
       font-weight:900;
-      text-transform:uppercase;
+      font-size:1.4rem;
       letter-spacing:.05em;
-      font-size:clamp(1.05rem,2vw,1.45rem);
-      margin:0;
-      padding:0 8px 0;
-      line-height:1.15;
+      text-transform:uppercase;
     }
 
     .highlight-rates{ color:#16a34a; }
     .highlight-steal{ color:#065f46; }
 
-    .fullWidthBar{
+    .bar{
       height:14px;
-      width:100%;
-      margin-top:2px;
-      background:linear-gradient(to bottom,#0b1220 0%,#111827 100%);
+      background:#0b1220;
       border-radius:999px;
     }
+
+    /* ================= CARD ================= */
 
     .card{
       border:1px solid var(--line);
@@ -102,39 +80,48 @@
     }
 
     .cardHeader{
-      padding:14px 16px;
-      border-bottom:1px solid var(--line);
       text-align:center;
+      padding:20px 10px;
+      background:linear-gradient(135deg,#16a34a,#065f46);
+      color:#fff;
+      position:relative;
+      overflow:hidden;
     }
 
+    /* FLASHY CTA */
     .cardHeader h2{
       margin:0;
       font-family:"Cinzel",serif;
-      font-size:1.85rem;
-      letter-spacing:.07em;
+      font-size:2rem;
       font-weight:900;
+      letter-spacing:.08em;
       text-transform:uppercase;
+      animation:ctaGlow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes ctaGlow{
+      0%{ text-shadow:0 0 0px rgba(255,255,255,.0); }
+      50%{ text-shadow:0 0 18px rgba(255,255,255,.7); }
+      100%{ text-shadow:0 0 0px rgba(255,255,255,.0); }
     }
 
     .buttonRow{
-      padding:14px;
+      padding:16px;
       display:flex;
-      gap:12px;
-      justify-content:space-between;
+      gap:14px;
       flex-wrap:wrap;
+      justify-content:center;
     }
 
     .imgBtn{
       border:1px solid var(--line);
       border-radius:16px;
       background:#fff;
-      cursor:pointer;
       padding:8px;
-      transition:.14s;
-      flex:1 1 140px;
-      max-width:160px;
-      display:block;
-      text-decoration:none;
+      transition:.15s;
+      width:150px;
+      text-align:center;
+      cursor:pointer;
     }
 
     .imgBtn img{
@@ -144,15 +131,12 @@
       border-radius:12px;
     }
 
-    footer.siteFooter{
-      margin-top:18px;
-      border-top:1px solid var(--line);
-      padding:16px 12px 22px;
-      font-size:.82rem;
-      text-align:center;
+    .imgBtn:hover{
+      transform:translateY(-4px) scale(1.05);
+      box-shadow:0 18px 34px rgba(2,6,23,.18);
     }
 
-    /* ===== MODAL ===== */
+    /* ================= MODAL ================= */
 
     .modalOverlay{
       position:fixed;
@@ -176,54 +160,68 @@
 
     .modalHeader{
       display:flex;
-      align-items:center;
       justify-content:center;
-      padding:14px;
-      border-bottom:1px solid var(--line);
+      align-items:center;
+      padding:18px;
+      background:linear-gradient(135deg,#0b1220,#111827);
+      color:#fff;
       position:relative;
     }
 
+    /* FLASHY WELCOME */
     .modalTitle{
       margin:0;
       font-family:"Cinzel",serif;
-      letter-spacing:.06em;
       font-weight:900;
+      font-size:1.4rem;
       text-transform:uppercase;
-      font-size:1.1rem;
-      text-align:center;
+      letter-spacing:.06em;
+      animation:welcomePulse 3s ease-in-out infinite;
     }
 
+    @keyframes welcomePulse{
+      0%{ transform:scale(1); }
+      50%{ transform:scale(1.05); }
+      100%{ transform:scale(1); }
+    }
+
+    /* RED EXIT BUTTON */
     .modalClose{
       position:absolute;
-      right:14px;
-      top:12px;
-      border:2px solid #0f172a;
-      background:#fff;
+      right:16px;
+      top:14px;
+      background:#dc2626;
+      color:#fff;
+      border:none;
       border-radius:12px;
-      padding:8px 12px;
-      cursor:pointer;
+      padding:10px 14px;
       font-weight:900;
+      cursor:pointer;
+      box-shadow:0 10px 22px rgba(220,38,38,.4);
+      transition:.15s;
+    }
+
+    .modalClose:hover{
+      transform:scale(1.08);
+      background:#b91c1c;
     }
 
     .modalBody{
-      padding:16px;
+      padding:18px;
       max-height:75vh;
       overflow:auto;
     }
+
   </style>
 </head>
 
 <body>
+
   <main class="wrap">
 
-    <!-- HEADER -->
-    <section class="topBar">
-      <div></div>
-      <div class="brand">
-        <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Mascott.png">
-      </div>
-      <div></div>
-    </section>
+    <div class="brand">
+      <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Mascott.png">
+    </div>
 
     <div class="tagline">
       <span class="highlight-rates">Rates</span>
@@ -231,16 +229,15 @@
       <span class="highlight-steal">stealing!</span>
     </div>
 
-    <div class="fullWidthBar"></div>
+    <div class="bar"></div>
 
-    <!-- MAIN -->
     <section class="card">
       <header class="cardHeader">
         <h2>CHOOSE YOUR GOAL</h2>
       </header>
 
       <div class="buttonRow">
-        <!-- your buttons stay the same -->
+        <!-- Your buttons remain unchanged here -->
       </div>
     </section>
 
@@ -250,8 +247,8 @@
   <div class="modalOverlay" id="modal">
     <div class="modal">
       <div class="modalHeader">
-        <h2 class="modalTitle" id="modalTitle">Welcome to Rate Thief!</h2>
-        <button class="modalClose" id="modalClose">EXIT ↩</button>
+        <h2 class="modalTitle">Welcome to RateThief.com!</h2>
+        <button class="modalClose" id="modalClose">EXIT ✕</button>
       </div>
       <div class="modalBody" id="modalBody"></div>
     </div>
@@ -285,5 +282,6 @@
       await loadModalFile("contact.html");
     });
   </script>
+
 </body>
 </html>
