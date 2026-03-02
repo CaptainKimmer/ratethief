@@ -185,6 +185,7 @@
       text-align:center;
     }
 
+    /* BIGGER "CHOOSE YOUR GOAL" (desktop especially) */
     .cardHeader h2{
       margin:0;
       font-family:"Cinzel",serif;
@@ -243,16 +244,17 @@
     }
 
     .imgBtn.ctaDebts{
-      border:2px solid #dc2626;
+      border:2px solid #dc2626; /* thin but noticeable red */
       animation:ctaPulse 1.25s ease-in-out infinite;
     }
 
+    /* keep hover feeling good (slightly stronger) */
     .imgBtn.ctaDebts:hover{
       transform:translateY(-2px) scale(1.08);
       border-color:#b91c1c;
     }
 
-    /* Advertising Disclosure link (under buttons) */
+    /* ===== Advertising Disclosure link (under buttons) ===== */
     .adDisclosure{
       text-align:center;
       margin:10px 0 6px;
@@ -266,7 +268,7 @@
     }
     .adDisclosure a:hover{ opacity:.75; }
 
-    /* ===== Footer (FULL) ===== */
+    /* ===== Footer ===== */
     footer.siteFooter{
       margin-top:18px;
       border-top:1px solid var(--line);
@@ -305,7 +307,15 @@
       color:#94a3b8;
     }
 
-    /* ===== Shared Modal ===== */
+    /* NEW: extra live-data disclaimer line */
+    .footerDataNote{
+      max-width:860px;
+      margin:10px auto 0;
+      line-height:1.45;
+      color:#64748b;
+    }
+
+    /* ===== Modal (loads external HTML file) ===== */
     .modalOverlay{
       position:fixed;
       inset:0;
@@ -328,7 +338,9 @@
       transform:translateY(6px);
       animation:modalIn .16s ease-out forwards;
     }
-    @keyframes modalIn{ to{ transform:translateY(0px); } }
+    @keyframes modalIn{
+      to{ transform:translateY(0px); }
+    }
 
     .modalHeader{
       display:flex;
@@ -371,12 +383,6 @@
       color:#0f172a;
     }
 
-    .modalStatus{
-      font-size:.92rem;
-      color:#334155;
-      line-height:1.55;
-    }
-
     @media (max-width:760px){
       body{padding:12px}
 
@@ -409,6 +415,7 @@
 
       .rateNumber{ font-size:1.58rem; }
 
+      /* Force motto to stay ONE LINE on mobile */
       .tagline{
         font-size:.82rem;
         margin:2px 0 2px;
@@ -440,6 +447,7 @@
 
       .imgBtn{ max-width:unset; }
 
+      /* Slightly softer pulse on mobile so it doesn't feel jumpy */
       @keyframes ctaPulseMobile{
         0%   { transform:scale(1); }
         50%  { transform:scale(1.04); }
@@ -613,50 +621,18 @@
         </div>
       </section>
 
-      <!-- Advertising Disclosure link under buttons (popup) -->
+      <!-- Advertising Disclosure link under buttons (opens modal, no page navigation) -->
       <div class="adDisclosure">
-        <a href="#"
-           class="js-openModal"
-           data-modal="advertising-disclosure.html"
-           data-title="Advertising Disclosure"
-           aria-label="Advertising Disclosure">
-          *Advertising Disclosure
-        </a>
+        <a href="#" data-modal="advertising-disclosure.html" aria-label="Advertising Disclosure">*Advertising Disclosure</a>
       </div>
 
-      <!-- FULL Footer -->
+      <!-- Footer -->
       <footer class="siteFooter" role="contentinfo">
         <div class="footerLinks" aria-label="Footer links">
-          <a href="#"
-             class="js-openModal"
-             data-modal="privacyPolicy.html"
-             data-title="Privacy Policy"
-             aria-label="Privacy Policy">
-            Privacy Policy
-          </a>
-
-          <a href="#"
-             aria-label="Terms of Use">
-            Terms of Use
-          </a>
-
-          <a href="#"
-             class="js-openModal"
-             data-modal="advertising-disclosure.html"
-             data-title="Advertising Disclosure"
-             aria-label="Advertising Disclosure">
-            Advertising Disclosure
-          </a>
-
-          <a href="#"
-             aria-label="Do Not Sell or Share My Personal Information">
-            Do Not Sell/Share My Info
-          </a>
-
-          <a href="#"
-             aria-label="Contact">
-            Contact
-          </a>
+          <a href="#" data-modal="privacy.html" aria-label="Privacy Policy">Privacy Policy</a>
+          <a href="#" data-modal="advertising-disclosure.html" aria-label="Advertising Disclosure">Advertising Disclosure</a>
+          <a href="#" aria-label="Do Not Sell or Share My Personal Information">Do Not Sell/Share My Info</a>
+          <a href="#" aria-label="Contact">Contact</a>
         </div>
 
         <div class="footerLegal">
@@ -671,6 +647,13 @@
             By submitting your information or clicking through to a form, you may be contacted by phone, email, and/or text (including automated dialing systems and prerecorded messages)
             regarding mortgage products and services. Consent is not a condition of purchase. Message and data rates may apply. You can opt out at any time.
           </div>
+
+          <!-- NEW DISCLAIMER: live public data, not advertised rates -->
+          <div class="footerDataNote">
+            <strong>Market Data Notice:</strong> The live 10-year Treasury and 30-year mortgage numbers displayed on this website are public market data
+            provided for general informational purposes only. They are <strong>not</strong> RateThief.com advertised loan offers, quotes, locked rates, or guarantees,
+            and they may differ from the rates and terms offered by participating lenders.
+          </div>
         </div>
 
         <div class="footerMeta">
@@ -681,16 +664,14 @@
     </div>
   </main>
 
-  <!-- SHARED MODAL -->
-  <div class="modalOverlay" id="sharedModal" role="dialog" aria-modal="true" aria-labelledby="sharedModalTitle" aria-hidden="true">
+  <!-- MODAL (loads external HTML into body) -->
+  <div class="modalOverlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal" role="document">
       <div class="modalHeader">
-        <h2 class="modalTitle" id="sharedModalTitle">Loading…</h2>
-        <button class="modalClose" type="button" id="sharedModalClose" aria-label="Close">✕</button>
+        <h2 class="modalTitle" id="modalTitle">Loading...</h2>
+        <button class="modalClose" type="button" id="modalClose" aria-label="Close modal">✕</button>
       </div>
-      <div class="modalBody" id="sharedModalBody">
-        <div class="modalStatus"><strong>Loading…</strong></div>
-      </div>
+      <div class="modalBody" id="modalBody"></div>
     </div>
   </div>
 
@@ -782,65 +763,80 @@
       updateMobileHeaderHeight();
     }
 
-    // ===== Shared modal loader (privacy.html + advertising-disclosure.html) =====
-    const sharedModal = document.getElementById("sharedModal");
-    const sharedModalBody = document.getElementById("sharedModalBody");
-    const sharedModalTitle = document.getElementById("sharedModalTitle");
-    const sharedModalClose = document.getElementById("sharedModalClose");
+    // ===== Modal logic (loads external HTML pages) =====
+    const modalOverlay = document.getElementById("modal");
+    const modalBody = document.getElementById("modalBody");
+    const modalTitle = document.getElementById("modalTitle");
+    const closeBtn = document.getElementById("modalClose");
 
-    async function openSharedModal(file, title){
-      sharedModalTitle.textContent = title || "Loading…";
-      sharedModalBody.innerHTML = `<div class="modalStatus"><strong>Loading…</strong></div>`;
-      sharedModal.classList.add("open");
-      sharedModal.setAttribute("aria-hidden","false");
+    function openModal(){
+      if(!modalOverlay) return;
+      modalOverlay.classList.add("open");
+      modalOverlay.setAttribute("aria-hidden","false");
       document.body.style.overflow = "hidden";
-
-      try{
-        const res = await fetch(file, { cache: "no-store" });
-        if(!res.ok) throw new Error(`HTTP ${res.status}`);
-        const html = await res.text();
-        sharedModalBody.innerHTML = html;
-      }catch(err){
-        console.error("Modal load failed:", err);
-        sharedModalBody.innerHTML = `
-          <div class="modalStatus">
-            <strong>Couldn’t load:</strong> ${file}<br>
-            Make sure <code>${file}</code> is in the same folder as <code>index.html</code> on your website host.
-          </div>
-        `;
-      }
-
-      if(sharedModalClose) sharedModalClose.focus();
+      if(closeBtn) closeBtn.focus();
     }
 
-    function closeSharedModal(){
-      sharedModal.classList.remove("open");
-      sharedModal.setAttribute("aria-hidden","true");
+    function closeModal(){
+      if(!modalOverlay) return;
+      modalOverlay.classList.remove("open");
+      modalOverlay.setAttribute("aria-hidden","true");
       document.body.style.overflow = "";
     }
 
-    document.addEventListener("click", (e) => {
-      const trigger = e.target.closest(".js-openModal");
-      if(!trigger) return;
-      e.preventDefault();
-      const file = trigger.getAttribute("data-modal");
-      const title = trigger.getAttribute("data-title") || "Details";
-      openSharedModal(file, title);
-    });
+    async function loadModalFile(file){
+      if(!modalBody || !modalTitle) return;
+      modalTitle.textContent = "Loading...";
+      modalBody.innerHTML = "<p style='margin:0;color:#334155;line-height:1.5'>Loading…</p>";
 
-    if(sharedModalClose){
-      sharedModalClose.addEventListener("click", closeSharedModal);
+      try{
+        const res = await fetch(file, { cache: "no-store" });
+        if(!res.ok) throw new Error("Fetch failed");
+        const html = await res.text();
+        modalBody.innerHTML = html;
+
+        // Pretty title from filename
+        const pretty = file
+          .replace(".html","")
+          .replace(/[-_]/g," ")
+          .replace(/\b\w/g, c => c.toUpperCase());
+        modalTitle.textContent = pretty;
+      }catch(e){
+        console.error("Modal load failed:", e);
+        modalTitle.textContent = "Error";
+        modalBody.innerHTML = "<p style='margin:0;color:#b91c1c;line-height:1.5'>Unable to load this content right now.</p>";
+      }
     }
 
-    if(sharedModal){
-      sharedModal.addEventListener("click", (e) => {
-        if(e.target === sharedModal) closeSharedModal();
+    // Open modal from any link with data-modal="file.html"
+    document.addEventListener("click", async (e) => {
+      const trigger = e.target.closest("[data-modal]");
+      if(!trigger) return;
+
+      e.preventDefault();
+      const file = trigger.getAttribute("data-modal");
+      if(!file) return;
+
+      openModal();
+      await loadModalFile(file);
+    });
+
+    // Close button
+    if(closeBtn){
+      closeBtn.addEventListener("click", closeModal);
+    }
+
+    // Close when clicking outside modal (overlay)
+    if(modalOverlay){
+      modalOverlay.addEventListener("click", (e) => {
+        if(e.target === modalOverlay) closeModal();
       });
     }
 
+    // Close on ESC
     document.addEventListener("keydown", (e) => {
-      if(e.key === "Escape" && sharedModal.classList.contains("open")){
-        closeSharedModal();
+      if(e.key === "Escape" && modalOverlay && modalOverlay.classList.contains("open")){
+        closeModal();
       }
     });
 
@@ -850,6 +846,7 @@
 
     window.addEventListener("resize", refreshLayout);
 
+    // Fonts/images can load after first paint; measure again so nothing gets cut off.
     window.addEventListener("load", () => {
       refreshLayout();
       updateHeaderRates();
