@@ -382,51 +382,6 @@
       color:#0f172a;
     }
 
-    /* BIG obvious exit strip inside the modal body */
-    .modalExitStrip{
-      position:sticky;
-      top:0;
-      z-index:5;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin:-14px -16px 12px; /* flush with modalBody padding */
-      padding:10px 12px;
-      border-bottom:1px solid rgba(148,163,184,.45);
-      background:rgba(248,250,252,.98);
-      backdrop-filter:saturate(180%) blur(10px);
-    }
-
-    .modalExitStrip .exitText{
-      color:#334155;
-      font-weight:900;
-      font-size:.9rem;
-    }
-
-    .exitBtnBig{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      border:2px solid rgba(15,23,42,.82);
-      background:#0f172a;
-      color:#ffffff;
-      border-radius:999px;
-      padding:10px 14px;
-      cursor:pointer;
-      font-weight:900;
-      letter-spacing:.02em;
-      box-shadow:0 12px 26px rgba(2,6,23,.18);
-      transition:.12s ease;
-    }
-    .exitBtnBig:hover{ transform:translateY(-1px); opacity:.96; }
-    .exitBtnBig span{
-      display:inline-block;
-      transform:translateY(-.5px);
-      font-size:1rem;
-      line-height:1;
-    }
-
     /* Mobile header rules */
     @media (max-width:760px){
       body{padding:12px}
@@ -510,8 +465,6 @@
       .modalOverlay{ padding:10px; }
       .modalBody{ max-height:78vh; }
       .modalTitle{ font-size:.98rem; }
-      .exitBtnBig{ padding:10px 12px; }
-      .modalExitStrip .exitText{ font-size:.86rem; }
     }
   </style>
 </head>
@@ -805,7 +758,7 @@
     function refreshLayout(){
       syncHeaderVisibility();
       updateMobileHeaderHeight();
-      // One more nudge after layout settles (prevents "cut off" on initial mobile paint)
+      // extra nudges to prevent initial mobile overlap
       requestAnimationFrame(() => updateMobileHeaderHeight());
       setTimeout(updateMobileHeaderHeight, 60);
       setTimeout(updateMobileHeaderHeight, 180);
@@ -830,7 +783,6 @@
       modalOverlay.classList.remove("open");
       modalOverlay.setAttribute("aria-hidden","true");
       document.body.style.overflow = "";
-      // re-measure once modal is closed (mobile layout can shift)
       setTimeout(updateMobileHeaderHeight, 40);
     }
 
@@ -842,17 +794,8 @@
       try{
         const res = await fetch(file, { cache: "no-store" });
         if(!res.ok) throw new Error("Fetch failed");
-        let html = await res.text();
-
-        // Inject a BIG, sticky exit strip at the top of the modal content
-        const exitStrip = `
-          <div class="modalExitStrip" aria-label="Exit modal strip">
-            <div class="exitText">You’re viewing an info popup. Tap EXIT to go to the main page.</div>
-            <button class="exitBtnBig" type="button" data-close-modal="1"><span>✕</span> EXIT</button>
-          </div>
-        `;
-
-        modalBody.innerHTML = exitStrip + html;
+        const html = await res.text();
+        modalBody.innerHTML = html;
 
         // Pretty title from filename, with override for contact
         if(file === "contact.html"){
@@ -867,34 +810,21 @@
       }catch(e){
         console.error("Modal load failed:", e);
         modalTitle.textContent = "Error";
-        modalBody.innerHTML = `
-          <div class="modalExitStrip">
-            <div class="exitText">Tap EXIT to return to the main page.</div>
-            <button class="exitBtnBig" type="button" data-close-modal="1"><span>✕</span> EXIT</button>
-          </div>
-          <p style="margin:0;color:#b91c1c;line-height:1.5">Unable to load this content right now.</p>
-        `;
+        modalBody.innerHTML = "<p style='margin:0;color:#b91c1c;line-height:1.5'>Unable to load this content right now.</p>";
       }
     }
 
     // Open modal from any link with data-modal="file.html"
     document.addEventListener("click", async (e) => {
       const trigger = e.target.closest("[data-modal]");
-      if(trigger){
-        e.preventDefault();
-        const file = trigger.getAttribute("data-modal");
-        if(!file) return;
-        openModal();
-        await loadModalFile(file);
-        return;
-      }
+      if(!trigger) return;
 
-      // Close from the BIG sticky button inside loaded HTML
-      const closeTrigger = e.target.closest("[data-close-modal]");
-      if(closeTrigger){
-        e.preventDefault();
-        closeModal();
-      }
+      e.preventDefault();
+      const file = trigger.getAttribute("data-modal");
+      if(!file) return;
+
+      openModal();
+      await loadModalFile(file);
     });
 
     // Close button (top-right)
@@ -916,7 +846,7 @@
       }
     });
 
-    // ===== Show contact popup immediately on first load =====
+    // ===== Show contact popup immediately on load =====
     // If you want it to open EVERY time, keep as-is.
     // If you want it only once per browser, change `OPEN_CONTACT_EVERY_TIME` to false.
     const OPEN_CONTACT_EVERY_TIME = true;
