@@ -474,6 +474,7 @@
     }
 
   @media (max-width:760px){
+
   body{
     padding:12px;
     background-position:58% 0%;
@@ -508,24 +509,23 @@
 
   .rateBlock{
     min-height:unset;
-    padding:8px 8px;
+    padding:8px;
   }
 
   .rateKicker{
-    font-size:.56rem;
-    margin-bottom:3px;
+    font-size:.55rem;
+    margin-bottom:2px;
   }
 
   .rateNumber{
-    font-size:1.58rem;
+    font-size:1.5rem;
   }
 
   .tagline{
-    font-size:.74rem;
-    margin:2px 0 2px;
-    letter-spacing:.03em;
-    white-space:normal;
+    font-size:.72rem;
     line-height:1.1;
+    white-space:normal;
+    margin:2px 0;
   }
 
   .tagline > span{
@@ -533,83 +533,74 @@
   }
 
   .fullWidthBar{
-    height:12px;
+    height:10px;
     margin-top:6px;
-    margin-bottom:0px;
   }
 
   .cardHeader h2{
-    font-size:1rem;
-    letter-spacing:.03em;
+    font-size:.95rem;
+    padding:12px 8px 4px;
     white-space:normal;
-    padding:14px 10px 4px;
   }
 
   .cardSubtext{
-    font-size:.68rem;
-    padding:0 10px 12px;
+    font-size:.65rem;
+    padding:0 8px 10px;
     line-height:1.2;
   }
 
   .calculatorShell{
-    padding:8px;
+    padding:6px;
     overflow-x:hidden;
   }
 
-  .debtHeaderRow{
+  /* 🔥 PERFECT MOBILE GRID */
+  .debtHeaderRow,
+  .debtRow,
+  .totalsRow{
     display:grid;
-    grid-template-columns:20px 44px minmax(0,1fr) minmax(0,1fr) 52px;
-    gap:6px;
+    grid-template-columns:18px 42px 1fr 1fr 48px;
+    gap:5px;
     align-items:center;
-    margin-bottom:8px;
+  }
+
+  .debtHeaderRow{
+    margin-bottom:6px;
   }
 
   .debtHeaderCell{
-    font-size:.62rem;
-    padding:0;
-    letter-spacing:.02em;
+    font-size:.58rem;
     text-align:center;
-  }
-
-  .debtRows{
-    gap:8px;
-  }
-
-  .debtRow{
-    display:grid;
-    grid-template-columns:20px 44px minmax(0,1fr) minmax(0,1fr) 52px;
-    gap:6px;
-    align-items:center;
-  }
-
-  .totalsRow{
-    display:grid;
-    grid-template-columns:20px 44px minmax(0,1fr) minmax(0,1fr) 52px;
-    gap:6px;
-    align-items:center;
-    margin-top:14px;
-    padding-top:12px;
+    letter-spacing:.01em;
+    padding:0;
   }
 
   .rowNumber{
+    font-size:.72rem;
     text-align:right;
-    padding-left:0;
-    padding-right:0;
-    font-size:.78rem;
   }
 
+  /* 🚫 THIS FIXES ZOOM */
+  input,
+  select,
+  textarea{
+    font-size:16px !important;
+  }
+
+  /* Editable fields */
   .calcField{
-    min-height:40px;
-    padding:8px 6px;
-    font-size:.78rem;
-    border-radius:10px;
+    min-height:36px;
+    padding:6px 5px;
+    font-size:16px; /* REQUIRED for no zoom */
+    border-radius:8px;
   }
 
+  /* Non-editable */
   .totalsValue{
-    min-height:40px;
-    padding:8px 6px;
-    font-size:.76rem;
-    border-radius:10px;
+    min-height:36px;
+    padding:6px 5px;
+    font-size:.7rem;
+    border-radius:8px;
   }
 
   .numericField{
@@ -618,48 +609,45 @@
 
   .percentDisplay,
   .totalsPercent{
-    justify-content:center;
+    font-size:.65rem;
     text-align:center;
-    font-size:.72rem;
-    padding-left:2px;
-    padding-right:2px;
+    justify-content:center;
   }
 
+  /* TYPE COLUMN — SUPER TIGHT */
   .typeSelector{
-    min-height:40px;
-    width:44px;
+    width:42px;
+    min-height:36px;
   }
 
   .debtType{
-    padding-left:4px;
-    padding-right:18px;
-    font-size:.68rem;
+    font-size:16px;
+    padding:2px;
     text-align:center;
   }
 
   .typeIcon{
-    width:44px;
-    height:40px;
-    border-radius:10px;
-    padding:4px;
+    width:42px;
+    height:36px;
+    padding:3px;
+    border-radius:8px;
   }
 
   .totalsLabel{
-    font-size:.68rem;
+    font-size:.6rem;
     text-align:center;
-    letter-spacing:.02em;
   }
 
   .addRowWrap{
-    gap:12px;
-    margin-top:14px;
+    gap:10px;
+    margin-top:12px;
   }
 
   .addRowBtn,
   .removeRowBtn{
-    width:50px;
-    height:50px;
-    font-size:1.8rem;
+    width:48px;
+    height:48px;
+    font-size:1.6rem;
   }
 }
   </style>
