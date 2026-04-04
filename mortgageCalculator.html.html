@@ -15,32 +15,23 @@
   <style>
     :root{
       --bg:#f8f7f3;
-      --card:#ffffff;
       --ink:#0f172a;
       --muted:#475569;
-      --line:#e5e7eb;
       --green1:#16a34a;
       --green2:#065f46;
       --blue:#2563eb;
       --shadow:0 14px 40px rgba(2,6,23,.08);
-      --radius:18px;
       --maxw:980px;
     }
 
-    *{
-      box-sizing:border-box;
-    }
-
-    html, body{
-      margin:0;
-      padding:0;
-      background:var(--bg);
-      color:var(--ink);
-      font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-    }
+    *{box-sizing:border-box;}
 
     body{
+      margin:0;
       min-height:100svh;
+      font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--ink);
+      background:var(--bg);
       display:flex;
       justify-content:center;
       padding:18px;
@@ -55,58 +46,49 @@
       grid-template-columns:1.25fr auto 1.25fr;
       align-items:center;
       gap:18px;
-      margin-top:2px;
     }
 
     .rateBlock{
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:center;
       text-align:center;
-      min-height:118px;
     }
 
     .rateKicker{
       display:flex;
       align-items:center;
-      justify-content:center;
       gap:10px;
       color:var(--muted);
       font-weight:800;
       text-transform:uppercase;
       letter-spacing:.14em;
       font-size:.78rem;
-      margin-bottom:8px;
+      margin-bottom:6px;
     }
 
     .pulseDot{
-      width:10px;
-      height:10px;
-      border-radius:50%;
+      width:10px;height:10px;border-radius:50%;
       background:linear-gradient(135deg,var(--green1),var(--blue));
       animation:pulse 1.7s ease-out infinite;
-      flex:0 0 auto;
     }
 
     @keyframes pulse{
-      0%{ box-shadow:0 0 0 0 rgba(22,163,74,.28); }
-      60%{ box-shadow:0 0 0 14px rgba(22,163,74,0); }
-      100%{ box-shadow:0 0 0 0 rgba(22,163,74,0); }
+      0%{box-shadow:0 0 0 0 rgba(22,163,74,.28)}
+      60%{box-shadow:0 0 0 14px rgba(22,163,74,0)}
+      100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}
     }
 
     .rateNumber{
-      font-size:clamp(3.2rem,6.2vw,4.9rem);
+      font-size:clamp(3rem,6vw,4.8rem);
       font-weight:900;
-      line-height:1;
       color:#0b1535;
-      white-space:nowrap;
     }
 
     .pct{
-      font-size:.38em;
+      font-size:.4em;
       position:relative;
-      top:-0.30em;
+      top:-0.3em;
     }
 
     .brand{
@@ -117,137 +99,99 @@
 
     .brand img{
       width:min(210px,58vw);
-      height:auto;
-      display:block;
     }
 
+    /* FLASHY TAGLINE */
     .tagline{
       text-align:center;
       font-family:"Cinzel",serif;
       font-weight:900;
       text-transform:uppercase;
-      letter-spacing:.05em;
+      letter-spacing:.06em;
       font-size:clamp(1.05rem,2vw,1.45rem);
-      line-height:1.15;
       margin:10px 0 12px;
-      color:#16a34a;
+      position:relative;
+    }
+
+    .tagline span{
+      display:inline-block;
+      color:#b8860b;
       text-shadow:
-        0 2px 6px rgba(0,0,0,.15),
+        0 2px 6px rgba(0,0,0,.25),
         0 1px 0 rgba(255,255,255,.25);
+      position:relative;
+    }
+
+    .highlight-debt{
+      color:#dc2626;
+      text-shadow:0 2px 10px rgba(220,38,38,.45);
+    }
+
+    .highlight-rate{
+      color:#b91c1c;
+      text-shadow:0 2px 10px rgba(185,28,28,.45);
+    }
+
+    .tagline span::after{
+      content:"";
+      position:absolute;
+      top:0;
+      left:-75%;
+      width:50%;
+      height:100%;
+      background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,.6),
+        transparent
+      );
+      transform:skewX(-20deg);
+      animation:shineText 3.5s infinite;
+    }
+
+    @keyframes shineText{
+      0%{ left:-75%; }
+      100%{ left:125%; }
     }
 
     .fullWidthBar{
       height:14px;
       width:100%;
-      margin:0 0 14px;
-      background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
+      margin-bottom:14px;
+      background:linear-gradient(to bottom,#0b1220,#111827);
       border-radius:999px;
-      box-shadow:
-        0 10px 22px rgba(0,0,0,.30),
-        inset 0 2px 2px rgba(255,255,255,.08),
-        inset 0 -3px 6px rgba(0,0,0,.45);
-    }
-
-    .card{
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow:var(--shadow);
-      background:#fff;
+      box-shadow:0 10px 22px rgba(0,0,0,.30);
     }
 
     .cardHeader{
-      position:relative;
-      overflow:hidden;
       text-align:center;
       background:linear-gradient(135deg,var(--green1),var(--green2));
       border-radius:18px;
-    }
-
-    .cardHeader::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(
-          75deg,
-          rgba(255,255,255,0) 0%,
-          rgba(255,255,255,.10) 35%,
-          rgba(255,255,255,0) 70%
-        );
-      transform:translateX(-35%);
-      pointer-events:none;
+      overflow:hidden;
     }
 
     .cardHeader h2{
       margin:0;
-      padding:18px 14px;
-      position:relative;
+      padding:18px;
       font-family:"Cinzel",serif;
-      font-size:2.05rem;
+      font-size:2rem;
       font-weight:900;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      line-height:1.05;
       color:#fff;
-      text-shadow:0 10px 26px rgba(0,0,0,.28);
-      white-space:nowrap;
+      letter-spacing:.08em;
     }
 
-    @media (max-width:760px){
-      body{
-        padding:2px;
-      }
-
-      .wrap{
-        width:100%;
-      }
-
-      .topBar{
-        grid-template-columns:1fr auto 1fr;
-        gap:8px;
-        align-items:center;
-      }
-
-      .brand img{
-        width:210px;
-        max-width:100%;
-      }
-
-      .rateBlock{
-        min-height:unset;
-      }
-
-      .rateKicker{
-        font-size:.56rem;
-        margin-bottom:3px;
-      }
-
-      .rateNumber{
-        font-size:1.58rem;
-      }
-
-      .tagline{
-        font-size:.82rem;
-        margin:10px 0 10px;
-        letter-spacing:.04em;
-        white-space:nowrap;
-      }
-
-      .fullWidthBar{
-        height:12px;
-        margin-bottom:12px;
-      }
-
-      .cardHeader h2{
-        font-size:1.25rem;
-        letter-spacing:.07em;
-        white-space:nowrap;
-      }
+    @media(max-width:760px){
+      .rateNumber{font-size:1.6rem;}
+      .brand img{width:180px;}
+      .tagline{font-size:.85rem;}
+      .cardHeader h2{font-size:1.2rem;}
     }
   </style>
 </head>
+
 <body>
   <main class="wrap">
+
     <section class="topBar">
       <div class="rateBlock">
         <div class="rateKicker">
@@ -260,9 +204,7 @@
       </div>
 
       <div class="brand">
-        <img
-          src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/debtRateCaclulator.png"
-          alt="Debt Rate mascot logo">
+        <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/debtRateCaclulator.png">
       </div>
 
       <div class="rateBlock">
@@ -276,61 +218,52 @@
       </div>
     </section>
 
-    <div class="tagline">Discover your Debt Rate!</div>
+    <div class="tagline">
+      <span>
+        Discover your 
+        <span class="highlight-debt">Debt</span> 
+        <span class="highlight-rate">Rate</span>!
+      </span>
+    </div>
 
     <div class="fullWidthBar"></div>
 
-    <section class="card">
-      <header class="cardHeader">
-        <h2 id="debtRateHeading">Debt Rate = ?</h2>
-      </header>
+    <section class="cardHeader">
+      <h2 id="debtRateHeading">Debt Rate = ?</h2>
     </section>
+
   </main>
 
   <script>
     const PROXY_BASE = "https://yellow-sea-71b2.captainkimmer07.workers.dev";
 
-    function setRateText(id, valueStr) {
+    function setRateText(id, valueStr){
       const num = Number(valueStr);
       if (!Number.isFinite(num)) return;
-      const el = document.getElementById(id);
-      if (el) el.textContent = num.toFixed(2);
+      document.getElementById(id).textContent = num.toFixed(2);
     }
 
-    async function fetchRate(series) {
-      const url = `${PROXY_BASE}?series=${encodeURIComponent(series)}`;
-      const res = await fetch(url, { cache: "no-store" });
-
-      if (!res.ok) {
-        let details = "";
-        try { details = await res.text(); } catch {}
-        throw new Error(`Worker ${res.status} for ${series}: ${details}`);
-      }
-
+    async function fetchRate(series){
+      const res = await fetch(`${PROXY_BASE}?series=${series}`);
       const data = await res.json();
-      if (!data || !data.value) {
-        throw new Error(`Bad JSON for ${series}: ${JSON.stringify(data)}`);
-      }
-
       return data.value;
     }
 
-    async function updateHeaderRates() {
-      try {
+    async function updateRates(){
+      try{
         const [dgs10, mort30] = await Promise.all([
           fetchRate("DGS10"),
           fetchRate("MORTGAGE30US")
         ]);
-
         setRateText("dgs10", dgs10);
         setRateText("mort30", mort30);
-      } catch (e) {
-        console.error("Rate update failed:", e);
+      }catch(e){
+        console.error(e);
       }
     }
 
-    updateHeaderRates();
-    window.addEventListener("load", updateHeaderRates);
+    updateRates();
   </script>
+
 </body>
 </html>
