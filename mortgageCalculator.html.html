@@ -1,252 +1,824 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Debt Rate Calculator</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Debt Rate Calculator</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800&family=Inter:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32"
+        href="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/favicon_io/favicon-32x32.png">
 
-<style>
-:root{
-  --accent:#16a34a;
-  --danger:#dc2626;
-}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
-*{box-sizing:border-box}
+  <style>
+    :root{
+      --bg:#ffffff;
+      --card:#ffffff;
+      --ink:#0f172a;
+      --muted:#475569;
+      --line:#e5e7eb;
+      --accent:#16a34a;
+      --accent2:#2563eb;
+      --shadow:0 14px 40px rgba(2,6,23,.08);
+      --radius:18px;
+      --radius2:14px;
+      --maxw:980px;
+      --mobileHeaderH:0px;
+      --mobileGap:6px;
+      --danger:#dc2626;
+      --dangerDark:#b91c1c;
+    }
 
-body{
-  margin:0;
-  font-family:Inter;
-  background:url("https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/oceanBackground.png") center/cover fixed no-repeat;
-}
+    *{box-sizing:border-box}
 
-.wrap{
-  max-width:900px;
-  margin:auto;
-  padding:20px;
-}
+    body{
+      margin:0;
+      min-height:100svh;
+      font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--ink);
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:18px;
+      background-image:url("https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/oceanBackground.png");
+      background-size:cover;
+      background-position:50% 10%;
+      background-repeat:no-repeat;
+      background-attachment:fixed;
+      position:relative;
+    }
 
-.card{
-  background:rgba(255,255,255,.85);
-  border-radius:18px;
-  overflow:hidden;
-  margin-top:20px;
-}
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:rgba(7,22,45,.18);
+      pointer-events:none;
+      z-index:0;
+    }
 
-.cardHeader{
-  background:linear-gradient(135deg,#16a34a,#065f46);
-  text-align:center;
-  color:white;
-  font-family:Cinzel;
-  padding:20px;
-  font-size:28px;
-}
+    .wrap{
+      width:min(var(--maxw),100%);
+      display:grid;
+      gap:10px;
+      position:relative;
+      z-index:1;
+    }
 
-.calculatorShell{
-  padding:20px;
-  backdrop-filter:blur(10px);
-}
+    .topBar{
+      display:grid;
+      grid-template-columns:1.25fr auto 1.25fr;
+      gap:18px;
+      align-items:center;
+      margin-top:2px;
+    }
 
-/* HEADER ROW */
-.debtHeaderRow{
-  display:grid;
-  grid-template-columns:150px 1fr 1fr 1fr;
-  gap:10px;
-  color:white;
-  font-weight:800;
-  margin-bottom:10px;
-}
+    .brand{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
 
-/* ROW */
-.debtRow{
-  display:grid;
-  grid-template-columns:150px 1fr 1fr 1fr;
-  gap:10px;
-  margin-bottom:10px;
-}
+    .brand img{
+      width:min(210px,58vw);
+      height:auto;
+      filter:drop-shadow(0 10px 22px rgba(2,6,23,.14));
+    }
 
-.calcField{
-  padding:12px;
-  border-radius:12px;
-  border:none;
-  font-weight:700;
-}
+    .rateBlock{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      min-height:118px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.18);
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+      border-radius:18px;
+      padding:10px 12px;
+      box-shadow:0 14px 40px rgba(2,6,23,.18);
+    }
 
-/* TYPE SELECTOR */
-.typeSelector{
-  position:relative;
-}
+    .rateKicker{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      justify-content:center;
+      color:#ffffff;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:.78rem;
+      margin-bottom:8px;
+      text-shadow:0 2px 8px rgba(0,0,0,.35);
+    }
 
-.typeIcon{
-  width:100%;
-  height:50px;
-  object-fit:contain;
-  display:none;
-  cursor:pointer;
-  background:white;
-  border-radius:12px;
-}
+    .rateNumber{
+      font-size:clamp(3.2rem,6.2vw,4.9rem);
+      font-weight:900;
+      line-height:1;
+      color:#ffffff;
+      text-shadow:0 6px 18px rgba(0,0,0,.35);
+    }
 
-/* BUTTONS */
-.addRowWrap{
-  display:flex;
-  justify-content:center;
-  gap:15px;
-  margin-top:15px;
-}
+    .pct{
+      font-size:.38em;
+      position:relative;
+      top:-0.30em;
+    }
 
-.addRowBtn,.removeRowBtn{
-  width:60px;height:60px;
-  border-radius:50%;
-  border:none;
-  font-size:30px;
-  font-weight:900;
-  color:white;
-  cursor:pointer;
-}
+    .pulseDot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      animation:pulse 1.7s ease-out infinite;
+    }
 
-.addRowBtn{background:var(--accent);}
-.removeRowBtn{background:var(--danger);}
-</style>
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(22,163,74,.28)}
+      60%{box-shadow:0 0 0 14px rgba(22,163,74,0)}
+      100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}
+    }
+
+    .tagline{
+      text-align:center;
+      font-family:"Cinzel",serif;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+      font-size:clamp(1.05rem,2vw,1.45rem);
+      margin:0;
+      padding:0 8px 0;
+      line-height:1.15;
+      position:relative;
+      display:block;
+      width:100%;
+      overflow:hidden;
+    }
+
+    .tagline > span{
+      color:#f4c542;
+      text-shadow:
+        0 2px 6px rgba(0,0,0,.35),
+        0 1px 0 rgba(255,255,255,.20);
+      position:relative;
+      display:inline-block;
+    }
+
+    .highlight-rates{
+      color:#16a34a;
+      -webkit-text-fill-color:#16a34a;
+      text-shadow:
+        0 2px 8px rgba(22,163,74,.28),
+        0 2px 6px rgba(0,0,0,.25);
+    }
+
+    .highlight-steal{
+      color:#065f46;
+      -webkit-text-fill-color:#065f46;
+      text-shadow:
+        0 2px 8px rgba(6,95,70,.28),
+        0 2px 6px rgba(0,0,0,.25);
+    }
+
+    .fullWidthBar{
+      height:14px;
+      width:100%;
+      margin-top:2px;
+      margin-bottom:0px;
+      background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
+      border-radius:999px;
+      box-shadow:
+        0 10px 22px rgba(0,0,0,.30),
+        inset 0 2px 2px rgba(255,255,255,.08),
+        inset 0 -3px 6px rgba(0,0,0,.45);
+    }
+
+    .card{
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+      box-shadow:0 14px 40px rgba(2,6,23,.18);
+      overflow:hidden;
+      margin-top:0px;
+    }
+
+    .cardHeader{
+      padding:0;
+      border-bottom:1px solid rgba(255,255,255,.18);
+      text-align:center;
+      background:linear-gradient(135deg,#16a34a,#065f46);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .cardHeader::before{
+      content:"";
+      position:absolute;
+      inset:-80%;
+      background:conic-gradient(from 180deg, rgba(255,255,255,.0), rgba(255,255,255,.22), rgba(255,255,255,.0));
+      animation:shine 4.2s linear infinite;
+      pointer-events:none;
+    }
+
+    @keyframes shine{
+      0%{ transform:rotate(0deg); }
+      100%{ transform:rotate(360deg); }
+    }
+
+    .cardHeader h2{
+      position:relative;
+      margin:0;
+      padding:18px 14px;
+      font-family:"Cinzel",serif;
+      font-size:2.05rem;
+      letter-spacing:.08em;
+      font-weight:900;
+      text-transform:uppercase;
+      line-height:1.05;
+      color:#fff;
+      text-shadow:0 10px 26px rgba(0,0,0,.28);
+      animation:ctaGlow 2.6s ease-in-out infinite;
+      white-space:nowrap;
+    }
+
+    @keyframes ctaGlow{
+      0%{ text-shadow:0 10px 26px rgba(0,0,0,.28), 0 0 0 rgba(255,255,255,0); }
+      50%{ text-shadow:0 10px 26px rgba(0,0,0,.28), 0 0 18px rgba(255,255,255,.55); }
+      100%{ text-shadow:0 10px 26px rgba(0,0,0,.28), 0 0 0 rgba(255,255,255,0); }
+    }
+
+    .calculatorShell{
+      margin-top:12px;
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.16);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      box-shadow:0 14px 40px rgba(2,6,23,.18);
+      padding:18px;
+    }
+
+    .debtHeaderRow{
+      display:grid;
+      grid-template-columns:160px 1fr 1fr 1fr;
+      gap:12px;
+      align-items:center;
+      margin-bottom:10px;
+    }
+
+    .debtHeaderCell{
+      color:#ffffff;
+      font-size:.95rem;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      text-shadow:0 2px 8px rgba(0,0,0,.35);
+      padding:0 4px;
+    }
+
+    .debtRows{
+      display:grid;
+      gap:12px;
+    }
+
+    .debtRow{
+      display:grid;
+      grid-template-columns:160px 1fr 1fr 1fr;
+      gap:12px;
+      align-items:center;
+    }
+
+    .calcField{
+      width:100%;
+      border:1px solid rgba(255,255,255,.28);
+      background:rgba(255,255,255,.88);
+      color:#0f172a;
+      border-radius:14px;
+      padding:14px 14px;
+      font-size:1rem;
+      font-weight:700;
+      outline:none;
+      box-shadow:0 8px 22px rgba(2,6,23,.08);
+      min-height:54px;
+    }
+
+    .calcField:focus{
+      border-color:rgba(22,163,74,.65);
+      box-shadow:0 0 0 4px rgba(22,163,74,.14);
+    }
+
+    .calcField::placeholder{
+      color:#64748b;
+      font-weight:600;
+    }
+
+    .percentDisplay{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      user-select:none;
+    }
+
+    .typeSelector{
+      position:relative;
+      width:100%;
+      min-height:54px;
+    }
+
+    .typeIcon{
+      width:100%;
+      height:54px;
+      object-fit:contain;
+      background:rgba(255,255,255,.88);
+      border:1px solid rgba(255,255,255,.28);
+      border-radius:14px;
+      padding:6px;
+      cursor:pointer;
+      box-shadow:0 8px 22px rgba(2,6,23,.08);
+      display:none;
+    }
+
+    .addRowWrap{
+      display:flex;
+      justify-content:center;
+      gap:16px;
+      margin-top:16px;
+    }
+
+    .addRowBtn,
+    .removeRowBtn{
+      width:58px;
+      height:58px;
+      border:none;
+      border-radius:999px;
+      color:#fff;
+      font-size:2rem;
+      font-weight:900;
+      cursor:pointer;
+      transition:transform .14s ease, box-shadow .14s ease;
+      line-height:1;
+    }
+
+    .addRowBtn{
+      background:linear-gradient(135deg,#16a34a,#065f46);
+      box-shadow:0 14px 28px rgba(6,95,70,.32);
+    }
+
+    .addRowBtn:hover{
+      transform:translateY(-2px) scale(1.05);
+      box-shadow:0 18px 34px rgba(6,95,70,.38);
+    }
+
+    .removeRowBtn{
+      background:linear-gradient(135deg,var(--danger),var(--dangerDark));
+      box-shadow:0 14px 28px rgba(185,28,28,.32);
+    }
+
+    .removeRowBtn:hover{
+      transform:translateY(-2px) scale(1.05);
+      box-shadow:0 18px 34px rgba(185,28,28,.38);
+    }
+
+    .addRowBtn:active,
+    .removeRowBtn:active{
+      transform:translateY(0) scale(.98);
+    }
+
+    @media (max-width:760px){
+      body{
+        padding:12px;
+        background-position:58% 0%;
+      }
+
+      .mobileFixedHeader{
+        position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        z-index:50;
+        background:rgba(7,22,45,.30);
+        backdrop-filter:blur(8px);
+        -webkit-backdrop-filter:blur(8px);
+        padding:8px 12px 6px;
+        box-shadow:0 8px 24px rgba(2,6,23,.14);
+      }
+
+      .mobileContent{
+        margin-top:calc(var(--mobileHeaderH) + var(--mobileGap));
+      }
+
+      .topBar{
+        margin-top:0;
+        grid-template-columns:1fr auto 1fr;
+        gap:8px;
+      }
+
+      .brand img{ width:104px; }
+      .rateBlock{ min-height:unset; }
+
+      .rateKicker{
+        font-size:.56rem;
+        margin-bottom:3px;
+      }
+
+      .rateNumber{ font-size:1.58rem; }
+
+      .tagline{
+        font-size:.82rem;
+        margin:2px 0 2px;
+        letter-spacing:.04em;
+        white-space:nowrap;
+      }
+
+      .tagline > span{ white-space:nowrap; }
+
+      .fullWidthBar{
+        height:12px;
+        margin-top:6px;
+        margin-bottom:0px;
+      }
+
+      .cardHeader h2{
+        font-size:1.25rem;
+        letter-spacing:.07em;
+        white-space:nowrap;
+      }
+
+      .debtHeaderRow{
+        display:none;
+      }
+
+      .debtRow{
+        grid-template-columns:1fr;
+      }
+
+      .addRowWrap{
+        gap:12px;
+      }
+
+      .addRowBtn,
+      .removeRowBtn{
+        width:54px;
+        height:54px;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <main class="wrap">
 
-<div class="wrap">
+    <div class="mobileFixedHeader">
+      <section class="topBar">
+        <div class="rateBlock">
+          <div class="rateKicker">
+            <span>10Y Treasury</span>
+            <span class="pulseDot"></span>
+          </div>
+          <div class="rateNumber"><span id="dgs10Mobile">--</span><span class="pct">%</span></div>
+        </div>
 
-  <div class="card">
-    <div class="cardHeader">Debt Rate = ?</div>
-  </div>
+        <div class="brand">
+          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/debtRateCaclulator.png"
+               alt="Debt Rate mascot logo">
+        </div>
 
-  <div class="calculatorShell">
+        <div class="rateBlock">
+          <div class="rateKicker">
+            <span>30Y Mortgage</span>
+            <span class="pulseDot"></span>
+          </div>
+          <div class="rateNumber"><span id="mort30Mobile">--</span><span class="pct">%</span></div>
+        </div>
+      </section>
 
-    <div class="debtHeaderRow">
-      <div>Type</div>
-      <div>Balance</div>
-      <div>Payment</div>
-      <div>Payment %</div>
+      <div class="tagline">
+        <span>
+          Discover your
+          <span class="highlight-rates">Debt</span>
+          <span class="highlight-steal">Rate!</span>
+        </span>
+      </div>
+
+      <div class="fullWidthBar"></div>
     </div>
 
-    <div id="debtRows">
+    <section class="topBar" aria-hidden="true">
+      <div class="rateBlock">
+        <div class="rateKicker">
+          <span>10Y Treasury</span>
+          <span class="pulseDot"></span>
+        </div>
+        <div class="rateNumber"><span id="dgs10Desktop">--</span><span class="pct">%</span></div>
+      </div>
 
-      <!-- FIRST ROW -->
-      <div class="debtRow">
+      <div class="brand">
+        <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/debtRateCaclulator.png"
+             alt="Debt Rate mascot logo">
+      </div>
 
+      <div class="rateBlock">
+        <div class="rateKicker">
+          <span>30Y Mortgage</span>
+          <span class="pulseDot"></span>
+        </div>
+        <div class="rateNumber"><span id="mort30Desktop">--</span><span class="pct">%</span></div>
+      </div>
+    </section>
+
+    <div class="tagline" aria-hidden="true">
+      <span>
+        Discover your
+        <span class="highlight-rates">Debt</span>
+        <span class="highlight-steal">Rate!</span>
+      </span>
+    </div>
+
+    <div class="fullWidthBar"></div>
+
+    <div class="mobileContent">
+      <section class="card">
+        <header class="cardHeader">
+          <h2 id="debtRateHeading">Debt Rate = ?</h2>
+        </header>
+      </section>
+
+      <section class="calculatorShell">
+        <div class="debtHeaderRow">
+          <div class="debtHeaderCell">Type</div>
+          <div class="debtHeaderCell">Balance</div>
+          <div class="debtHeaderCell">Payment</div>
+          <div class="debtHeaderCell">Payment %</div>
+        </div>
+
+        <div class="debtRows" id="debtRows">
+          <div class="debtRow">
+            <div class="typeSelector">
+              <select class="calcField debtType" name="debtType[]">
+                <option value="">Select</option>
+                <option value="mortgage">Mortgage</option>
+                <option value="auto">Auto Loan</option>
+                <option value="personal">Personal Loan</option>
+                <option value="cc">Credit Card</option>
+              </select>
+              <img class="typeIcon" alt="Selected debt type icon">
+            </div>
+
+            <input
+              class="calcField balance"
+              type="text"
+              name="balance[]"
+              inputmode="decimal"
+              placeholder="Balance">
+
+            <input
+              class="calcField payment"
+              type="text"
+              name="payment[]"
+              inputmode="decimal"
+              placeholder="Payment">
+
+            <div class="calcField percentDisplay">?</div>
+          </div>
+        </div>
+
+        <div class="addRowWrap">
+          <button type="button" class="removeRowBtn" id="removeDebtRowBtn" aria-label="Remove debt row">−</button>
+          <button type="button" class="addRowBtn" id="addDebtRowBtn" aria-label="Add debt row">+</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const PROXY_BASE = "https://yellow-sea-71b2.captainkimmer07.workers.dev";
+
+    const ICONS = {
+      mortgage: "https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/CalculatorImages/mortgageIcon.png",
+      auto: "https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/CalculatorImages/carIcon.png",
+      personal: "https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/CalculatorImages/laonIcon.png",
+      cc: "https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/CalculatorImages/creditCardIcon.png"
+    };
+
+    function updateMobileHeaderHeight(){
+      const isMobile = window.matchMedia("(max-width: 760px)").matches;
+      const fixed = document.querySelector(".mobileFixedHeader");
+      if(!fixed) return;
+
+      if(isMobile){
+        fixed.style.display = "block";
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const h = fixed.getBoundingClientRect().height;
+            document.documentElement.style.setProperty("--mobileHeaderH", Math.ceil(h) + "px");
+          });
+        });
+      }else{
+        document.documentElement.style.setProperty("--mobileHeaderH", "0px");
+      }
+    }
+
+    function setRateText(ids, valueStr){
+      const num = Number(valueStr);
+      if (!Number.isFinite(num)) return;
+      const formatted = num.toFixed(2);
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = formatted;
+      });
+    }
+
+    async function fetchRate(series){
+      const url = `${PROXY_BASE}?series=${encodeURIComponent(series)}`;
+      const res = await fetch(url, { cache: "no-store" });
+      if(!res.ok){
+        let details = "";
+        try { details = await res.text(); } catch {}
+        throw new Error(`Worker ${res.status} for ${series}: ${details}`);
+      }
+      const data = await res.json();
+      if (!data || !data.value) throw new Error(`Bad JSON for ${series}: ${JSON.stringify(data)}`);
+      return data.value;
+    }
+
+    async function updateHeaderRates(){
+      try{
+        const [dgs10, mort30] = await Promise.all([
+          fetchRate("DGS10"),
+          fetchRate("MORTGAGE30US")
+        ]);
+        setRateText(["dgs10Desktop","dgs10Mobile"], dgs10);
+        setRateText(["mort30Desktop","mort30Mobile"], mort30);
+      }catch(e){
+        console.error("Rate update failed:", e);
+      }
+    }
+
+    function syncHeaderVisibility(){
+      const isMobile = window.matchMedia("(max-width: 760px)").matches;
+      const fixed = document.querySelector(".mobileFixedHeader");
+      const desktopTop = document.querySelector('section.topBar[aria-hidden="true"]');
+      const desktopTagline = document.querySelector('.tagline[aria-hidden="true"]');
+      const desktopBar = desktopTagline?.nextElementSibling;
+
+      if(isMobile){
+        if(fixed) fixed.style.display = "block";
+        if(desktopTop) desktopTop.style.display = "none";
+        if(desktopTagline) desktopTagline.style.display = "none";
+        if(desktopBar) desktopBar.style.display = "none";
+      }else{
+        if(fixed) fixed.style.display = "none";
+        if(desktopTop) desktopTop.style.display = "grid";
+        if(desktopTagline) desktopTagline.style.display = "block";
+        if(desktopBar) desktopBar.style.display = "block";
+      }
+    }
+
+    function refreshLayout(){
+      syncHeaderVisibility();
+      updateMobileHeaderHeight();
+    }
+
+    function parseNumber(value){
+      if (!value) return NaN;
+      const cleaned = String(value).replace(/[$,%\s,]/g, "");
+      return parseFloat(cleaned);
+    }
+
+    function updatePaymentPercent(row){
+      const balanceInput = row.querySelector(".balance");
+      const paymentInput = row.querySelector(".payment");
+      const percentDisplay = row.querySelector(".percentDisplay");
+
+      const balance = parseNumber(balanceInput.value);
+      const payment = parseNumber(paymentInput.value);
+
+      if (!Number.isFinite(balance) || !Number.isFinite(payment) || balance <= 0) {
+        percentDisplay.textContent = "?";
+        return;
+      }
+
+      const percent = (payment / balance) * 100;
+      percentDisplay.textContent = percent.toFixed(2) + "%";
+    }
+
+    function attachTypeSelector(row){
+      const select = row.querySelector(".debtType");
+      const icon = row.querySelector(".typeIcon");
+
+      if (!select || !icon) return;
+
+      select.addEventListener("change", () => {
+        const val = select.value;
+        if (!val || !ICONS[val]) return;
+
+        icon.src = ICONS[val];
+        icon.style.display = "block";
+        select.style.display = "none";
+      });
+
+      icon.addEventListener("click", () => {
+        icon.style.display = "none";
+        select.style.display = "block";
+      });
+    }
+
+    function attachRowListeners(row){
+      const balanceInput = row.querySelector(".balance");
+      const paymentInput = row.querySelector(".payment");
+
+      if (balanceInput) {
+        balanceInput.addEventListener("input", () => updatePaymentPercent(row));
+      }
+
+      if (paymentInput) {
+        paymentInput.addEventListener("input", () => updatePaymentPercent(row));
+      }
+
+      attachTypeSelector(row);
+    }
+
+    function createDebtRow(){
+      const row = document.createElement("div");
+      row.className = "debtRow";
+      row.innerHTML = `
         <div class="typeSelector">
-          <select class="calcField debtType">
+          <select class="calcField debtType" name="debtType[]">
             <option value="">Select</option>
             <option value="mortgage">Mortgage</option>
             <option value="auto">Auto Loan</option>
             <option value="personal">Personal Loan</option>
             <option value="cc">Credit Card</option>
           </select>
-          <img class="typeIcon">
+          <img class="typeIcon" alt="Selected debt type icon">
         </div>
 
-        <input class="calcField balance" placeholder="Balance">
-        <input class="calcField payment" placeholder="Payment">
+        <input
+          class="calcField balance"
+          type="text"
+          name="balance[]"
+          inputmode="decimal"
+          placeholder="Balance">
+
+        <input
+          class="calcField payment"
+          type="text"
+          name="payment[]"
+          inputmode="decimal"
+          placeholder="Payment">
+
         <div class="calcField percentDisplay">?</div>
+      `;
 
-      </div>
+      attachRowListeners(row);
+      updatePaymentPercent(row);
+      return row;
+    }
 
-    </div>
+    const addDebtRowBtn = document.getElementById("addDebtRowBtn");
+    const removeDebtRowBtn = document.getElementById("removeDebtRowBtn");
+    const debtRows = document.getElementById("debtRows");
 
-    <div class="addRowWrap">
-      <button class="removeRowBtn" id="removeBtn">−</button>
-      <button class="addRowBtn" id="addBtn">+</button>
-    </div>
+    document.querySelectorAll(".debtRow").forEach(row => {
+      attachRowListeners(row);
+      updatePaymentPercent(row);
+    });
 
-  </div>
+    if (addDebtRowBtn && debtRows) {
+      addDebtRowBtn.addEventListener("click", () => {
+        debtRows.appendChild(createDebtRow());
+      });
+    }
 
-</div>
+    if (removeDebtRowBtn && debtRows) {
+      removeDebtRowBtn.addEventListener("click", () => {
+        const rows = debtRows.querySelectorAll(".debtRow");
+        if (rows.length > 1) {
+          rows[rows.length - 1].remove();
+        }
+      });
+    }
 
-<script>
+    refreshLayout();
+    updateHeaderRates();
 
-const ICONS = {
-  mortgage:"https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/CalculatorImages/mortgageIcon.png",
-  auto:"https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/CalculatorImages/carIcon.png",
-  personal:"https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/CalculatorImages/laonIcon.png",
-  cc:"https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/CalculatorImages/creditCardIcon.png"
-};
+    window.addEventListener("resize", refreshLayout);
 
-function calcRow(row){
-  const bal = parseFloat(row.querySelector(".balance").value);
-  const pay = parseFloat(row.querySelector(".payment").value);
-  const out = row.querySelector(".percentDisplay");
-
-  if(!bal || !pay){
-    out.textContent="?"
-    return;
-  }
-
-  out.textContent = ((pay/bal)*100).toFixed(2)+"%";
-}
-
-function attachRow(row){
-
-  const bal = row.querySelector(".balance");
-  const pay = row.querySelector(".payment");
-
-  bal.addEventListener("input",()=>calcRow(row));
-  pay.addEventListener("input",()=>calcRow(row));
-
-  const select = row.querySelector(".debtType");
-  const icon = row.querySelector(".typeIcon");
-
-  select.addEventListener("change",()=>{
-    const val = select.value;
-    if(!val) return;
-
-    icon.src = ICONS[val];
-    icon.style.display="block";
-    select.style.display="none";
-  });
-
-  icon.addEventListener("click",()=>{
-    icon.style.display="none";
-    select.style.display="block";
-  });
-}
-
-function newRow(){
-  const row = document.createElement("div");
-  row.className="debtRow";
-
-  row.innerHTML=`
-    <div class="typeSelector">
-      <select class="calcField debtType">
-        <option value="">Select</option>
-        <option value="mortgage">Mortgage</option>
-        <option value="auto">Auto Loan</option>
-        <option value="personal">Personal Loan</option>
-        <option value="cc">Credit Card</option>
-      </select>
-      <img class="typeIcon">
-    </div>
-
-    <input class="calcField balance" placeholder="Balance">
-    <input class="calcField payment" placeholder="Payment">
-    <div class="calcField percentDisplay">?</div>
-  `;
-
-  attachRow(row);
-  return row;
-}
-
-document.querySelectorAll(".debtRow").forEach(attachRow);
-
-document.getElementById("addBtn").onclick=()=>{
-  document.getElementById("debtRows").appendChild(newRow());
-}
-
-document.getElementById("removeBtn").onclick=()=>{
-  const rows = document.querySelectorAll(".debtRow");
-  if(rows.length>1) rows[rows.length-1].remove();
-}
-
-</script>
-
+    window.addEventListener("load", () => {
+      refreshLayout();
+      updateHeaderRates();
+      setTimeout(updateMobileHeaderHeight, 0);
+      setTimeout(updateMobileHeaderHeight, 80);
+      setTimeout(updateMobileHeaderHeight, 220);
+    });
+  </script>
 </body>
 </html>
