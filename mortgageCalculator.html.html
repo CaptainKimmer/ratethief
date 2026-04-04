@@ -473,7 +473,7 @@
       transform:translateY(0) scale(.98);
     }
 
-   @media (max-width:760px){
+  @media (max-width:760px){
   body{
     padding:12px;
     background-position:58% 0%;
@@ -502,25 +502,35 @@
     gap:8px;
   }
 
-  .brand img{ width:104px; }
-  .rateBlock{ min-height:unset; }
+  .brand img{
+    width:104px;
+  }
+
+  .rateBlock{
+    min-height:unset;
+    padding:8px 8px;
+  }
 
   .rateKicker{
     font-size:.56rem;
     margin-bottom:3px;
   }
 
-  .rateNumber{ font-size:1.58rem; }
+  .rateNumber{
+    font-size:1.58rem;
+  }
 
   .tagline{
-    font-size:.82rem;
+    font-size:.74rem;
     margin:2px 0 2px;
-    letter-spacing:.04em;
+    letter-spacing:.03em;
     white-space:normal;
     line-height:1.1;
   }
 
-  .tagline > span{ white-space:normal; }
+  .tagline > span{
+    white-space:normal;
+  }
 
   .fullWidthBar{
     height:12px;
@@ -529,65 +539,77 @@
   }
 
   .cardHeader h2{
-    font-size:1.08rem;
-    letter-spacing:.04em;
+    font-size:1rem;
+    letter-spacing:.03em;
     white-space:normal;
     padding:14px 10px 4px;
   }
 
   .cardSubtext{
-    font-size:.70rem;
+    font-size:.68rem;
     padding:0 10px 12px;
     line-height:1.2;
   }
 
   .calculatorShell{
-    padding:10px;
-    overflow-x:auto;
+    padding:8px;
+    overflow-x:hidden;
   }
 
   .debtHeaderRow{
     display:grid;
-    grid-template-columns:28px 1.2fr 1fr 1fr 0.9fr;
-    gap:8px;
+    grid-template-columns:20px 44px minmax(0,1fr) minmax(0,1fr) 52px;
+    gap:6px;
+    align-items:center;
     margin-bottom:8px;
   }
 
   .debtHeaderCell{
-    font-size:.78rem;
-    padding:0 2px;
+    font-size:.62rem;
+    padding:0;
+    letter-spacing:.02em;
+    text-align:center;
   }
 
   .debtRows{
     gap:8px;
-    min-width:524px;
   }
 
   .debtRow{
-    grid-template-columns:28px 1.2fr 1fr 1fr 0.9fr;
-    gap:8px;
+    display:grid;
+    grid-template-columns:20px 44px minmax(0,1fr) minmax(0,1fr) 52px;
+    gap:6px;
     align-items:center;
   }
 
   .totalsRow{
-    grid-template-columns:28px 1.2fr 1fr 1fr 0.9fr;
-    gap:8px;
+    display:grid;
+    grid-template-columns:20px 44px minmax(0,1fr) minmax(0,1fr) 52px;
+    gap:6px;
     align-items:center;
+    margin-top:14px;
+    padding-top:12px;
   }
 
   .rowNumber{
     text-align:right;
     padding-left:0;
-    padding-right:2px;
-    font-size:.95rem;
+    padding-right:0;
+    font-size:.78rem;
   }
 
-  .calcField,
+  .calcField{
+    min-height:40px;
+    padding:8px 6px;
+    font-size:.78rem;
+    border-radius:10px;
+  }
+
   .totalsValue{
-    min-height:46px;
-    padding:10px 10px;
-    font-size:.92rem;
-    border-radius:12px;
+    min-height:40px;
+    padding:8px 6px;
+    font-size:.76rem;
+    border-radius:10px;
   }
 
   .numericField{
@@ -597,20 +619,35 @@
   .percentDisplay,
   .totalsPercent{
     justify-content:center;
+    text-align:center;
+    font-size:.72rem;
+    padding-left:2px;
+    padding-right:2px;
   }
 
   .typeSelector{
-    min-height:46px;
+    min-height:40px;
+    width:44px;
+  }
+
+  .debtType{
+    padding-left:4px;
+    padding-right:18px;
+    font-size:.68rem;
+    text-align:center;
   }
 
   .typeIcon{
-    height:46px;
-    border-radius:12px;
-    padding:5px;
+    width:44px;
+    height:40px;
+    border-radius:10px;
+    padding:4px;
   }
 
   .totalsLabel{
-    font-size:.82rem;
+    font-size:.68rem;
+    text-align:center;
+    letter-spacing:.02em;
   }
 
   .addRowWrap{
@@ -620,8 +657,9 @@
 
   .addRowBtn,
   .removeRowBtn{
-    width:54px;
-    height:54px;
+    width:50px;
+    height:50px;
+    font-size:1.8rem;
   }
 }
   </style>
