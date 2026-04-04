@@ -1,170 +1,112 @@
-
-
-Uploaded image
-take this cartoon pirate and put a caculator in his hand and make it look like his doing a calculation
-
-Generated image: Pirate calculating with determination
-
-
-Edit
-
-
-That's great. But you left out the Rate Thief text which I want you to put back in put call it debt rate
-
-Generated image: Pirate calculating debt rate
-
-
-Edit
-
-
-
-Pasted code.html
-File
-Take this document. Remember it exactly and underneith the *advertising dislosure section. put a bar for page break. and Then give the next section the title Mortgage Calculator and below that an image that you can click on that takes you to mortgageCalculator.html
-
-Here’s your full updated file with exactly what you asked for:
-
-Added a page break bar (styled divider) under the Advertising Disclosure
-
-Added new section:
-
-Title: Mortgage Calculator
-
-Clickable image → links to mortgageCalculator.html
-
-I kept your style consistent with your UI.
-
-✅ UPDATED CODE (copy/paste full file)
-<!-- ADD THIS RIGHT UNDER THE adDisclosure DIV -->
-
-<div style="
-  width:100%;
-  height:2px;
-  background:linear-gradient(to right, transparent, #0f172a, transparent);
-  margin:18px 0;
-"></div>
-
-<section class="card" style="margin-top:10px;">
-  <header class="cardHeader">
-    <h2>MORTGAGE CALCULATOR</h2>
-  </header>
-
-  <div class="buttonRow" style="justify-content:center;">
-
-    <a
-      href="mortgageCalculator.html"
-      class="imgBtn"
-      style="max-width:260px;"
-      aria-label="Mortgage Calculator"
-    >
-      <img 
-        src="https://cdn-icons-png.flaticon.com/512/992/992700.png" 
-        alt="Mortgage Calculator">
-    </a>
-
-  </div>
-</section>
-📍 EXACT PLACEMENT (important)
-Find this in your file:
-
-<div class="adDisclosure">
-  <a href="#" data-modal="advertising-disclosure.html" aria-label="Advertising Disclosure">*Advertising Disclosure</a>
-</div>
-👉 Paste the new code directly under that
-
-🔥 Optional upgrade (if you want it more “you”)
-Swap the calculator image with your pirate version later:
-
-<img src="YOUR_DEBT_RATE_IMAGE.png">
-If you want next level:
-
-I can make that calculator section pulse like your debt CTA
-
-Or turn it into a live calculator embed instead of a redirect
-
-Just say 👍
-
-
-
-Pasted code.html
-File
-okay take this website place holder, and turn it into my calculator. This is how we are going to do that. Change the main mascot at the top to the debtrate mascot which used to be under teh martgage caclulator. And change the motor below that to say Discover your Debt Rate! And below that in the green heading it says Debt Rate = ? and later this question mark will turn into what every rate is calculated below. and everything here below to the footer should be gone so we can start building the calculator 
-
-
-Thought for a couple of seconds
-Got it — I stripped it down into the calculator shell you described, based on your uploaded file 
-
-
-Changes made:
-
-top mascot changed to the Debt Rate mascot
-
-tagline changed to Discover your Debt Rate!
-
-green heading changed to Debt Rate = ?
-
-everything below that heading down to the footer removed
-
-modal and old footer content removed so it’s clean to start building
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Debt Rate Calculator</title>
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32"
         href="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/favicon_io/favicon-32x32.png">
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#ffffff;
+      --bg:#f8f7f3;
       --card:#ffffff;
       --ink:#0f172a;
       --muted:#475569;
       --line:#e5e7eb;
-      --accent:#16a34a;
-      --accent2:#2563eb;
+      --green1:#16a34a;
+      --green2:#065f46;
+      --blue:#2563eb;
       --shadow:0 14px 40px rgba(2,6,23,.08);
       --radius:18px;
       --maxw:980px;
-      --mobileHeaderH:0px;
-      --mobileGap:6px;
     }
 
-    *{box-sizing:border-box}
+    *{
+      box-sizing:border-box;
+    }
+
+    html, body{
+      margin:0;
+      padding:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    }
 
     body{
-      margin:0;
       min-height:100svh;
-      font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--ink);
-      background:#f8f7f3;
       display:flex;
-      align-items:flex-start;
       justify-content:center;
       padding:18px;
     }
 
     .wrap{
       width:min(var(--maxw),100%);
-      display:grid;
-      gap:10px;
     }
 
     .topBar{
       display:grid;
       grid-template-columns:1.25fr auto 1.25fr;
-      gap:18px;
       align-items:center;
+      gap:18px;
       margin-top:2px;
+    }
+
+    .rateBlock{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      min-height:118px;
+    }
+
+    .rateKicker{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      color:var(--muted);
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:.78rem;
+      margin-bottom:8px;
+    }
+
+    .pulseDot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--green1),var(--blue));
+      animation:pulse 1.7s ease-out infinite;
+      flex:0 0 auto;
+    }
+
+    @keyframes pulse{
+      0%{ box-shadow:0 0 0 0 rgba(22,163,74,.28); }
+      60%{ box-shadow:0 0 0 14px rgba(22,163,74,0); }
+      100%{ box-shadow:0 0 0 0 rgba(22,163,74,0); }
+    }
+
+    .rateNumber{
+      font-size:clamp(3.2rem,6.2vw,4.9rem);
+      font-weight:900;
+      line-height:1;
+      color:#0b1535;
+      white-space:nowrap;
+    }
+
+    .pct{
+      font-size:.38em;
+      position:relative;
+      top:-0.30em;
     }
 
     .brand{
@@ -176,54 +118,7 @@ modal and old footer content removed so it’s clean to start building
     .brand img{
       width:min(210px,58vw);
       height:auto;
-      filter:drop-shadow(0 10px 22px rgba(2,6,23,.14));
-    }
-
-    .rateBlock{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      text-align:center;
-      min-height:118px;
-    }
-
-    .rateKicker{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      justify-content:center;
-      color:var(--muted);
-      font-weight:800;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      font-size:.78rem;
-      margin-bottom:8px;
-    }
-
-    .rateNumber{
-      font-size:clamp(3.2rem,6.2vw,4.9rem);
-      font-weight:900;
-      line-height:1;
-    }
-
-    .pct{
-      font-size:.38em;
-      position:relative;
-      top:-0.30em;
-    }
-
-    .pulseDot{
-      width:10px;
-      height:10px;
-      border-radius:50%;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      animation:pulse 1.7s ease-out infinite;
-    }
-
-    @keyframes pulse{
-      0%{box-shadow:0 0 0 0 rgba(22,163,74,.28)}
-      60%{box-shadow:0 0 0 14px rgba(22,163,74,0)}
-      100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}
+      display:block;
     }
 
     .tagline{
@@ -233,27 +128,18 @@ modal and old footer content removed so it’s clean to start building
       text-transform:uppercase;
       letter-spacing:.05em;
       font-size:clamp(1.05rem,2vw,1.45rem);
-      margin:0;
-      padding:0 8px 0;
       line-height:1.15;
-      display:block;
-      width:100%;
-      overflow:hidden;
-    }
-
-    .tagline > span{
+      margin:10px 0 12px;
       color:#16a34a;
       text-shadow:
-        0 2px 6px rgba(0,0,0,.18),
-        0 1px 0 rgba(255,255,255,.30);
-      display:inline-block;
+        0 2px 6px rgba(0,0,0,.15),
+        0 1px 0 rgba(255,255,255,.25);
     }
 
     .fullWidthBar{
       height:14px;
       width:100%;
-      margin-top:2px;
-      margin-bottom:0;
+      margin:0 0 14px;
       background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
       border-radius:999px;
       box-shadow:
@@ -263,110 +149,93 @@ modal and old footer content removed so it’s clean to start building
     }
 
     .card{
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:var(--card);
-      box-shadow:var(--shadow);
+      border-radius:18px;
       overflow:hidden;
-      margin-top:0;
+      box-shadow:var(--shadow);
+      background:#fff;
     }
 
     .cardHeader{
-      padding:0;
-      border-bottom:1px solid var(--line);
-      text-align:center;
-      background:linear-gradient(135deg,#16a34a,#065f46);
       position:relative;
       overflow:hidden;
+      text-align:center;
+      background:linear-gradient(135deg,var(--green1),var(--green2));
+      border-radius:18px;
     }
 
     .cardHeader::before{
       content:"";
       position:absolute;
-      inset:-80%;
-      background:conic-gradient(from 180deg, rgba(255,255,255,.0), rgba(255,255,255,.22), rgba(255,255,255,.0));
-      animation:shine 4.2s linear infinite;
+      inset:0;
+      background:
+        linear-gradient(
+          75deg,
+          rgba(255,255,255,0) 0%,
+          rgba(255,255,255,.10) 35%,
+          rgba(255,255,255,0) 70%
+        );
+      transform:translateX(-35%);
       pointer-events:none;
     }
 
-    @keyframes shine{
-      0%{ transform:rotate(0deg); }
-      100%{ transform:rotate(360deg); }
-    }
-
     .cardHeader h2{
-      position:relative;
       margin:0;
       padding:18px 14px;
+      position:relative;
       font-family:"Cinzel",serif;
       font-size:2.05rem;
-      letter-spacing:.08em;
       font-weight:900;
+      letter-spacing:.08em;
       text-transform:uppercase;
       line-height:1.05;
       color:#fff;
       text-shadow:0 10px 26px rgba(0,0,0,.28);
-      animation:ctaGlow 2.6s ease-in-out infinite;
       white-space:nowrap;
     }
 
-    @keyframes ctaGlow{
-      0%{ text-shadow:0 10px 26px rgba(0,0,0,.28), 0 0 0 rgba(255,255,255,0); }
-      50%{ text-shadow:0 10px 26px rgba(0,0,0,.28), 0 0 18px rgba(255,255,255,.55); }
-      100%{ text-shadow:0 10px 26px rgba(0,0,0,.28), 0 0 0 rgba(255,255,255,0); }
-    }
-
-    .mobileContent{
-      min-height:180px;
-    }
-
     @media (max-width:760px){
-      body{padding:12px}
-
-      .mobileFixedHeader{
-        position:fixed;
-        top:0;
-        left:0;
-        right:0;
-        z-index:50;
-        background:var(--bg);
-        padding:8px 12px 6px;
-        box-shadow:0 8px 24px rgba(2,6,23,.08);
+      body{
+        padding:2px;
       }
 
-      .mobileContent{
-        margin-top:calc(var(--mobileHeaderH) + var(--mobileGap));
+      .wrap{
+        width:100%;
       }
 
       .topBar{
-        margin-top:0;
         grid-template-columns:1fr auto 1fr;
         gap:8px;
+        align-items:center;
       }
 
-      .brand img{ width:104px; }
-      .rateBlock{ min-height:unset; }
+      .brand img{
+        width:210px;
+        max-width:100%;
+      }
+
+      .rateBlock{
+        min-height:unset;
+      }
 
       .rateKicker{
         font-size:.56rem;
         margin-bottom:3px;
       }
 
-      .rateNumber{ font-size:1.58rem; }
+      .rateNumber{
+        font-size:1.58rem;
+      }
 
       .tagline{
         font-size:.82rem;
-        margin:2px 0 2px;
+        margin:10px 0 10px;
         letter-spacing:.04em;
         white-space:nowrap;
       }
 
-      .tagline > span{ white-space:nowrap; }
-
       .fullWidthBar{
         height:12px;
-        margin-top:6px;
-        margin-bottom:0;
+        margin-bottom:12px;
       }
 
       .cardHeader h2{
@@ -377,55 +246,23 @@ modal and old footer content removed so it’s clean to start building
     }
   </style>
 </head>
-
 <body>
   <main class="wrap">
-
-    <!-- MOBILE FIXED HEADER -->
-    <div class="mobileFixedHeader">
-      <section class="topBar">
-        <div class="rateBlock">
-          <div class="rateKicker">
-            <span>10Y Treasury</span>
-            <span class="pulseDot"></span>
-          </div>
-          <div class="rateNumber"><span id="dgs10Mobile">--</span><span class="pct">%</span></div>
-        </div>
-
-        <div class="brand">
-          <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/debtRateCaclulator.png"
-               alt="Debt Rate mascot logo">
-        </div>
-
-        <div class="rateBlock">
-          <div class="rateKicker">
-            <span>30Y Mortgage</span>
-            <span class="pulseDot"></span>
-          </div>
-          <div class="rateNumber"><span id="mort30Mobile">--</span><span class="pct">%</span></div>
-        </div>
-      </section>
-
-      <div class="tagline">
-        <span>Discover your Debt Rate!</span>
-      </div>
-
-      <div class="fullWidthBar"></div>
-    </div>
-
-    <!-- DESKTOP HEADER -->
-    <section class="topBar" aria-hidden="true">
+    <section class="topBar">
       <div class="rateBlock">
         <div class="rateKicker">
           <span>10Y Treasury</span>
           <span class="pulseDot"></span>
         </div>
-        <div class="rateNumber"><span id="dgs10Desktop">--</span><span class="pct">%</span></div>
+        <div class="rateNumber">
+          <span id="dgs10">--</span><span class="pct">%</span>
+        </div>
       </div>
 
       <div class="brand">
-        <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/debtRateCaclulator.png"
-             alt="Debt Rate mascot logo">
+        <img
+          src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/debtRateCaclulator.png"
+          alt="Debt Rate mascot logo">
       </div>
 
       <div class="rateBlock">
@@ -433,125 +270,67 @@ modal and old footer content removed so it’s clean to start building
           <span>30Y Mortgage</span>
           <span class="pulseDot"></span>
         </div>
-        <div class="rateNumber"><span id="mort30Desktop">--</span><span class="pct">%</span></div>
+        <div class="rateNumber">
+          <span id="mort30">--</span><span class="pct">%</span>
+        </div>
       </div>
     </section>
 
-    <!-- TAGLINE: desktop location -->
-    <div class="tagline" aria-hidden="true">
-      <span>Discover your Debt Rate!</span>
-    </div>
+    <div class="tagline">Discover your Debt Rate!</div>
 
     <div class="fullWidthBar"></div>
 
-    <!-- CONTENT -->
-    <div class="mobileContent">
-      <section class="card">
-        <header class="cardHeader">
-          <h2>Debt Rate = ?</h2>
-        </header>
-      </section>
-    </div>
+    <section class="card">
+      <header class="cardHeader">
+        <h2 id="debtRateHeading">Debt Rate = ?</h2>
+      </header>
+    </section>
   </main>
 
   <script>
     const PROXY_BASE = "https://yellow-sea-71b2.captainkimmer07.workers.dev";
 
-    function updateMobileHeaderHeight(){
-      const isMobile = window.matchMedia("(max-width: 760px)").matches;
-      const fixed = document.querySelector(".mobileFixedHeader");
-      if(!fixed) return;
-
-      if(isMobile){
-        fixed.style.display = "block";
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            const h = fixed.getBoundingClientRect().height;
-            document.documentElement.style.setProperty("--mobileHeaderH", Math.ceil(h) + "px");
-          });
-        });
-      }else{
-        document.documentElement.style.setProperty("--mobileHeaderH", "0px");
-      }
-    }
-
-    function setRateText(ids, valueStr){
+    function setRateText(id, valueStr) {
       const num = Number(valueStr);
       if (!Number.isFinite(num)) return;
-      const formatted = num.toFixed(2);
-      ids.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = formatted;
-      });
+      const el = document.getElementById(id);
+      if (el) el.textContent = num.toFixed(2);
     }
 
-    async function fetchRate(series){
+    async function fetchRate(series) {
       const url = `${PROXY_BASE}?series=${encodeURIComponent(series)}`;
       const res = await fetch(url, { cache: "no-store" });
-      if(!res.ok){
+
+      if (!res.ok) {
         let details = "";
         try { details = await res.text(); } catch {}
         throw new Error(`Worker ${res.status} for ${series}: ${details}`);
       }
+
       const data = await res.json();
-      if (!data || !data.value) throw new Error(`Bad JSON for ${series}: ${JSON.stringify(data)}`);
+      if (!data || !data.value) {
+        throw new Error(`Bad JSON for ${series}: ${JSON.stringify(data)}`);
+      }
+
       return data.value;
     }
 
-    async function updateHeaderRates(){
-      try{
+    async function updateHeaderRates() {
+      try {
         const [dgs10, mort30] = await Promise.all([
           fetchRate("DGS10"),
           fetchRate("MORTGAGE30US")
         ]);
-        setRateText(["dgs10Desktop","dgs10Mobile"], dgs10);
-        setRateText(["mort30Desktop","mort30Mobile"], mort30);
-      }catch(e){
+
+        setRateText("dgs10", dgs10);
+        setRateText("mort30", mort30);
+      } catch (e) {
         console.error("Rate update failed:", e);
       }
     }
 
-    function syncHeaderVisibility(){
-      const isMobile = window.matchMedia("(max-width: 760px)").matches;
-      const fixed = document.querySelector(".mobileFixedHeader");
-      const desktopTop = document.querySelector('section.topBar[aria-hidden="true"]');
-      const desktopTagline = document.querySelector('.tagline[aria-hidden="true"]');
-      const desktopBar = desktopTagline?.nextElementSibling;
-
-      if(isMobile){
-        if(fixed) fixed.style.display = "block";
-        if(desktopTop) desktopTop.style.display = "none";
-        if(desktopTagline) desktopTagline.style.display = "none";
-        if(desktopBar) desktopBar.style.display = "none";
-      }else{
-        if(fixed) fixed.style.display = "none";
-        if(desktopTop) desktopTop.style.display = "grid";
-        if(desktopTagline) desktopTagline.style.display = "block";
-        if(desktopBar) desktopBar.style.display = "block";
-      }
-    }
-
-    function refreshLayout(){
-      syncHeaderVisibility();
-      updateMobileHeaderHeight();
-    }
-
-    refreshLayout();
     updateHeaderRates();
-
-    window.addEventListener("resize", refreshLayout);
-
-    window.addEventListener("load", () => {
-      refreshLayout();
-      updateHeaderRates();
-      setTimeout(updateMobileHeaderHeight, 0);
-      setTimeout(updateMobileHeaderHeight, 80);
-      setTimeout(updateMobileHeaderHeight, 220);
-    });
+    window.addEventListener("load", updateHeaderRates);
   </script>
 </body>
 </html>
-Next move should be adding the first calculator inputs directly under Debt Rate = ?.
-
-
-
