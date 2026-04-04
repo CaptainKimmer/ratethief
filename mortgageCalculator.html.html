@@ -378,6 +378,45 @@
       display:none;
     }
 
+    .totalsRow{
+      display:grid;
+      grid-template-columns:36px 160px 1fr 1fr 1fr;
+      gap:12px;
+      align-items:center;
+      margin-top:16px;
+      padding-top:14px;
+      border-top:2px solid rgba(255,255,255,.28);
+    }
+
+    .totalsLabel{
+      color:#ffffff;
+      font-size:1rem;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      text-shadow:0 2px 8px rgba(0,0,0,.35);
+    }
+
+    .totalsValue{
+      width:100%;
+      border:1px solid rgba(255,255,255,.28);
+      background:rgba(255,255,255,.88);
+      color:#0f172a;
+      border-radius:14px;
+      padding:14px 14px;
+      font-size:1rem;
+      font-weight:800;
+      min-height:54px;
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      box-shadow:0 8px 22px rgba(2,6,23,.08);
+    }
+
+    .totalsPercent{
+      justify-content:center;
+    }
+
     .addRowWrap{
       display:flex;
       justify-content:center;
@@ -492,6 +531,10 @@
         grid-template-columns:1fr;
       }
 
+      .totalsRow{
+        grid-template-columns:1fr;
+      }
+
       .rowNumber{
         text-align:left;
         padding-left:4px;
@@ -500,6 +543,14 @@
 
       .numericField{
         text-align:right;
+      }
+
+      .totalsValue{
+        justify-content:flex-end;
+      }
+
+      .totalsPercent{
+        justify-content:center;
       }
 
       .addRowWrap{
@@ -635,6 +686,14 @@
           </div>
         </div>
 
+        <div class="totalsRow">
+          <div></div>
+          <div class="totalsLabel">Totals</div>
+          <div class="totalsValue" id="totalBalanceDisplay">$0.00</div>
+          <div class="totalsValue" id="totalPaymentDisplay">$0.00</div>
+          <div class="totalsValue totalsPercent" id="totalPercentDisplay">?</div>
+        </div>
+
         <div class="addRowWrap">
           <button type="button" class="removeRowBtn" id="removeDebtRowBtn" aria-label="Remove debt row">−</button>
           <button type="button" class="addRowBtn" id="addDebtRowBtn" aria-label="Add debt row">+</button>
@@ -654,6 +713,9 @@
     };
 
     const debtRateHeading = document.getElementById("debtRateHeading");
+    const totalBalanceDisplay = document.getElementById("totalBalanceDisplay");
+    const totalPaymentDisplay = document.getElementById("totalPaymentDisplay");
+    const totalPercentDisplay = document.getElementById("totalPercentDisplay");
     let currentMortgage30Rate = null;
 
     function updateMobileHeaderHeight(){
@@ -750,7 +812,7 @@
 
     function formatCurrency(value){
       const num = Number(value);
-      if (!Number.isFinite(num)) return "";
+      if (!Number.isFinite(num)) return "$0.00";
       return num.toLocaleString("en-US", {
         style: "currency",
         currency: "USD",
@@ -814,7 +876,7 @@
       return mid * 12 * 100;
     }
 
-    function updateDebtRateHeading(){
+    function calculateTotals(){
       const rows = document.querySelectorAll(".debtRow");
       let totalBalance = 0;
       let totalPayment = 0;
@@ -823,11 +885,34 @@
         const balance = parseNumber(row.querySelector(".balance")?.value);
         const payment = parseNumber(row.querySelector(".payment")?.value);
 
-        if (Number.isFinite(balance) && Number.isFinite(payment) && balance > 0 && payment > 0) {
+        if (Number.isFinite(balance) && balance > 0) {
           totalBalance += balance;
+        }
+
+        if (Number.isFinite(payment) && payment > 0) {
           totalPayment += payment;
         }
       });
+
+      return { totalBalance, totalPayment };
+    }
+
+    function updateTotalsRow(){
+      const { totalBalance, totalPayment } = calculateTotals();
+
+      totalBalanceDisplay.textContent = formatCurrency(totalBalance);
+      totalPaymentDisplay.textContent = formatCurrency(totalPayment);
+
+      if (totalBalance > 0 && totalPayment > 0) {
+        const totalPercent = (totalPayment / totalBalance) * 100;
+        totalPercentDisplay.textContent = totalPercent.toFixed(2) + "%";
+      } else {
+        totalPercentDisplay.textContent = "?";
+      }
+    }
+
+    function updateDebtRateHeading(){
+      const { totalBalance, totalPayment } = calculateTotals();
 
       debtRateHeading.classList.remove("debt-good", "debt-bad");
 
@@ -836,6 +921,7 @@
 
         if (blendedRate === null) {
           debtRateHeading.textContent = "Debt Rate = ?";
+          updateTotalsRow();
           return;
         }
 
@@ -851,6 +937,8 @@
       } else {
         debtRateHeading.textContent = "Debt Rate = ?";
       }
+
+      updateTotalsRow();
     }
 
     function updatePaymentPercent(row){
@@ -993,6 +1081,7 @@
       addDebtRowBtn.addEventListener("click", () => {
         debtRows.appendChild(createDebtRow());
         updateRowNumbers();
+        updateTotalsRow();
       });
     }
 
@@ -1010,6 +1099,7 @@
     refreshLayout();
     updateHeaderRates();
     updateDebtRateHeading();
+    updateTotalsRow();
 
     window.addEventListener("resize", refreshLayout);
 
@@ -1017,6 +1107,7 @@
       refreshLayout();
       updateHeaderRates();
       updateDebtRateHeading();
+      updateTotalsRow();
       setTimeout(updateMobileHeaderHeight, 0);
       setTimeout(updateMobileHeaderHeight, 80);
       setTimeout(updateMobileHeaderHeight, 220);
