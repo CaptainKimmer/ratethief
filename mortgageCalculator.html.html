@@ -608,6 +608,8 @@
       cc: "https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/CalculatorImages/creditCardIcon.png"
     };
 
+    const debtRateHeading = document.getElementById("debtRateHeading");
+
     function updateMobileHeaderHeight(){
       const isMobile = window.matchMedia("(max-width: 760px)").matches;
       const fixed = document.querySelector(".mobileFixedHeader");
@@ -689,8 +691,60 @@
 
     function parseNumber(value){
       if (!value) return NaN;
-      const cleaned = String(value).replace(/[$,%\s,]/g, "");
+      const cleaned = String(value).replace(/[^0-9.-]/g, "");
       return parseFloat(cleaned);
+    }
+
+    function formatCurrency(value){
+      const num = Number(value);
+      if (!Number.isFinite(num)) return "";
+      return num.toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function setInputCurrencyDisplay(input){
+      const numericValue = parseNumber(input.value);
+      if (!Number.isFinite(numericValue)) {
+        input.value = "";
+        return;
+      }
+      input.value = formatCurrency(numericValue);
+    }
+
+    function stripCurrencyDisplay(input){
+      const numericValue = parseNumber(input.value);
+      if (!Number.isFinite(numericValue)) {
+        input.value = "";
+        return;
+      }
+      input.value = String(numericValue);
+    }
+
+    function updateDebtRateHeading(){
+      const rows = document.querySelectorAll(".debtRow");
+      let totalBalance = 0;
+      let totalPayment = 0;
+
+      rows.forEach(row => {
+        const balance = parseNumber(row.querySelector(".balance")?.value);
+        const payment = parseNumber(row.querySelector(".payment")?.value);
+
+        if (Number.isFinite(balance) && Number.isFinite(payment) && balance > 0) {
+          totalBalance += balance;
+          totalPayment += payment;
+        }
+      });
+
+      if (totalBalance > 0 && totalPayment > 0) {
+        const blendedRate = (totalPayment / totalBalance) * 100;
+        debtRateHeading.textContent = `Debt Rate = ${blendedRate.toFixed(2)}%`;
+      } else {
+        debtRateHeading.textContent = "Debt Rate = ?";
+      }
     }
 
     function updatePaymentPercent(row){
@@ -703,11 +757,13 @@
 
       if (!Number.isFinite(balance) || !Number.isFinite(payment) || balance <= 0) {
         percentDisplay.textContent = "?";
+        updateDebtRateHeading();
         return;
       }
 
       const percent = (payment / balance) * 100;
       percentDisplay.textContent = percent.toFixed(2) + "%";
+      updateDebtRateHeading();
     }
 
     function attachTypeSelector(row){
@@ -731,16 +787,31 @@
       });
     }
 
+    function attachCurrencyFormatting(input, row){
+      input.addEventListener("focus", () => {
+        stripCurrencyDisplay(input);
+      });
+
+      input.addEventListener("blur", () => {
+        setInputCurrencyDisplay(input);
+        updatePaymentPercent(row);
+      });
+
+      input.addEventListener("input", () => {
+        updatePaymentPercent(row);
+      });
+    }
+
     function attachRowListeners(row){
       const balanceInput = row.querySelector(".balance");
       const paymentInput = row.querySelector(".payment");
 
       if (balanceInput) {
-        balanceInput.addEventListener("input", () => updatePaymentPercent(row));
+        attachCurrencyFormatting(balanceInput, row);
       }
 
       if (paymentInput) {
-        paymentInput.addEventListener("input", () => updatePaymentPercent(row));
+        attachCurrencyFormatting(paymentInput, row);
       }
 
       attachTypeSelector(row);
@@ -790,6 +861,12 @@
     document.querySelectorAll(".debtRow").forEach(row => {
       attachRowListeners(row);
       updatePaymentPercent(row);
+
+      const balanceInput = row.querySelector(".balance");
+      const paymentInput = row.querySelector(".payment");
+
+      if (balanceInput) setInputCurrencyDisplay(balanceInput);
+      if (paymentInput) setInputCurrencyDisplay(paymentInput);
     });
 
     if (addDebtRowBtn && debtRows) {
@@ -803,18 +880,21 @@
         const rows = debtRows.querySelectorAll(".debtRow");
         if (rows.length > 1) {
           rows[rows.length - 1].remove();
+          updateDebtRateHeading();
         }
       });
     }
 
     refreshLayout();
     updateHeaderRates();
+    updateDebtRateHeading();
 
     window.addEventListener("resize", refreshLayout);
 
     window.addEventListener("load", () => {
       refreshLayout();
       updateHeaderRates();
+      updateDebtRateHeading();
       setTimeout(updateMobileHeaderHeight, 0);
       setTimeout(updateMobileHeaderHeight, 80);
       setTimeout(updateMobileHeaderHeight, 220);
