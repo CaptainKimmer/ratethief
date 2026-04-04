@@ -237,7 +237,7 @@
     .cardHeader h2{
       position:relative;
       margin:0;
-      padding:18px 14px;
+      padding:18px 14px 6px;
       font-family:"Cinzel",serif;
       font-size:2.05rem;
       letter-spacing:.08em;
@@ -263,6 +263,16 @@
       text-shadow:
         0 10px 26px rgba(0,0,0,.28),
         0 0 18px rgba(220,38,38,.55);
+    }
+
+    .cardSubtext{
+      position:relative;
+      color:rgba(255,255,255,.92);
+      font-size:.86rem;
+      font-weight:700;
+      line-height:1.3;
+      padding:0 18px 16px;
+      text-shadow:0 3px 10px rgba(0,0,0,.20);
     }
 
     @keyframes ctaGlow{
@@ -520,7 +530,12 @@
       .cardHeader h2{
         font-size:1.25rem;
         letter-spacing:.07em;
-        white-space:nowrap;
+        white-space:normal;
+      }
+
+      .cardSubtext{
+        font-size:.78rem;
+        padding:0 14px 14px;
       }
 
       .debtHeaderRow{
@@ -594,11 +609,7 @@
       </section>
 
       <div class="tagline">
-        <span>
-          Discover your
-          <span class="highlight-rates">Debt</span>
-          <span class="highlight-steal">Rate!</span>
-        </span>
+        <span>Your Debt Expressed As A 30 Year Mortgage Rate</span>
       </div>
 
       <div class="fullWidthBar"></div>
@@ -628,11 +639,7 @@
     </section>
 
     <div class="tagline" aria-hidden="true">
-      <span>
-        Discover your
-        <span class="highlight-rates">Debt</span>
-        <span class="highlight-steal">Rate!</span>
-      </span>
+      <span>Your Debt Expressed As A 30 Year Mortgage Rate</span>
     </div>
 
     <div class="fullWidthBar"></div>
@@ -640,7 +647,8 @@
     <div class="mobileContent">
       <section class="card">
         <header class="cardHeader">
-          <h2 id="debtRateHeading">Debt Rate = ?</h2>
+          <h2 id="debtRateHeading">Debt-Mortgage Rate = ?</h2>
+          <div class="cardSubtext">The rate you would have on a mortgage for the same debt balance and payment</div>
         </header>
       </section>
 
@@ -650,7 +658,7 @@
           <div class="debtHeaderCell">Type</div>
           <div class="debtHeaderCell">Balance</div>
           <div class="debtHeaderCell">Payment</div>
-          <div class="debtHeaderCell">Payment %</div>
+          <div class="debtHeaderCell">Rate</div>
         </div>
 
         <div class="debtRows" id="debtRows">
@@ -904,8 +912,13 @@
       totalPaymentDisplay.textContent = formatCurrency(totalPayment);
 
       if (totalBalance > 0 && totalPayment > 0) {
-        const totalPercent = (totalPayment / totalBalance) * 100;
-        totalPercentDisplay.textContent = totalPercent.toFixed(2) + "%";
+        const blendedRate = solveThirtyYearMortgageRate(totalBalance, totalPayment);
+
+        if (blendedRate !== null) {
+          totalPercentDisplay.textContent = blendedRate.toFixed(2) + "%";
+        } else {
+          totalPercentDisplay.textContent = "?";
+        }
       } else {
         totalPercentDisplay.textContent = "?";
       }
@@ -920,12 +933,12 @@
         const blendedRate = solveThirtyYearMortgageRate(totalBalance, totalPayment);
 
         if (blendedRate === null) {
-          debtRateHeading.textContent = "Debt Rate = ?";
+          debtRateHeading.textContent = "Debt-Mortgage Rate = ?";
           updateTotalsRow();
           return;
         }
 
-        debtRateHeading.textContent = `Debt Rate = ${blendedRate.toFixed(2)}%`;
+        debtRateHeading.textContent = `Debt-Mortgage Rate = ${blendedRate.toFixed(2)}%`;
 
         if (Number.isFinite(currentMortgage30Rate)) {
           if (blendedRate < currentMortgage30Rate) {
@@ -935,7 +948,7 @@
           }
         }
       } else {
-        debtRateHeading.textContent = "Debt Rate = ?";
+        debtRateHeading.textContent = "Debt-Mortgage Rate = ?";
       }
 
       updateTotalsRow();
@@ -955,8 +968,14 @@
         return;
       }
 
-      const percent = (payment / balance) * 100;
-      percentDisplay.textContent = percent.toFixed(2) + "%";
+      const rate = solveThirtyYearMortgageRate(balance, payment);
+
+      if (rate === null) {
+        percentDisplay.textContent = "?";
+      } else {
+        percentDisplay.textContent = rate.toFixed(2) + "%";
+      }
+
       updateDebtRateHeading();
     }
 
