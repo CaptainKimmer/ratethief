@@ -27,6 +27,8 @@
       --maxw:980px;
       --mobileHeaderH:0px;
       --mobileGap:6px;
+      --danger:#dc2626;
+      --dangerDark:#b91c1c;
     }
 
     *{box-sizing:border-box}
@@ -264,6 +266,24 @@
       padding:18px;
     }
 
+    .debtHeaderRow{
+      display:grid;
+      grid-template-columns:160px 1fr 1fr 1fr;
+      gap:12px;
+      align-items:center;
+      margin-bottom:10px;
+    }
+
+    .debtHeaderCell{
+      color:#ffffff;
+      font-size:.95rem;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      text-shadow:0 2px 8px rgba(0,0,0,.35);
+      padding:0 4px;
+    }
+
     .debtRows{
       display:grid;
       gap:12px;
@@ -271,7 +291,7 @@
 
     .debtRow{
       display:grid;
-      grid-template-columns:160px 1fr 1fr;
+      grid-template-columns:160px 1fr 1fr 1fr;
       gap:12px;
       align-items:center;
     }
@@ -287,6 +307,7 @@
       font-weight:700;
       outline:none;
       box-shadow:0 8px 22px rgba(2,6,23,.08);
+      min-height:54px;
     }
 
     .calcField:focus{
@@ -299,25 +320,38 @@
       font-weight:600;
     }
 
+    .percentDisplay{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      user-select:none;
+    }
+
     .addRowWrap{
       display:flex;
       justify-content:center;
+      gap:16px;
       margin-top:16px;
     }
 
-    .addRowBtn{
+    .addRowBtn,
+    .removeRowBtn{
       width:58px;
       height:58px;
       border:none;
       border-radius:999px;
-      background:linear-gradient(135deg,#16a34a,#065f46);
       color:#fff;
       font-size:2rem;
       font-weight:900;
       cursor:pointer;
-      box-shadow:0 14px 28px rgba(6,95,70,.32);
       transition:transform .14s ease, box-shadow .14s ease;
       line-height:1;
+    }
+
+    .addRowBtn{
+      background:linear-gradient(135deg,#16a34a,#065f46);
+      box-shadow:0 14px 28px rgba(6,95,70,.32);
     }
 
     .addRowBtn:hover{
@@ -325,220 +359,19 @@
       box-shadow:0 18px 34px rgba(6,95,70,.38);
     }
 
-    .addRowBtn:active{
+    .removeRowBtn{
+      background:linear-gradient(135deg,var(--danger),var(--dangerDark));
+      box-shadow:0 14px 28px rgba(185,28,28,.32);
+    }
+
+    .removeRowBtn:hover{
+      transform:translateY(-2px) scale(1.05);
+      box-shadow:0 18px 34px rgba(185,28,28,.38);
+    }
+
+    .addRowBtn:active,
+    .removeRowBtn:active{
       transform:translateY(0) scale(.98);
-    }
-
-    .buttonRow{
-      padding:14px;
-      display:flex;
-      gap:12px;
-      justify-content:space-between;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-
-    .imgBtn{
-      border:1px solid rgba(15,23,42,.08);
-      border-radius:16px;
-      background:rgba(255,255,255,.96);
-      box-shadow:0 10px 22px rgba(2,6,23,.08);
-      cursor:pointer;
-      padding:8px;
-      transition:.14s;
-      flex:1 1 140px;
-      max-width:160px;
-      transform-origin:center;
-      display:block;
-      text-decoration:none;
-      color:inherit;
-    }
-
-    .imgBtn:hover{
-      transform:translateY(-2px) scale(1.03);
-      border-color:rgba(22,163,74,.35);
-      box-shadow:0 18px 34px rgba(2,6,23,.14);
-    }
-
-    .imgBtn img{
-      width:100%;
-      height:auto;
-      aspect-ratio:1/1;
-      object-fit:contain;
-      border-radius:12px;
-      display:block;
-    }
-
-    @keyframes ctaPulse{
-      0%   { transform:scale(1); }
-      50%  { transform:scale(1.06); }
-      100% { transform:scale(1); }
-    }
-
-    .imgBtn.ctaDebts{
-      border:2px solid #dc2626;
-      animation:ctaPulse 1.25s ease-in-out infinite;
-    }
-
-    .imgBtn.ctaDebts:hover{
-      transform:translateY(-2px) scale(1.08);
-      border-color:#b91c1c;
-    }
-
-    .adDisclosure{
-      text-align:center;
-      margin:10px 0 6px;
-    }
-
-    .adDisclosure a{
-      font-size:.78rem;
-      color:#ffffff;
-      text-decoration:underline;
-      font-weight:700;
-      transition:.15s ease;
-      text-shadow:0 2px 8px rgba(0,0,0,.35);
-    }
-
-    .adDisclosure a:hover{ opacity:.75; }
-
-    footer.siteFooter{
-      margin-top:18px;
-      border-top:1px solid rgba(255,255,255,.18);
-      padding:16px 12px 22px;
-      color:#eef2ff;
-      font-size:.82rem;
-      text-align:center;
-      background:rgba(11,18,32,.44);
-      backdrop-filter:blur(8px);
-      -webkit-backdrop-filter:blur(8px);
-      border-radius:18px;
-      box-shadow:0 14px 40px rgba(2,6,23,.18);
-    }
-
-    .footerLinks{
-      display:flex;
-      gap:14px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-bottom:10px;
-      font-weight:800;
-    }
-
-    .footerLinks a{
-      color:#ffffff;
-      text-decoration:underline;
-      text-underline-offset:2px;
-      transition:.15s ease;
-    }
-
-    .footerLinks a:hover{ opacity:.75; }
-
-    .footerLegal{
-      max-width:860px;
-      margin:0 auto;
-      line-height:1.45;
-    }
-
-    .footerMeta{
-      margin-top:10px;
-      font-size:.78rem;
-      color:#dbeafe;
-    }
-
-    .footerDataNote{
-      max-width:860px;
-      margin:10px auto 0;
-      line-height:1.45;
-      color:#e2e8f0;
-    }
-
-    .modalOverlay{
-      position:fixed;
-      inset:0;
-      background:rgba(2,6,23,.72);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:14px;
-      z-index:999;
-    }
-
-    .modalOverlay.open{ display:flex; }
-
-    .modal{
-      width:min(900px,100%);
-      background:#fff;
-      border:1px solid rgba(148,163,184,.35);
-      border-radius:18px;
-      box-shadow:0 22px 60px rgba(2,6,23,.30);
-      overflow:hidden;
-      transform:translateY(6px);
-      animation:modalIn .16s ease-out forwards;
-    }
-
-    @keyframes modalIn{ to{ transform:translateY(0px); } }
-
-    .modalHeader{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:14px 16px;
-      border-bottom:1px solid var(--line);
-      background:linear-gradient(135deg,#0b1220,#111827);
-      position:relative;
-    }
-
-    .modalTitle{
-      margin:0;
-      font-family:"Cinzel",serif;
-      letter-spacing:.06em;
-      font-weight:900;
-      text-transform:uppercase;
-      font-size:1.08rem;
-      color:#fff;
-      line-height:1.15;
-      text-align:center;
-      animation:welcomePulse 3s ease-in-out infinite;
-      padding:0 84px;
-    }
-
-    @keyframes welcomePulse{
-      0%{ transform:scale(1); }
-      50%{ transform:scale(1.04); }
-      100%{ transform:scale(1); }
-    }
-
-    .modalClose{
-      position:absolute;
-      right:12px;
-      top:10px;
-      border:none;
-      background:#dc2626;
-      color:#fff;
-      border-radius:14px;
-      padding:10px 14px;
-      cursor:pointer;
-      font-weight:900;
-      letter-spacing:.02em;
-      line-height:1;
-      box-shadow:0 12px 26px rgba(220,38,38,.35);
-      transition:.12s ease;
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-
-    .modalClose:hover{
-      transform:scale(1.06);
-      background:#b91c1c;
-    }
-
-    .modalBody{
-      padding:14px 16px 16px;
-      max-height:min(76vh,760px);
-      overflow:auto;
-      color:#0f172a;
-      background:#fff;
     }
 
     @media (max-width:760px){
@@ -601,37 +434,22 @@
         white-space:nowrap;
       }
 
+      .debtHeaderRow{
+        display:none;
+      }
+
       .debtRow{
         grid-template-columns:1fr;
       }
 
-      .buttonRow{
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
+      .addRowWrap{
         gap:12px;
-        padding:12px;
       }
 
-      .imgBtn{ max-width:unset; }
-
-      @keyframes ctaPulseMobile{
-        0%   { transform:scale(1); }
-        50%  { transform:scale(1.04); }
-        100% { transform:scale(1); }
-      }
-
-      .imgBtn.ctaDebts{ animation:ctaPulseMobile 1.25s ease-in-out infinite; }
-
-      footer.siteFooter{
-        padding:14px 10px 20px;
-        font-size:.80rem;
-      }
-
-      .footerMeta{ font-size:.76rem; }
-
-      .modalTitle{
-        font-size:1rem;
-        padding:0 92px;
+      .addRowBtn,
+      .removeRowBtn{
+        width:54px;
+        height:54px;
       }
     }
   </style>
@@ -716,9 +534,16 @@
       </section>
 
       <section class="calculatorShell">
+        <div class="debtHeaderRow">
+          <div class="debtHeaderCell">Type</div>
+          <div class="debtHeaderCell">Balance</div>
+          <div class="debtHeaderCell">Payment</div>
+          <div class="debtHeaderCell">Payment %</div>
+        </div>
+
         <div class="debtRows" id="debtRows">
           <div class="debtRow">
-            <select class="calcField" name="debtType[]">
+            <select class="calcField debtType" name="debtType[]">
               <option value="CC">CC</option>
               <option value="Auto">Auto</option>
               <option value="M">M</option>
@@ -726,22 +551,25 @@
             </select>
 
             <input
-              class="calcField"
+              class="calcField balance"
               type="text"
               name="balance[]"
               inputmode="decimal"
               placeholder="Balance">
 
             <input
-              class="calcField"
+              class="calcField payment"
               type="text"
               name="payment[]"
               inputmode="decimal"
               placeholder="Payment">
+
+            <div class="calcField percentDisplay">?</div>
           </div>
         </div>
 
         <div class="addRowWrap">
+          <button type="button" class="removeRowBtn" id="removeDebtRowBtn" aria-label="Remove debt row">−</button>
           <button type="button" class="addRowBtn" id="addDebtRowBtn" aria-label="Add debt row">+</button>
         </div>
       </section>
@@ -830,11 +658,42 @@
       updateMobileHeaderHeight();
     }
 
+    function parseNumber(value){
+      if (!value) return NaN;
+      const cleaned = String(value).replace(/[$,%\s,]/g, "");
+      return parseFloat(cleaned);
+    }
+
+    function updatePaymentPercent(row){
+      const balanceInput = row.querySelector(".balance");
+      const paymentInput = row.querySelector(".payment");
+      const percentDisplay = row.querySelector(".percentDisplay");
+
+      const balance = parseNumber(balanceInput.value);
+      const payment = parseNumber(paymentInput.value);
+
+      if (!Number.isFinite(balance) || !Number.isFinite(payment) || balance <= 0) {
+        percentDisplay.textContent = "?";
+        return;
+      }
+
+      const percent = (payment / balance) * 100;
+      percentDisplay.textContent = percent.toFixed(2) + "%";
+    }
+
+    function attachRowListeners(row){
+      const balanceInput = row.querySelector(".balance");
+      const paymentInput = row.querySelector(".payment");
+
+      balanceInput.addEventListener("input", () => updatePaymentPercent(row));
+      paymentInput.addEventListener("input", () => updatePaymentPercent(row));
+    }
+
     function createDebtRow(){
       const row = document.createElement("div");
       row.className = "debtRow";
       row.innerHTML = `
-        <select class="calcField" name="debtType[]">
+        <select class="calcField debtType" name="debtType[]">
           <option value="CC">CC</option>
           <option value="Auto">Auto</option>
           <option value="M">M</option>
@@ -842,28 +701,47 @@
         </select>
 
         <input
-          class="calcField"
+          class="calcField balance"
           type="text"
           name="balance[]"
           inputmode="decimal"
           placeholder="Balance">
 
         <input
-          class="calcField"
+          class="calcField payment"
           type="text"
           name="payment[]"
           inputmode="decimal"
           placeholder="Payment">
+
+        <div class="calcField percentDisplay">?</div>
       `;
+
+      attachRowListeners(row);
       return row;
     }
 
     const addDebtRowBtn = document.getElementById("addDebtRowBtn");
+    const removeDebtRowBtn = document.getElementById("removeDebtRowBtn");
     const debtRows = document.getElementById("debtRows");
+
+    document.querySelectorAll(".debtRow").forEach(row => {
+      attachRowListeners(row);
+      updatePaymentPercent(row);
+    });
 
     if (addDebtRowBtn && debtRows) {
       addDebtRowBtn.addEventListener("click", () => {
         debtRows.appendChild(createDebtRow());
+      });
+    }
+
+    if (removeDebtRowBtn && debtRows) {
+      removeDebtRowBtn.addEventListener("click", () => {
+        const rows = debtRows.querySelectorAll(".debtRow");
+        if (rows.length > 1) {
+          rows[rows.length - 1].remove();
+        }
       });
     }
 
