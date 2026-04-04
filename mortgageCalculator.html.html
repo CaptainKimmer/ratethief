@@ -473,7 +473,7 @@
       transform:translateY(0) scale(.98);
     }
 
-  @media (max-width:760px){
+ @media (max-width:760px){
 
   body{
     padding:12px;
@@ -580,25 +580,36 @@
     text-align:right;
   }
 
-  /* 🚫 THIS FIXES ZOOM */
+  /* 🚫 PREVENT IOS ZOOM */
   input,
   select,
   textarea{
     font-size:16px !important;
   }
 
-  /* Editable fields */
+  /* 🔥 CLEAN INPUT FIELDS (no distortion) */
   .calcField{
     min-height:36px;
-    padding:6px 5px;
-    font-size:16px; /* REQUIRED for no zoom */
+    padding:6px 4px;
+    font-size:16px;
     border-radius:8px;
   }
 
-  /* Non-editable */
+  /* 🔥 NUMBER TEXT TUNING (THIS is what you wanted) */
+  .calcField.numericField{
+    font-size:16px;
+    font-weight:500;
+    letter-spacing:-0.04em;
+    padding-left:4px;
+    padding-right:4px;
+    text-align:right;
+    font-variant-numeric:tabular-nums;
+  }
+
+  /* totals stay smaller */
   .totalsValue{
     min-height:36px;
-    padding:6px 5px;
+    padding:6px 4px;
     font-size:.7rem;
     border-radius:8px;
   }
@@ -649,20 +660,6 @@
     height:48px;
     font-size:1.6rem;
   }
-
-  /* shrink numbers without triggering zoom */
-.calcField.numericField{
-  font-size:16px;
-  transform:scale(.85);
-  transform-origin:right center;
-}
-
-/* center % column nicely */
-.percentDisplay{
-  font-size:.6rem;
-}
-
-
 }
   </style>
 </head>
