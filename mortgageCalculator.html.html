@@ -187,18 +187,26 @@
         0 2px 6px rgba(0,0,0,.25);
     }
 
-    .fullWidthBar{
-      height:14px;
-      width:100%;
-      margin-top:2px;
-      margin-bottom:0px;
-      background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
-      border-radius:999px;
-      box-shadow:
-        0 10px 22px rgba(0,0,0,.30),
-        inset 0 2px 2px rgba(255,255,255,.08),
-        inset 0 -3px 6px rgba(0,0,0,.45);
-    }
+.fullWidthBar{
+  height:56px;
+  width:100%;
+  margin-top:6px;
+  margin-bottom:0px;
+  padding:0 16px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+
+  background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
+  border-radius:999px;
+
+  box-shadow:
+    0 10px 22px rgba(0,0,0,.30),
+    inset 0 2px 2px rgba(255,255,255,.08),
+    inset 0 -3px 6px rgba(0,0,0,.45);
+}
 
     .card{
       border:1px solid rgba(255,255,255,.22);
@@ -264,6 +272,23 @@
         0 10px 26px rgba(0,0,0,.28),
         0 0 18px rgba(220,38,38,.55);
     }
+
+    .navItem{
+  color:#ffffff;
+  font-weight:700;
+  font-size:.9rem;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:opacity .2s ease, transform .15s ease;
+}
+
+.navItem:hover{
+  opacity:.7;
+  transform:translateY(-1px);
+}
+
 
     .cardSubtext{
       position:relative;
@@ -532,10 +557,11 @@
     white-space:normal;
   }
 
-  .fullWidthBar{
-    height:10px;
-    margin-top:6px;
-  }
+.fullWidthBar{
+  height:46px;
+  gap:12px;
+  padding:0 10px;
+}
 
   .cardHeader h2{
     font-size:.95rem;
@@ -563,6 +589,10 @@
     gap:5px;
     align-items:center;
   }
+
+  .navItem{
+  font-size:.65rem;
+}
 
   .debtHeaderRow{
     margin-bottom:6px;
@@ -695,7 +725,13 @@
         <span>Your Debt Expressed As A 30 Year Mortgage Rate</span>
       </div>
 
-      <div class="fullWidthBar"></div>
+      <div class="fullWidthBar">
+  <div class="navItem">Home</div>
+  <div class="navItem">Get Rate</div>
+  <div class="navItem">Calculator</div>
+  <div class="navItem">About</div>
+  <div class="navItem">Reviews</div>
+</div>
     </div>
 
     <section class="topBar" aria-hidden="true">
@@ -725,7 +761,7 @@
       <span>Your Debt Expressed As A 30 Year Mortgage Rate</span>
     </div>
 
-    <div class="fullWidthBar"></div>
+ <div class="fullWidthBar"></div>
 
     <div class="mobileContent">
       <section class="card">
