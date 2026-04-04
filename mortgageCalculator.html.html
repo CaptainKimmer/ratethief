@@ -29,6 +29,8 @@
       --mobileGap:6px;
       --danger:#dc2626;
       --dangerDark:#b91c1c;
+      --good:#16a34a;
+      --bad:#dc2626;
     }
 
     *{box-sizing:border-box}
@@ -246,6 +248,21 @@
       text-shadow:0 10px 26px rgba(0,0,0,.28);
       animation:ctaGlow 2.6s ease-in-out infinite;
       white-space:nowrap;
+      transition:color .2s ease, text-shadow .2s ease;
+    }
+
+    .cardHeader h2.debt-good{
+      color:#d1fae5;
+      text-shadow:
+        0 10px 26px rgba(0,0,0,.28),
+        0 0 18px rgba(22,163,74,.55);
+    }
+
+    .cardHeader h2.debt-bad{
+      color:#fee2e2;
+      text-shadow:
+        0 10px 26px rgba(0,0,0,.28),
+        0 0 18px rgba(220,38,38,.55);
     }
 
     @keyframes ctaGlow{
@@ -267,7 +284,7 @@
 
     .debtHeaderRow{
       display:grid;
-      grid-template-columns:160px 1fr 1fr 1fr;
+      grid-template-columns:36px 160px 1fr 1fr 1fr;
       gap:12px;
       align-items:center;
       margin-bottom:10px;
@@ -290,9 +307,19 @@
 
     .debtRow{
       display:grid;
-      grid-template-columns:160px 1fr 1fr 1fr;
+      grid-template-columns:36px 160px 1fr 1fr 1fr;
       gap:12px;
       align-items:center;
+    }
+
+    .rowNumber{
+      color:#000000;
+      font-size:1.05rem;
+      font-weight:900;
+      text-align:center;
+      line-height:1;
+      user-select:none;
+      text-shadow:none;
     }
 
     .calcField{
@@ -460,6 +487,11 @@
         grid-template-columns:1fr;
       }
 
+      .rowNumber{
+        text-align:left;
+        padding-left:4px;
+      }
+
       .addRowWrap{
         gap:12px;
       }
@@ -553,6 +585,7 @@
 
       <section class="calculatorShell">
         <div class="debtHeaderRow">
+          <div class="debtHeaderCell"></div>
           <div class="debtHeaderCell">Type</div>
           <div class="debtHeaderCell">Balance</div>
           <div class="debtHeaderCell">Payment</div>
@@ -561,6 +594,8 @@
 
         <div class="debtRows" id="debtRows">
           <div class="debtRow">
+            <div class="rowNumber">1</div>
+
             <div class="typeSelector">
               <select class="calcField debtType" name="debtType[]">
                 <option value="">Select</option>
@@ -609,6 +644,7 @@
     };
 
     const debtRateHeading = document.getElementById("debtRateHeading");
+    let currentMortgage30Rate = null;
 
     function updateMobileHeaderHeight(){
       const isMobile = window.matchMedia("(max-width: 760px)").matches;
@@ -657,8 +693,15 @@
           fetchRate("DGS10"),
           fetchRate("MORTGAGE30US")
         ]);
+
         setRateText(["dgs10Desktop","dgs10Mobile"], dgs10);
         setRateText(["mort30Desktop","mort30Mobile"], mort30);
+
+        const mort30Num = Number(mort30);
+        if (Number.isFinite(mort30Num)) {
+          currentMortgage30Rate = mort30Num;
+          updateDebtRateHeading();
+        }
       }catch(e){
         console.error("Rate update failed:", e);
       }
@@ -739,9 +782,19 @@
         }
       });
 
+      debtRateHeading.classList.remove("debt-good", "debt-bad");
+
       if (totalBalance > 0 && totalPayment > 0) {
         const blendedRate = (totalPayment / totalBalance) * 100;
         debtRateHeading.textContent = `Debt Rate = ${blendedRate.toFixed(2)}%`;
+
+        if (Number.isFinite(currentMortgage30Rate)) {
+          if (blendedRate < currentMortgage30Rate) {
+            debtRateHeading.classList.add("debt-good");
+          } else if (blendedRate > currentMortgage30Rate) {
+            debtRateHeading.classList.add("debt-bad");
+          }
+        }
       } else {
         debtRateHeading.textContent = "Debt Rate = ?";
       }
@@ -817,10 +870,22 @@
       attachTypeSelector(row);
     }
 
+    function updateRowNumbers(){
+      const rows = document.querySelectorAll(".debtRow");
+      rows.forEach((row, index) => {
+        const numEl = row.querySelector(".rowNumber");
+        if (numEl) {
+          numEl.textContent = index + 1;
+        }
+      });
+    }
+
     function createDebtRow(){
       const row = document.createElement("div");
       row.className = "debtRow";
       row.innerHTML = `
+        <div class="rowNumber">1</div>
+
         <div class="typeSelector">
           <select class="calcField debtType" name="debtType[]">
             <option value="">Select</option>
@@ -869,9 +934,12 @@
       if (paymentInput) setInputCurrencyDisplay(paymentInput);
     });
 
+    updateRowNumbers();
+
     if (addDebtRowBtn && debtRows) {
       addDebtRowBtn.addEventListener("click", () => {
         debtRows.appendChild(createDebtRow());
+        updateRowNumbers();
       });
     }
 
@@ -880,6 +948,7 @@
         const rows = debtRows.querySelectorAll(".debtRow");
         if (rows.length > 1) {
           rows[rows.length - 1].remove();
+          updateRowNumbers();
           updateDebtRateHeading();
         }
       });
