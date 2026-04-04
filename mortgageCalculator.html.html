@@ -192,12 +192,15 @@
       width:100%;
       margin-top:6px;
       margin-bottom:0;
-      padding:0 14px;
+      padding:0 20px;
 
       display:flex;
+      flex-direction:row;
+      flex-wrap:nowrap;
       align-items:center;
-      justify-content:space-between;
-      gap:8px;
+      justify-content:space-evenly;
+      gap:18px;
+      overflow:hidden;
 
       background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
       border-radius:999px;
@@ -209,11 +212,8 @@
     }
 
     .navItem{
-      flex:1 1 0;
-      min-width:0;
-      height:70%;
-
-      display:flex;
+      display:inline-flex;
+      flex:0 1 auto;
       align-items:center;
       justify-content:center;
 
@@ -226,12 +226,14 @@
       white-space:nowrap;
       line-height:1;
 
-      border-radius:999px;
+      padding:0 2px;
+      height:auto;
+
       transition:background .18s ease, opacity .18s ease, transform .18s ease;
     }
 
     .navItem:hover{
-      background:rgba(255,255,255,.08);
+      opacity:.80;
       transform:translateY(-1px);
     }
 
@@ -570,7 +572,7 @@
       .fullWidthBar{
         height:46px;
         padding:0 10px;
-        gap:6px;
+        gap:10px;
       }
 
       .navItem{
