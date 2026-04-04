@@ -15,6 +15,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
+    .navItem{
+  color:#ffffff;
+  font-weight:700;
+  font-size:.9rem;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  cursor:pointer;
+  white-space:nowrap;
+  padding:6px 4px;
+  border-radius:6px;
+  transition:all .2s ease;
+  text-decoration:none;
+}
+
+.navItem:hover{
+  background:rgba(255,255,255,.08);
+  transform:translateY(-1px);
+}
+
     :root{
       --bg:#ffffff;
       --card:#ffffff;
@@ -186,18 +205,26 @@
         0 2px 6px rgba(0,0,0,.25);
     }
 
-    .fullWidthBar{
-      height:14px;
-      width:100%;
-      margin-top:2px;
-      margin-bottom:0px;
-      background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
-      border-radius:999px;
-      box-shadow:
-        0 10px 22px rgba(0,0,0,.30),
-        inset 0 2px 2px rgba(255,255,255,.08),
-        inset 0 -3px 6px rgba(0,0,0,.45);
-    }
+.fullWidthBar{
+  height:56px;
+  width:100%;
+  margin-top:6px;
+  margin-bottom:0px;
+  padding:0 16px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-evenly;
+  gap:22px;
+
+  background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
+  border-radius:999px;
+
+  box-shadow:
+    0 10px 22px rgba(0,0,0,.30),
+    inset 0 2px 2px rgba(255,255,255,.08),
+    inset 0 -3px 6px rgba(0,0,0,.45);
+}
 
     /* ===== Card ===== */
     .card{
@@ -234,6 +261,26 @@
       0%{ transform:rotate(0deg); }
       100%{ transform:rotate(360deg); }
     }
+
+
+.navItem{
+  color:#ffffff;
+  font-weight:700;
+  font-size:.9rem;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  cursor:pointer;
+  white-space:nowrap;
+  padding:6px 4px;
+  border-radius:6px;
+  transition:all .2s ease;
+  text-decoration:none;
+}
+
+.navItem:hover{
+  background:rgba(255,255,255,.08);
+  transform:translateY(-1px);
+}
 
     .cardHeader h2{
       position:relative;
@@ -512,11 +559,15 @@
       }
       .tagline > span{ white-space:nowrap; }
 
-      .fullWidthBar{
-        height:12px;
-        margin-top:6px;
-        margin-bottom:0px;
-      }
+     .fullWidthBar{
+  height:46px;
+  padding:0 10px;
+  gap:12px;
+}
+
+.navItem{
+  font-size:.65rem;
+}
 
       /* Force CTA title to stay one line on mobile */
       .cardHeader h2{
@@ -591,7 +642,13 @@
         </span>
       </div>
 
-      <div class="fullWidthBar"></div>
+      <div class="fullWidthBar">
+  <a class="navItem" href="index.html">Home</a>
+  <a class="navItem" href="index.html">Get Rate</a>
+  <a class="navItem" href="mortgageCalculator.html">Calculator</a>
+  <a class="navItem" href="about.html">About</a>
+  <a class="navItem" href="Reviews.html">Reviews</a>
+</div>
     </div>
 
     <!-- DESKTOP HEADER -->
@@ -627,7 +684,7 @@
       </span>
     </div>
 
-    <div class="fullWidthBar"></div>
+<div class="fullWidthBar"></div>
 
     <!-- CONTENT -->
     <div class="mobileContent">
