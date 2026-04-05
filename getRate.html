@@ -516,101 +516,100 @@
 
     /* ===== Mobile fixed header (rates) ===== */
     @media (max-width:760px){
-      body{
-        padding:12px;
-        background-position:58% 0%;
-      }
+  body{
+    padding:12px;
+    background-position:58% 0%;
+  }
 
-      .mobileFixedHeader{
-        position:fixed;
-        top:0;left:0;right:0;
-        z-index:50;
-        background:rgba(7,22,45,.30);
-        backdrop-filter:blur(8px);
-        -webkit-backdrop-filter:blur(8px);
-        padding:8px 12px 6px;
-        box-shadow:0 8px 24px rgba(2,6,23,.14);
-      }
+  .mobileFixedHeader{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:50;
+    background:rgba(7,22,45,.30);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    padding:8px 12px 6px;
+    box-shadow:0 8px 24px rgba(2,6,23,.14);
+  }
 
-      .mobileContent{
-        /* IMPORTANT: keep content BELOW fixed header + black bar */
-        margin-top:calc(var(--mobileHeaderH) + var(--mobileGap));
-      }
+  .mobileContent{
+    margin-top:calc(var(--mobileHeaderH) - 36px);
+  }
 
-      .topBar{
-        margin-top:0;
-        grid-template-columns:1fr auto 1fr;
-        gap:8px;
-      }
+  .topBar{
+    margin-top:0;
+    grid-template-columns:1fr auto 1fr;
+    gap:8px;
+  }
 
-      .brand img{ width:104px; }
+  .brand img{ width:104px; }
 
-      .rateBlock{ min-height:unset; }
+  .rateBlock{ min-height:unset; }
 
-      .rateKicker{
-        font-size:.56rem;
-        margin-bottom:3px;
-      }
+  .rateKicker{
+    font-size:.56rem;
+    margin-bottom:3px;
+  }
 
-      .rateNumber{ font-size:1.58rem; }
+  .rateNumber{ font-size:1.58rem; }
 
-      .tagline{
-        font-size:.82rem;
-        margin:2px 0 2px;
-        letter-spacing:.04em;
-        white-space:nowrap;
-      }
-      .tagline > span{ white-space:nowrap; }
+  .tagline{
+    font-size:.82rem;
+    margin:2px 0 2px;
+    letter-spacing:.04em;
+    white-space:nowrap;
+  }
+  .tagline > span{ white-space:nowrap; }
 
-      .fullWidthBar{
-        min-height:46px;
-        padding:0 8px;
-        column-gap:4px;
-      }
+  .fullWidthBar{
+    min-height:46px;
+    padding:0 8px;
+    column-gap:4px;
+  }
 
-      .fullWidthBar > *{
-        height:46px !important;
-      }
+  .fullWidthBar > *{
+    height:46px !important;
+  }
 
-      .navItem{
-        font-size:.65rem !important;
-        padding:0 4px !important;
-      }
+  .navItem{
+    font-size:.65rem !important;
+    padding:0 4px !important;
+  }
 
-      /* Force CTA title to stay one line on mobile */
-      .cardHeader h2{
-        font-size:1.25rem;
-        letter-spacing:.07em;
-        white-space:nowrap;
-      }
+  /* Force CTA title to stay one line on mobile */
+  .cardHeader h2{
+    font-size:1.25rem;
+    letter-spacing:.07em;
+    white-space:nowrap;
+  }
 
-      .buttonRow{
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
-        gap:12px;
-        padding:12px;
-      }
+  .buttonRow{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    padding:12px;
+  }
 
-      .imgBtn{ max-width:unset; }
+  .imgBtn{ max-width:unset; }
 
-      @keyframes ctaPulseMobile{
-        0%   { transform:scale(1); }
-        50%  { transform:scale(1.04); }
-        100% { transform:scale(1); }
-      }
-      .imgBtn.ctaDebts{ animation:ctaPulseMobile 1.25s ease-in-out infinite; }
+  @keyframes ctaPulseMobile{
+    0%   { transform:scale(1); }
+    50%  { transform:scale(1.04); }
+    100% { transform:scale(1); }
+  }
+  .imgBtn.ctaDebts{ animation:ctaPulseMobile 1.25s ease-in-out infinite; }
 
-      footer.siteFooter{
-        padding:14px 10px 20px;
-        font-size:.80rem;
-      }
-      .footerMeta{ font-size:.76rem; }
+  footer.siteFooter{
+    padding:14px 10px 20px;
+    font-size:.80rem;
+  }
+  .footerMeta{ font-size:.76rem; }
 
-      .modalTitle{
-        font-size:1rem;
-        padding:0 92px;
-      }
-    }
+  .modalTitle{
+    font-size:1rem;
+    padding:0 92px;
+  }
+}
   </style>
 </head>
 
