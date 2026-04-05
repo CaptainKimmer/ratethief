@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>About | Rate Thief</title>
+  <title>Reviews | Rate Thief</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32"
@@ -23,12 +23,12 @@
       --line:#e5e7eb;
       --accent:#16a34a;
       --accent2:#2563eb;
+      --accent3:#065f46;
+      --gold:#f4c542;
       --shadow:0 14px 40px rgba(2,6,23,.08);
       --radius:18px;
       --radius2:14px;
-      --maxw:980px;
-
-      /* mobile header spacing auto-measured in JS */
+      --maxw:1080px;
       --mobileHeaderH:0px;
       --mobileGap:6px;
     }
@@ -150,7 +150,6 @@
       100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}
     }
 
-    /* TAGLINE */
     .tagline{
       text-align:center;
       font-family:"Cinzel",serif;
@@ -198,22 +197,18 @@
       margin-top:6px;
       margin-bottom:0px;
       padding:0 14px;
-
       display:grid !important;
       grid-auto-flow:column !important;
       grid-auto-columns:1fr !important;
       align-items:stretch !important;
       justify-items:stretch !important;
       column-gap:6px;
-
       background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
       border-radius:999px;
-
       box-shadow:
         0 10px 22px rgba(0,0,0,.30),
         inset 0 2px 2px rgba(255,255,255,.08),
         inset 0 -3px 6px rgba(0,0,0,.45);
-
       overflow:hidden;
     }
 
@@ -225,6 +220,29 @@
       align-items:center !important;
       justify-content:center !important;
       text-align:center !important;
+    }
+
+    .navItem{
+      color:#ffffff !important;
+      font-weight:800 !important;
+      font-size:.92rem !important;
+      letter-spacing:.03em !important;
+      text-transform:uppercase !important;
+      cursor:pointer;
+      white-space:nowrap !important;
+      padding:0 10px !important;
+      border-radius:999px !important;
+      transition:all .2s ease;
+      text-decoration:none !important;
+      line-height:1 !important;
+      background:transparent !important;
+      border:none !important;
+    }
+
+    .navItem:hover,
+    .navItem.active{
+      background:rgba(255,255,255,.08) !important;
+      transform:translateY(-1px);
     }
 
     .card{
@@ -261,28 +279,6 @@
       100%{ transform:rotate(360deg); }
     }
 
-    .navItem{
-      color:#ffffff !important;
-      font-weight:800 !important;
-      font-size:.92rem !important;
-      letter-spacing:.03em !important;
-      text-transform:uppercase !important;
-      cursor:pointer;
-      white-space:nowrap !important;
-      padding:0 10px !important;
-      border-radius:999px !important;
-      transition:all .2s ease;
-      text-decoration:none !important;
-      line-height:1 !important;
-      background:transparent !important;
-      border:none !important;
-    }
-
-    .navItem:hover{
-      background:rgba(255,255,255,.08) !important;
-      transform:translateY(-1px);
-    }
-
     .cardHeader h2{
       position:relative;
       margin:0;
@@ -305,8 +301,258 @@
       100%{ text-shadow:0 10px 26px rgba(0,0,0,.28), 0 0 0 rgba(255,255,255,0); }
     }
 
-    .contentPad{
-      padding:18px 16px 20px;
+    .reviewsHero{
+      padding:24px 22px 20px;
+      display:grid;
+      grid-template-columns:150px 1fr;
+      gap:22px;
+      align-items:center;
+      border-bottom:1px solid rgba(148,163,184,.22);
+      background:
+        radial-gradient(circle at top right, rgba(22,163,74,.12), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,.88), rgba(248,250,252,.90));
+    }
+
+    .heroShot{
+      width:150px;
+      height:150px;
+      object-fit:cover;
+      border-radius:22px;
+      border:1px solid rgba(148,163,184,.35);
+      box-shadow:0 14px 30px rgba(2,6,23,.14);
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:var(--accent3);
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:.78rem;
+      margin-bottom:8px;
+    }
+
+    .eyebrow .stars{
+      color:#d97706;
+      letter-spacing:.05em;
+      font-size:.92rem;
+    }
+
+    .heroTitle{
+      margin:0 0 10px;
+      color:#0f172a;
+      font-family:"Cinzel",serif;
+      font-size:clamp(1.8rem,3vw,2.6rem);
+      line-height:1.08;
+      letter-spacing:.03em;
+      text-transform:uppercase;
+    }
+
+    .heroBlurb{
+      margin:0;
+      color:#334155;
+      font-size:1rem;
+      line-height:1.62;
+      font-weight:600;
+      max-width:760px;
+    }
+
+    .statRow{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      padding:18px 22px 0;
+    }
+
+    .statCard{
+      background:rgba(255,255,255,.94);
+      border:1px solid rgba(148,163,184,.22);
+      border-radius:18px;
+      padding:16px 14px;
+      text-align:center;
+      box-shadow:0 12px 28px rgba(2,6,23,.06);
+    }
+
+    .statValue{
+      display:block;
+      color:#065f46;
+      font-weight:900;
+      font-size:1.55rem;
+      line-height:1;
+      margin-bottom:6px;
+    }
+
+    .statLabel{
+      color:#475569;
+      font-weight:800;
+      font-size:.82rem;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      line-height:1.3;
+    }
+
+    .sectionPad{
+      padding:18px 22px 24px;
+    }
+
+    .sectionTitle{
+      margin:0 0 14px;
+      color:#0f172a;
+      font-size:1.08rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-weight:900;
+    }
+
+    .trustNote{
+      margin:0 0 18px;
+      color:#475569;
+      font-size:.93rem;
+      line-height:1.55;
+      font-weight:700;
+    }
+
+    .reviewGrid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+
+    .reviewCard{
+      background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,250,252,.96));
+      border:1px solid rgba(148,163,184,.25);
+      border-radius:20px;
+      padding:18px 16px 16px;
+      box-shadow:0 14px 30px rgba(2,6,23,.07);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-height:240px;
+    }
+
+    .reviewStars{
+      color:#d97706;
+      font-size:1rem;
+      letter-spacing:.12em;
+      font-weight:900;
+    }
+
+    .reviewQuote{
+      margin:0;
+      color:#1e293b;
+      font-size:.97rem;
+      line-height:1.68;
+      font-weight:700;
+      flex:1;
+    }
+
+    .reviewName{
+      margin:0;
+      color:#0f172a;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      font-size:.78rem;
+    }
+
+    .reviewTag{
+      margin:0;
+      color:#64748b;
+      font-size:.78rem;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+
+    .highlightBand{
+      margin-top:20px;
+      padding:18px;
+      border-radius:20px;
+      background:linear-gradient(135deg, rgba(22,163,74,.12), rgba(6,95,70,.10));
+      border:1px solid rgba(22,163,74,.18);
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+
+    .highlightItem{
+      background:rgba(255,255,255,.76);
+      border-radius:16px;
+      padding:14px;
+      border:1px solid rgba(148,163,184,.18);
+    }
+
+    .highlightItem h3{
+      margin:0 0 8px;
+      color:#065f46;
+      font-size:.92rem;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+
+    .highlightItem p{
+      margin:0;
+      color:#334155;
+      line-height:1.6;
+      font-size:.92rem;
+      font-weight:700;
+    }
+
+    .ctaPanel{
+      margin-top:20px;
+      border-radius:22px;
+      padding:22px 20px;
+      background:linear-gradient(135deg,#0b1220,#111827);
+      color:#fff;
+      box-shadow:0 18px 38px rgba(2,6,23,.20);
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:18px;
+      align-items:center;
+    }
+
+    .ctaPanel h3{
+      margin:0 0 8px;
+      font-family:"Cinzel",serif;
+      font-size:1.35rem;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      line-height:1.1;
+    }
+
+    .ctaPanel p{
+      margin:0;
+      color:#dbeafe;
+      line-height:1.6;
+      font-weight:700;
+      max-width:700px;
+    }
+
+    .ctaBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:180px;
+      min-height:54px;
+      padding:0 18px;
+      border-radius:999px;
+      background:linear-gradient(135deg,#16a34a,#065f46);
+      color:#fff;
+      text-decoration:none;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      box-shadow:0 14px 28px rgba(6,95,70,.35);
+      transition:transform .16s ease, box-shadow .16s ease;
+      white-space:nowrap;
+    }
+
+    .ctaBtn:hover{
+      transform:translateY(-2px) scale(1.02);
+      box-shadow:0 18px 34px rgba(6,95,70,.42);
     }
 
     .adDisclosure{
@@ -325,103 +571,6 @@
 
     .adDisclosure a:hover{ opacity:.75; }
 
-    /* ===== Embedded contact content ===== */
-    .contactWrap{
-      font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:#0f172a;
-    }
-
-    .hero{
-      display:flex;
-      gap:16px;
-      align-items:flex-start;
-      text-align:left;
-    }
-
-    .headshot{
-      width:120px;
-      height:120px;
-      object-fit:cover;
-      border-radius:18px;
-      border:1px solid rgba(148,163,184,.35);
-      box-shadow:0 10px 24px rgba(2,6,23,.10);
-      flex-shrink:0;
-    }
-
-    .heroText{
-      flex:1;
-    }
-
-    .name{
-      margin:0;
-      font-family:"Cinzel",serif;
-      font-weight:900;
-      letter-spacing:.05em;
-      text-transform:uppercase;
-      font-size:1.12rem;
-      line-height:1.15;
-      color:#0f172a;
-    }
-
-    .titleLine{
-      margin:4px 0 0;
-      color:#475569;
-      font-weight:900;
-      font-size:.92rem;
-      line-height:1.25;
-    }
-
-    .contactLines{
-      margin-top:10px;
-    }
-
-    .contactLines p{
-      margin:4px 0;
-      font-weight:800;
-      font-size:.95rem;
-      color:#334155;
-    }
-
-    .contactLines a{
-      color:#0f172a;
-      text-decoration:underline;
-      font-weight:900;
-    }
-
-    .sep{
-      border:none;
-      border-top:1px solid rgba(148,163,184,.35);
-      margin:14px 0;
-    }
-
-    .contactWrap h4{
-      margin:12px 0 8px;
-      font-size:1rem;
-      font-weight:900;
-      color:#0f172a;
-    }
-
-    .contactWrap p{
-      margin:0 0 10px;
-      line-height:1.55;
-      font-size:.95rem;
-      color:#334155;
-    }
-
-    .sailingWrap{
-      margin-top:12px;
-      border-radius:18px;
-      overflow:hidden;
-      border:1px solid rgba(148,163,184,.35);
-      box-shadow:0 14px 40px rgba(2,6,23,.10);
-    }
-
-    .sailing{
-      width:100%;
-      display:block;
-    }
-
-    /* ===== Footer ===== */
     footer.siteFooter{
       margin-top:18px;
       border-top:1px solid rgba(255,255,255,.18);
@@ -473,7 +622,21 @@
       color:#e2e8f0;
     }
 
-    /* ===== Mobile fixed header (rates) ===== */
+    @media (max-width:960px){
+      .reviewGrid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .highlightBand,
+      .statRow{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .ctaPanel{
+        grid-template-columns:1fr;
+      }
+    }
+
     @media (max-width:760px){
       body{
         padding:12px;
@@ -502,7 +665,6 @@
       }
 
       .brand img{ width:104px; }
-
       .rateBlock{ min-height:unset; }
 
       .rateKicker{
@@ -542,21 +704,47 @@
         white-space:nowrap;
       }
 
-      .hero{
-        flex-direction:column;
-        align-items:center;
+      .reviewsHero{
+        grid-template-columns:1fr;
         text-align:center;
+        padding:18px 14px 16px;
       }
 
-      .headshot{
+      .heroShot{
+        width:118px;
+        height:118px;
+        margin:0 auto;
         border-radius:999px;
-        margin-bottom:6px;
       }
 
-      .name,
-      .titleLine,
-      .contactLines{
-        text-align:center;
+      .heroBlurb{
+        font-size:.95rem;
+      }
+
+      .sectionPad{
+        padding:16px 14px 18px;
+      }
+
+      .statRow{
+        grid-template-columns:1fr 1fr;
+        padding:14px 14px 0;
+      }
+
+      .reviewGrid{
+        grid-template-columns:1fr;
+      }
+
+      .highlightBand{
+        grid-template-columns:1fr;
+        padding:14px;
+      }
+
+      .ctaPanel{
+        padding:18px 16px;
+      }
+
+      .ctaBtn{
+        width:100%;
       }
 
       footer.siteFooter{
@@ -610,7 +798,7 @@
         <a class="navItem" href="getRate.html">Get Rate</a>
         <a class="navItem" href="mortgageCalculator.html">Calculator</a>
         <a class="navItem" href="about.html">About</a>
-        <a class="navItem" href="reviews.html">Reviews</a>
+        <a class="navItem active" href="reviews.html">Reviews</a>
       </div>
     </div>
 
@@ -638,7 +826,6 @@
       </div>
     </section>
 
-    <!-- TAGLINE: desktop location -->
     <div class="tagline" aria-hidden="true">
       <span>
         <span class="highlight-rates">Rates</span>
@@ -652,74 +839,158 @@
       <a class="navItem" href="getRate.html">Get Rate</a>
       <a class="navItem" href="mortgageCalculator.html">Calculator</a>
       <a class="navItem" href="about.html">About</a>
-      <a class="navItem" href="reviews.html">Reviews</a>
+      <a class="navItem active" href="reviews.html">Reviews</a>
     </div>
 
-    <!-- CONTENT -->
     <div class="mobileContent">
       <section class="card">
         <header class="cardHeader">
-          <h2>ABOUT RATE THIEF</h2>
+          <h2>CLIENT REVIEWS</h2>
         </header>
 
-        <div class="contentPad">
-          <section class="contactWrap" aria-label="Contact information for RateThief.com">
-            <div class="hero">
-              <img
-                class="headshot"
-                src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/contactPhotos/headShot.PNG"
-                alt="Kimmer O'Reilly headshot"
-              />
+        <section class="reviewsHero">
+          <img
+            class="heroShot"
+            src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/contactPhotos/headShot.PNG"
+            alt="Kimmer O'Reilly headshot"
+          />
 
-              <div class="heroText">
-                <h3 class="name">Kimmer O’Reilly</h3>
-
-                <p class="titleLine">Founder of RateThief.com</p>
-                <p class="titleLine">Mortgage Professional</p>
-
-                <div class="contactLines" aria-label="Contact details">
-                  <p><strong>Phone:</strong> <a href="tel:+15095281992">1 (509) 528-1992</a></p>
-                  <p><strong>Email:</strong> <a href="mailto:koreilly@federalfirstlending.com">koreilly@federalfirstlending.com</a></p>
-                  <p><strong>NMLS:</strong> 2398363</p>
-                </div>
-              </div>
+          <div>
+            <div class="eyebrow">
+              <span class="stars">★★★★★</span>
+              <span>Sample Review Showcase</span>
             </div>
-
-            <hr class="sep" />
-
-            <h4>What RateThief.com is</h4>
-            <p>
-              RateThief.com is built to connect homeowners directly with <strong>me</strong> and a small group of
-              <strong>trusted loan officers</strong> — so you can explore options without getting bombarded by spam calls,
-              random texts, and endless “rate quote” follow-ups.
+            <h1 class="heroTitle">Why borrowers love working with Kimmer O’Reilly</h1>
+            <p class="heroBlurb">
+              These review-style cards are built to showcase the kind of borrower experience Kimmer aims to deliver:
+              clear guidance, fast communication, smart debt restructuring, and practical home equity strategies that
+              help homeowners simplify payments and improve cash flow.
             </p>
+          </div>
+        </section>
 
-            <p>
-              The goal is simple: build a long-term relationship with you as a homeowner and help you make smart mortgage moves
-              over time — refinances, cash-out, debt consolidation, HELOCs, or purchases — when it actually saves you money
-              across your entire home-owning life.
-            </p>
+        <div class="statRow">
+          <div class="statCard">
+            <span class="statValue">Clear</span>
+            <span class="statLabel">Explains options simply</span>
+          </div>
+          <div class="statCard">
+            <span class="statValue">Fast</span>
+            <span class="statLabel">Responsive communication</span>
+          </div>
+          <div class="statCard">
+            <span class="statValue">Smart</span>
+            <span class="statLabel">Debt restructuring focus</span>
+          </div>
+          <div class="statCard">
+            <span class="statValue">Efficient</span>
+            <span class="statLabel">Uses home equity strategically</span>
+          </div>
+        </div>
 
-            <p>
-              And yeah — the pirate “Rate Thief” theme comes from my love of sailing… and the idea that finding you a great rate
-              should feel like we’re <strong>stealing it (the legal kind)</strong> from the market.
-            </p>
+        <div class="sectionPad">
+          <h3 class="sectionTitle">What people say</h3>
+          <p class="trustNote">
+            Replace these with verified client reviews whenever you have them. For now, this gives you a polished,
+            persuasive layout that looks strong on desktop and mobile.
+          </p>
 
-            <h4>My story</h4>
-            <p>
-              I had a great life, got cancer, and the mortgage industry helped save me. I got cancer again, and after that I did something
-              wild — I sailed across the Atlantic Ocean solo. Now I’m back on land building a future, trying to start a family, and
-              becoming the best mortgage professional I can be — while still keeping the sea in my blood.
-            </p>
+          <div class="reviewGrid">
+            <article class="reviewCard">
+              <div class="reviewStars">★★★★★</div>
+              <p class="reviewQuote">
+                “Kimmer helped us look at our debts in a way no one else had. Instead of just quoting a loan,
+                he showed us how to use our home equity efficiently, clean up our monthly obligations, and put
+                ourselves in a much stronger position going forward.”
+              </p>
+              <p class="reviewName">— Sample Borrower Review</p>
+              <p class="reviewTag">Debt Consolidation Strategy</p>
+            </article>
 
-            <div class="sailingWrap">
-              <img
-                class="sailing"
-                src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/contactPhotos/sailing.jpg"
-                alt="Kimmer sailing at sea"
-              />
+            <article class="reviewCard">
+              <div class="reviewStars">★★★★★</div>
+              <p class="reviewQuote">
+                “What stood out most was how clearly Kimmer explained everything. He broke down the numbers,
+                walked through the pros and cons, and never made us feel pressured. It felt like we were getting
+                real advice instead of a sales pitch.”
+              </p>
+              <p class="reviewName">— Sample Borrower Review</p>
+              <p class="reviewTag">Clear Communication</p>
+            </article>
+
+            <article class="reviewCard">
+              <div class="reviewStars">★★★★★</div>
+              <p class="reviewQuote">
+                “We had high-interest debt scattered everywhere. Kimmer helped us restructure it into something
+                far more manageable by using home equity the right way. Our overall payment picture finally made sense.”
+              </p>
+              <p class="reviewName">— Sample Borrower Review</p>
+              <p class="reviewTag">Home Equity Efficiency</p>
+            </article>
+
+            <article class="reviewCard">
+              <div class="reviewStars">★★★★★</div>
+              <p class="reviewQuote">
+                “Kimmer was incredibly responsive from start to finish. Every question got answered quickly,
+                and he stayed involved the whole way through. It felt like having someone in our corner who
+                actually cared about the outcome.”
+              </p>
+              <p class="reviewName">— Sample Borrower Review</p>
+              <p class="reviewTag">Responsiveness</p>
+            </article>
+
+            <article class="reviewCard">
+              <div class="reviewStars">★★★★★</div>
+              <p class="reviewQuote">
+                “We were not looking for the flashiest loan. We wanted the smartest move. Kimmer helped us compare
+                options and build a structure that improved our cash flow without creating more confusion.”
+              </p>
+              <p class="reviewName">— Sample Borrower Review</p>
+              <p class="reviewTag">Cash-Flow Improvement</p>
+            </article>
+
+            <article class="reviewCard">
+              <div class="reviewStars">★★★★★</div>
+              <p class="reviewQuote">
+                “If you want someone who understands how to use equity strategically to reorganize debt and lower stress,
+                Kimmer is excellent. He sees the big picture and helps you make a decision that fits your life.”
+              </p>
+              <p class="reviewName">— Sample Borrower Review</p>
+              <p class="reviewTag">Big-Picture Guidance</p>
+            </article>
+          </div>
+
+          <div class="highlightBand">
+            <div class="highlightItem">
+              <h3>Debt Restructuring</h3>
+              <p>
+                Review-focused copy that emphasizes consolidating scattered obligations into a more efficient payment structure.
+              </p>
             </div>
-          </section>
+            <div class="highlightItem">
+              <h3>Home Equity Strategy</h3>
+              <p>
+                Positions Kimmer as someone who does not just “sell loans,” but uses home equity with purpose and discipline.
+              </p>
+            </div>
+            <div class="highlightItem">
+              <h3>Client Experience</h3>
+              <p>
+                Highlights responsiveness, transparency, and steady guidance — the traits that make reviews convert.
+              </p>
+            </div>
+          </div>
+
+          <div class="ctaPanel">
+            <div>
+              <h3>Want Kimmer to review your debt structure?</h3>
+              <p>
+                See what your options look like and whether a home equity solution could simplify your finances,
+                reduce payment pressure, and help you move forward with a cleaner plan.
+              </p>
+            </div>
+            <a class="ctaBtn" href="getRate.html">Get Rate</a>
+          </div>
         </div>
       </section>
 
@@ -727,7 +998,6 @@
         <a href="advertising-disclosure.html" aria-label="Advertising Disclosure">*Advertising Disclosure</a>
       </div>
 
-      <!-- Footer -->
       <footer class="siteFooter" role="contentinfo">
         <div class="footerLinks" aria-label="Footer links">
           <a href="privacy.html" aria-label="Privacy Policy">Privacy Policy</a>
