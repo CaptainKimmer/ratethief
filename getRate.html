@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Get a Rate!</title>
+  <title>About | Rate Thief</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32"
@@ -15,7 +15,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-   
     :root{
       --bg:#ffffff;
       --card:#ffffff;
@@ -184,6 +183,7 @@
         0 2px 8px rgba(22,163,74,.28),
         0 2px 6px rgba(0,0,0,.25);
     }
+
     .highlight-steal{
       color:#065f46;
       -webkit-text-fill-color:#065f46;
@@ -227,7 +227,6 @@
       text-align:center !important;
     }
 
-    /* ===== Card ===== */
     .card{
       border:1px solid rgba(255,255,255,.22);
       border-radius:var(--radius);
@@ -248,7 +247,6 @@
       overflow:hidden;
     }
 
-    /* Flashy CTA header */
     .cardHeader::before{
       content:"";
       position:absolute;
@@ -298,7 +296,7 @@
       color:#fff;
       text-shadow:0 10px 26px rgba(0,0,0,.28);
       animation:ctaGlow 2.6s ease-in-out infinite;
-      white-space:nowrap; /* forces single line where possible */
+      white-space:nowrap;
     }
 
     @keyframes ctaGlow{
@@ -307,68 +305,15 @@
       100%{ text-shadow:0 10px 26px rgba(0,0,0,.28), 0 0 0 rgba(255,255,255,0); }
     }
 
-    .buttonRow{
-      padding:14px;
-      display:flex;
-      gap:12px;
-      justify-content:space-between;
-      align-items:center;
-      flex-wrap:wrap;
+    .contentPad{
+      padding:18px 16px 20px;
     }
 
-    .imgBtn{
-      border:1px solid rgba(15,23,42,.08);
-      border-radius:16px;
-      background:rgba(255,255,255,.96);
-      box-shadow:0 10px 22px rgba(2,6,23,.08);
-      cursor:pointer;
-      padding:8px;
-      transition:.14s;
-      flex:1 1 140px;
-      max-width:160px;
-      transform-origin:center;
-      display:block;
-      text-decoration:none;
-      color:inherit;
-    }
-
-    .imgBtn:hover{
-      transform:translateY(-2px) scale(1.03);
-      border-color:rgba(22,163,74,.35);
-      box-shadow:0 18px 34px rgba(2,6,23,.14);
-    }
-
-    .imgBtn img{
-      width:100%;
-      height:auto;
-      aspect-ratio:1/1;
-      object-fit:contain;
-      border-radius:12px;
-      display:block;
-    }
-
-    /* Pay Off Debts pulse + red border */
-    @keyframes ctaPulse{
-      0%   { transform:scale(1); }
-      50%  { transform:scale(1.06); }
-      100% { transform:scale(1); }
-    }
-
-    .imgBtn.ctaDebts{
-      border:2px solid #dc2626;
-      animation:ctaPulse 1.25s ease-in-out infinite;
-    }
-
-    .imgBtn.ctaDebts:hover{
-      transform:translateY(-2px) scale(1.08);
-      border-color:#b91c1c;
-    }
-
-    /* Advertising Disclosure link (single instance) */
     .adDisclosure{
       text-align:center;
       margin:10px 0 6px;
     }
+
     .adDisclosure a{
       font-size:.78rem;
       color:#ffffff;
@@ -377,7 +322,104 @@
       transition:.15s ease;
       text-shadow:0 2px 8px rgba(0,0,0,.35);
     }
+
     .adDisclosure a:hover{ opacity:.75; }
+
+    /* ===== Embedded contact content ===== */
+    .contactWrap{
+      font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:#0f172a;
+    }
+
+    .hero{
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+      text-align:left;
+    }
+
+    .headshot{
+      width:120px;
+      height:120px;
+      object-fit:cover;
+      border-radius:18px;
+      border:1px solid rgba(148,163,184,.35);
+      box-shadow:0 10px 24px rgba(2,6,23,.10);
+      flex-shrink:0;
+    }
+
+    .heroText{
+      flex:1;
+    }
+
+    .name{
+      margin:0;
+      font-family:"Cinzel",serif;
+      font-weight:900;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+      font-size:1.12rem;
+      line-height:1.15;
+      color:#0f172a;
+    }
+
+    .titleLine{
+      margin:4px 0 0;
+      color:#475569;
+      font-weight:900;
+      font-size:.92rem;
+      line-height:1.25;
+    }
+
+    .contactLines{
+      margin-top:10px;
+    }
+
+    .contactLines p{
+      margin:4px 0;
+      font-weight:800;
+      font-size:.95rem;
+      color:#334155;
+    }
+
+    .contactLines a{
+      color:#0f172a;
+      text-decoration:underline;
+      font-weight:900;
+    }
+
+    .sep{
+      border:none;
+      border-top:1px solid rgba(148,163,184,.35);
+      margin:14px 0;
+    }
+
+    .contactWrap h4{
+      margin:12px 0 8px;
+      font-size:1rem;
+      font-weight:900;
+      color:#0f172a;
+    }
+
+    .contactWrap p{
+      margin:0 0 10px;
+      line-height:1.55;
+      font-size:.95rem;
+      color:#334155;
+    }
+
+    .sailingWrap{
+      margin-top:12px;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(148,163,184,.35);
+      box-shadow:0 14px 40px rgba(2,6,23,.10);
+    }
+
+    .sailing{
+      width:100%;
+      display:block;
+    }
 
     /* ===== Footer ===== */
     footer.siteFooter{
@@ -409,6 +451,7 @@
       text-underline-offset:2px;
       transition:.15s ease;
     }
+
     .footerLinks a:hover{ opacity:.75; }
 
     .footerLegal{
@@ -430,90 +473,6 @@
       color:#e2e8f0;
     }
 
-    /* ===== Modal (loads external HTML files) ===== */
-    .modalOverlay{
-      position:fixed;
-      inset:0;
-      background:rgba(2,6,23,.72);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:14px;
-      z-index:999;
-    }
-    .modalOverlay.open{ display:flex; }
-
-    .modal{
-      width:min(900px,100%);
-      background:#fff;
-      border:1px solid rgba(148,163,184,.35);
-      border-radius:18px;
-      box-shadow:0 22px 60px rgba(2,6,23,.30);
-      overflow:hidden;
-      transform:translateY(6px);
-      animation:modalIn .16s ease-out forwards;
-    }
-    @keyframes modalIn{ to{ transform:translateY(0px); } }
-
-    .modalHeader{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:14px 16px;
-      border-bottom:1px solid var(--line);
-      background:linear-gradient(135deg,#0b1220,#111827);
-      position:relative;
-    }
-
-    .modalTitle{
-      margin:0;
-      font-family:"Cinzel",serif;
-      letter-spacing:.06em;
-      font-weight:900;
-      text-transform:uppercase;
-      font-size:1.08rem;
-      color:#fff;
-      line-height:1.15;
-      text-align:center;
-      animation:welcomePulse 3s ease-in-out infinite;
-      padding:0 84px; /* keeps title centered with exit button */
-    }
-
-    @keyframes welcomePulse{
-      0%{ transform:scale(1); }
-      50%{ transform:scale(1.04); }
-      100%{ transform:scale(1); }
-    }
-
-    .modalClose{
-      position:absolute;
-      right:12px;
-      top:10px;
-      border:none;
-      background:#dc2626;
-      color:#fff;
-      border-radius:14px;
-      padding:10px 14px;
-      cursor:pointer;
-      font-weight:900;
-      letter-spacing:.02em;
-      line-height:1;
-      box-shadow:0 12px 26px rgba(220,38,38,.35);
-      transition:.12s ease;
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-    .modalClose:hover{ transform:scale(1.06); background:#b91c1c; }
-
-    .modalBody{
-      padding:14px 16px 16px;
-      max-height:min(76vh,760px);
-      overflow:auto;
-      color:#0f172a;
-      background:#fff;
-    }
-
     /* ===== Mobile fixed header (rates) ===== */
     @media (max-width:760px){
       body{
@@ -533,7 +492,6 @@
       }
 
       .mobileContent{
-        /* IMPORTANT: keep content BELOW fixed header + black bar */
         margin-top:calc(var(--mobileHeaderH) + var(--mobileGap));
       }
 
@@ -560,6 +518,7 @@
         letter-spacing:.04em;
         white-space:nowrap;
       }
+
       .tagline > span{ white-space:nowrap; }
 
       .fullWidthBar{
@@ -577,39 +536,35 @@
         padding:0 4px !important;
       }
 
-      /* Force CTA title to stay one line on mobile */
       .cardHeader h2{
         font-size:1.25rem;
         letter-spacing:.07em;
         white-space:nowrap;
       }
 
-      .buttonRow{
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
-        gap:12px;
-        padding:12px;
+      .hero{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
       }
 
-      .imgBtn{ max-width:unset; }
-
-      @keyframes ctaPulseMobile{
-        0%   { transform:scale(1); }
-        50%  { transform:scale(1.04); }
-        100% { transform:scale(1); }
+      .headshot{
+        border-radius:999px;
+        margin-bottom:6px;
       }
-      .imgBtn.ctaDebts{ animation:ctaPulseMobile 1.25s ease-in-out infinite; }
+
+      .name,
+      .titleLine,
+      .contactLines{
+        text-align:center;
+      }
 
       footer.siteFooter{
         padding:14px 10px 20px;
         font-size:.80rem;
       }
-      .footerMeta{ font-size:.76rem; }
 
-      .modalTitle{
-        font-size:1rem;
-        padding:0 92px;
-      }
+      .footerMeta{ font-size:.76rem; }
     }
   </style>
 </head>
@@ -651,12 +606,12 @@
       </div>
 
       <div class="fullWidthBar">
-  <a class="navItem" href="index.html">Home</a>
-  <a class="navItem" href="index.html">Get Rate</a>
-  <a class="navItem" href="mortgageCalculator.html">Calculator</a>
-  <a class="navItem" href="about.html">About</a>
-  <a class="navItem" href="reviews.html">Reviews</a>
-</div>
+        <a class="navItem" href="index.html">Home</a>
+        <a class="navItem" href="getRate.html">Get Rate</a>
+        <a class="navItem" href="mortgageCalculator.html">Calculator</a>
+        <a class="navItem" href="about.html">About</a>
+        <a class="navItem" href="reviews.html">Reviews</a>
+      </div>
     </div>
 
     <!-- DESKTOP HEADER -->
@@ -692,130 +647,91 @@
       </span>
     </div>
 
-<div class="fullWidthBar">
-  <a class="navItem" href="index.html">Home</a>
-  <a class="navItem" href="index.html">Get Rate</a>
-  <a class="navItem" href="mortgageCalculator.html">Calculator</a>
-  <a class="navItem" href="about.html">About</a>
-  <a class="navItem" href="reviews.html">Reviews</a>
-</div>
+    <div class="fullWidthBar">
+      <a class="navItem" href="index.html">Home</a>
+      <a class="navItem" href="getRate.html">Get Rate</a>
+      <a class="navItem" href="mortgageCalculator.html">Calculator</a>
+      <a class="navItem" href="about.html">About</a>
+      <a class="navItem" href="reviews.html">Reviews</a>
+    </div>
 
     <!-- CONTENT -->
     <div class="mobileContent">
       <section class="card">
         <header class="cardHeader">
-          <h2>CHOOSE YOUR GOAL</h2>
+          <h2>ABOUT RATE THIEF</h2>
         </header>
 
-        <div class="buttonRow">
+        <div class="contentPad">
+          <section class="contactWrap" aria-label="Contact information for RateThief.com">
+            <div class="hero">
+              <img
+                class="headshot"
+                src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/contactPhotos/headShot.PNG"
+                alt="Kimmer O'Reilly headshot"
+              />
 
-          <!-- Pay Off Debts CTA -->
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSfkCsj5cuTngElW-Nz7Ybi3zW_FT_xLdJ2jaKhEzYBFtd50wA/viewform?usp=header"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="imgBtn ctaDebts"
-            aria-label="Pay Off Debts"
-          >
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/payOffDebts.png" alt="Pay Off Debts">
-          </a>
+              <div class="heroText">
+                <h3 class="name">Kimmer O’Reilly</h3>
 
-          <!-- Cash Out -->
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLScFYCtuU4iNegSrucvQ5Tz8tMsKxyD3mwFF3mopfJevJhEdIQ/viewform?usp=header"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="imgBtn"
-            aria-label="Cash Out"
-          >
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/cashOut.png" alt="Cash Out">
-          </a>
+                <p class="titleLine">Founder of RateThief.com</p>
+                <p class="titleLine">Mortgage Professional</p>
 
-          <!-- Lower Rate -->
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLScz6O9QfEpzHetkUYGnqlfmLZ-ZMcoc9fSKCEnUATlDr4-XcQ/viewform?usp=header"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="imgBtn"
-            aria-label="Lower Rate"
-          >
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/refinanceButton.png" alt="Lower Rate">
-          </a>
+                <div class="contactLines" aria-label="Contact details">
+                  <p><strong>Phone:</strong> <a href="tel:+15095281992">1 (509) 528-1992</a></p>
+                  <p><strong>Email:</strong> <a href="mailto:koreilly@federalfirstlending.com">koreilly@federalfirstlending.com</a></p>
+                  <p><strong>NMLS:</strong> 2398363</p>
+                </div>
+              </div>
+            </div>
 
-          <!-- HELOC -->
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSdmRAt6WcB-cUTCobeTR0gKiMDEzMxaVW-ctiyE2UetciNPrw/viewform?usp=header"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="imgBtn"
-            aria-label="HELOC"
-          >
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/HELOCbutton.png" alt="HELOC">
-          </a>
+            <hr class="sep" />
 
-          <!-- Purchase -->
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLScUlpvQFDrtU_1UAJMy8gfrl9oKtEsYzWkcikm3LqxsP7DYrQ/viewform?usp=header"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="imgBtn"
-            aria-label="Purchase"
-          >
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/purchaseButton.png" alt="Purchase">
-          </a>
+            <h4>What RateThief.com is</h4>
+            <p>
+              RateThief.com is built to connect homeowners directly with <strong>me</strong> and a small group of
+              <strong>trusted loan officers</strong> — so you can explore options without getting bombarded by spam calls,
+              random texts, and endless “rate quote” follow-ups.
+            </p>
 
-          <!-- Reverse Mortgage -->
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLScxf2q9AjG-onoDL151EGvLw4AvpYO63863rvuKHDTReeqelQ/viewform?usp=header"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="imgBtn"
-            aria-label="Reverse Mortgage"
-          >
-            <img src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/Quiz/Q1%20Buttons/reverseMortgage.png" alt="Reverse Mortgage">
-          </a>
+            <p>
+              The goal is simple: build a long-term relationship with you as a homeowner and help you make smart mortgage moves
+              over time — refinances, cash-out, debt consolidation, HELOCs, or purchases — when it actually saves you money
+              across your entire home-owning life.
+            </p>
 
+            <p>
+              And yeah — the pirate “Rate Thief” theme comes from my love of sailing… and the idea that finding you a great rate
+              should feel like we’re <strong>stealing it (the legal kind)</strong> from the market.
+            </p>
+
+            <h4>My story</h4>
+            <p>
+              I had a great life, got cancer, and the mortgage industry helped save me. I got cancer again, and after that I did something
+              wild — I sailed across the Atlantic Ocean solo. Now I’m back on land building a future, trying to start a family, and
+              becoming the best mortgage professional I can be — while still keeping the sea in my blood.
+            </p>
+
+            <div class="sailingWrap">
+              <img
+                class="sailing"
+                src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/contactPhotos/sailing.jpg"
+                alt="Kimmer sailing at sea"
+              />
+            </div>
+          </section>
         </div>
       </section>
 
-      <!-- Advertising Disclosure link (ONLY ONCE) -->
       <div class="adDisclosure">
-        <a href="#" data-modal="advertising-disclosure.html" aria-label="Advertising Disclosure">*Advertising Disclosure</a>
+        <a href="advertising-disclosure.html" aria-label="Advertising Disclosure">*Advertising Disclosure</a>
       </div>
-
-      <div style="
-        width:100%;
-        height:2px;
-        background:linear-gradient(to right, transparent, rgba(255,255,255,.95), transparent);
-        margin:18px 0;
-      "></div>
-
-      <section class="card" style="margin-top:10px;">
-        <header class="cardHeader">
-          <h2>MORTGAGE CALCULATOR</h2>
-        </header>
-
-        <div class="buttonRow" style="justify-content:center;">
-
-          <a
-            href="mortgageCalculator.html"
-            class="imgBtn"
-            style="max-width:260px;"
-            aria-label="Mortgage Calculator"
-          >
-            <img 
-              src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/debtRateCaclulator.png" 
-              alt="Mortgage Calculator">
-          </a>
-
-        </div>
-      </section>
 
       <!-- Footer -->
       <footer class="siteFooter" role="contentinfo">
         <div class="footerLinks" aria-label="Footer links">
-          <a href="#" data-modal="privacy.html" aria-label="Privacy Policy">Privacy Policy</a>
-          <a href="#" data-modal="contact.html" aria-label="Contact">Contact</a>
+          <a href="privacy.html" aria-label="Privacy Policy">Privacy Policy</a>
+          <a href="contact.html" aria-label="Contact">Contact</a>
         </div>
 
         <div class="footerLegal">
@@ -845,28 +761,15 @@
     </div>
   </main>
 
-  <!-- MODAL (loads external HTML into body) -->
-  <div class="modalOverlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
-    <div class="modal" role="document">
-      <div class="modalHeader">
-        <h2 class="modalTitle" id="modalTitle">Welcome to Rate Thief!</h2>
-        <button class="modalClose" type="button" id="modalClose" aria-label="Exit popup">EXIT</button>
-      </div>
-      <div class="modalBody" id="modalBody"></div>
-    </div>
-  </div>
-
   <script>
     const PROXY_BASE = "https://yellow-sea-71b2.captainkimmer07.workers.dev";
 
-    // Footer year
     (function setFooterYear(){
       const y = new Date().getFullYear();
       const el = document.getElementById("footerYear");
       if(el) el.textContent = y;
     })();
 
-    // ========= Fix: ensure mobile content never sits under fixed header =========
     function updateMobileHeaderHeight(){
       const isMobile = window.matchMedia("(max-width: 760px)").matches;
       const fixed = document.querySelector(".mobileFixedHeader");
@@ -874,7 +777,6 @@
 
       if(isMobile){
         fixed.style.display = "block";
-        // Double-rAF makes this rock-solid even before fonts/images settle
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             const h = fixed.getBoundingClientRect().height;
@@ -947,113 +849,17 @@
       updateMobileHeaderHeight();
     }
 
-    // ===== Modal logic (loads external HTML pages) =====
-    const modalOverlay = document.getElementById("modal");
-    const modalBody = document.getElementById("modalBody");
-    const modalTitle = document.getElementById("modalTitle");
-    const closeBtn = document.getElementById("modalClose");
-
-    function openModal(){
-      if(!modalOverlay) return;
-      modalOverlay.classList.add("open");
-      modalOverlay.setAttribute("aria-hidden","false");
-      document.body.style.overflow = "hidden";
-      if(closeBtn) closeBtn.focus();
-      // If opening modal changes font/layout timing, re-measure after open
-      setTimeout(updateMobileHeaderHeight, 0);
-      setTimeout(updateMobileHeaderHeight, 60);
-    }
-
-    // NEW: close modal + jump to top of page (so user lands at top of main content)
-    function closeModalAndGoTop(){
-      if(!modalOverlay) return;
-
-      modalOverlay.classList.remove("open");
-      modalOverlay.setAttribute("aria-hidden","true");
-      document.body.style.overflow = "";
-
-      // Ensure header height is calculated before we scroll
-      updateMobileHeaderHeight();
-
-      // Jump to top of the document
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-
-      // Extra: some mobile browsers need a second tick after layout settles
-      setTimeout(() => window.scrollTo({ top: 0, left: 0, behavior: "auto" }), 0);
-
-      // Keep your mobile header measurements stable
-      setTimeout(updateMobileHeaderHeight, 0);
-    }
-
-    async function loadModalFile(file){
-      if(!modalBody || !modalTitle) return;
-      modalBody.innerHTML = "<p style='margin:0;color:#334155;line-height:1.5'>Loading…</p>";
-
-      try{
-        const res = await fetch(file, { cache: "no-store" });
-        if(!res.ok) throw new Error("Fetch failed");
-        const html = await res.text();
-        modalBody.innerHTML = html;
-      }catch(e){
-        console.error("Modal load failed:", e);
-        modalBody.innerHTML = "<p style='margin:0;color:#b91c1c;line-height:1.5'>Unable to load this content right now.</p>";
-      }
-    }
-
-    // Open modal from any link with data-modal="file.html"
-    document.addEventListener("click", async (e) => {
-      const trigger = e.target.closest("[data-modal]");
-      if(!trigger) return;
-
-      e.preventDefault();
-      const file = trigger.getAttribute("data-modal");
-      if(!file) return;
-
-      // Title stays "Welcome to Rate Thief!" per your request
-      modalTitle.textContent = "Welcome to Rate Thief!";
-
-      openModal();
-      await loadModalFile(file);
-    });
-
-    // Close button (UPDATED)
-    if(closeBtn){
-      closeBtn.addEventListener("click", closeModalAndGoTop);
-    }
-
-    // Close when clicking outside modal
-    if(modalOverlay){
-      modalOverlay.addEventListener("click", (e) => {
-        if(e.target === modalOverlay) closeModalAndGoTop();
-      });
-    }
-
-    // Close on ESC (UPDATED)
-    document.addEventListener("keydown", (e) => {
-      if(e.key === "Escape" && modalOverlay && modalOverlay.classList.contains("open")){
-        closeModalAndGoTop();
-      }
-    });
-
-    // Initial layout + rates
     refreshLayout();
     updateHeaderRates();
 
     window.addEventListener("resize", refreshLayout);
 
-    // Fonts/images load after first paint; measure again so mobile content is NEVER cut off
-    window.addEventListener("load", async () => {
+    window.addEventListener("load", () => {
       refreshLayout();
       updateHeaderRates();
-      // Extra measurements to guarantee the "Choose Your Goal" is visible under the black bar
       setTimeout(updateMobileHeaderHeight, 0);
       setTimeout(updateMobileHeaderHeight, 80);
       setTimeout(updateMobileHeaderHeight, 220);
-
-      // Auto-open Contact on load
-      modalTitle.textContent = "Welcome to Rate Thief!";
-      openModal();
-      await loadModalFile("contact.html");
     });
   </script>
 </body>
