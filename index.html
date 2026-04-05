@@ -139,9 +139,7 @@
     }
 
     .pulseDot{
-      width:10px;
-      height:10px;
-      border-radius:50%;
+      width:10px;height:10px;border-radius:50%;
       background:linear-gradient(135deg,var(--accent),var(--accent2));
       animation:pulse 1.7s ease-out infinite;
     }
@@ -229,7 +227,6 @@
       text-align:center !important;
     }
 
-    /* ===== Card ===== */
     .card{
       border:1px solid rgba(255,255,255,.22);
       border-radius:var(--radius);
@@ -308,34 +305,120 @@
       100%{ text-shadow:0 10px 26px rgba(0,0,0,.28), 0 0 0 rgba(255,255,255,0); }
     }
 
-    .aboutContent{
-      padding:22px 22px 24px;
-      color:#0f172a;
-      line-height:1.65;
-      font-size:1rem;
+    .contentPad{
+      padding:18px 16px 20px;
     }
 
-    .aboutContent p{
-      margin:0 0 14px;
+    .adDisclosure{
+      text-align:center;
+      margin:10px 0 6px;
     }
 
-    .aboutContent ul{
-      margin:8px 0 14px 22px;
-      padding:0;
-    }
-
-    .aboutContent li{
-      margin:0 0 8px;
-    }
-
-    .aboutLoading{
-      color:#334155;
-      font-weight:600;
-    }
-
-    .aboutError{
-      color:#b91c1c;
+    .adDisclosure a{
+      font-size:.78rem;
+      color:#ffffff;
+      text-decoration:underline;
       font-weight:700;
+      transition:.15s ease;
+      text-shadow:0 2px 8px rgba(0,0,0,.35);
+    }
+
+    .adDisclosure a:hover{ opacity:.75; }
+
+    /* ===== Embedded contact content ===== */
+    .contactWrap{
+      font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:#0f172a;
+    }
+
+    .hero{
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+      text-align:left;
+    }
+
+    .headshot{
+      width:120px;
+      height:120px;
+      object-fit:cover;
+      border-radius:18px;
+      border:1px solid rgba(148,163,184,.35);
+      box-shadow:0 10px 24px rgba(2,6,23,.10);
+      flex-shrink:0;
+    }
+
+    .heroText{
+      flex:1;
+    }
+
+    .name{
+      margin:0;
+      font-family:"Cinzel",serif;
+      font-weight:900;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+      font-size:1.12rem;
+      line-height:1.15;
+      color:#0f172a;
+    }
+
+    .titleLine{
+      margin:4px 0 0;
+      color:#475569;
+      font-weight:900;
+      font-size:.92rem;
+      line-height:1.25;
+    }
+
+    .contactLines{
+      margin-top:10px;
+    }
+
+    .contactLines p{
+      margin:4px 0;
+      font-weight:800;
+      font-size:.95rem;
+      color:#334155;
+    }
+
+    .contactLines a{
+      color:#0f172a;
+      text-decoration:underline;
+      font-weight:900;
+    }
+
+    .sep{
+      border:none;
+      border-top:1px solid rgba(148,163,184,.35);
+      margin:14px 0;
+    }
+
+    .contactWrap h4{
+      margin:12px 0 8px;
+      font-size:1rem;
+      font-weight:900;
+      color:#0f172a;
+    }
+
+    .contactWrap p{
+      margin:0 0 10px;
+      line-height:1.55;
+      font-size:.95rem;
+      color:#334155;
+    }
+
+    .sailingWrap{
+      margin-top:12px;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(148,163,184,.35);
+      box-shadow:0 14px 40px rgba(2,6,23,.10);
+    }
+
+    .sailing{
+      width:100%;
+      display:block;
     }
 
     /* ===== Footer ===== */
@@ -459,9 +542,21 @@
         white-space:nowrap;
       }
 
-      .aboutContent{
-        padding:16px 14px 18px;
-        font-size:.95rem;
+      .hero{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+      }
+
+      .headshot{
+        border-radius:999px;
+        margin-bottom:6px;
+      }
+
+      .name,
+      .titleLine,
+      .contactLines{
+        text-align:center;
       }
 
       footer.siteFooter{
@@ -567,10 +662,70 @@
           <h2>ABOUT RATE THIEF</h2>
         </header>
 
-        <div class="aboutContent" id="aboutContent">
-          <p class="aboutLoading">Loading about content…</p>
+        <div class="contentPad">
+          <section class="contactWrap" aria-label="Contact information for RateThief.com">
+            <div class="hero">
+              <img
+                class="headshot"
+                src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/contactPhotos/headShot.PNG"
+                alt="Kimmer O'Reilly headshot"
+              />
+
+              <div class="heroText">
+                <h3 class="name">Kimmer O’Reilly</h3>
+
+                <p class="titleLine">Founder of RateThief.com</p>
+                <p class="titleLine">Mortgage Professional</p>
+
+                <div class="contactLines" aria-label="Contact details">
+                  <p><strong>Phone:</strong> <a href="tel:+15095281992">1 (509) 528-1992</a></p>
+                  <p><strong>Email:</strong> <a href="mailto:koreilly@federalfirstlending.com">koreilly@federalfirstlending.com</a></p>
+                  <p><strong>NMLS:</strong> 2398363</p>
+                </div>
+              </div>
+            </div>
+
+            <hr class="sep" />
+
+            <h4>What RateThief.com is</h4>
+            <p>
+              RateThief.com is built to connect homeowners directly with <strong>me</strong> and a small group of
+              <strong>trusted loan officers</strong> — so you can explore options without getting bombarded by spam calls,
+              random texts, and endless “rate quote” follow-ups.
+            </p>
+
+            <p>
+              The goal is simple: build a long-term relationship with you as a homeowner and help you make smart mortgage moves
+              over time — refinances, cash-out, debt consolidation, HELOCs, or purchases — when it actually saves you money
+              across your entire home-owning life.
+            </p>
+
+            <p>
+              And yeah — the pirate “Rate Thief” theme comes from my love of sailing… and the idea that finding you a great rate
+              should feel like we’re <strong>stealing it (the legal kind)</strong> from the market.
+            </p>
+
+            <h4>My story</h4>
+            <p>
+              I had a great life, got cancer, and the mortgage industry helped save me. I got cancer again, and after that I did something
+              wild — I sailed across the Atlantic Ocean solo. Now I’m back on land building a future, trying to start a family, and
+              becoming the best mortgage professional I can be — while still keeping the sea in my blood.
+            </p>
+
+            <div class="sailingWrap">
+              <img
+                class="sailing"
+                src="https://raw.githubusercontent.com/CaptainKimmer/ratethief/refs/heads/main/RateThiefAssets/Images/contactPhotos/sailing.jpg"
+                alt="Kimmer sailing at sea"
+              />
+            </div>
+          </section>
         </div>
       </section>
+
+      <div class="adDisclosure">
+        <a href="advertising-disclosure.html" aria-label="Advertising Disclosure">*Advertising Disclosure</a>
+      </div>
 
       <!-- Footer -->
       <footer class="siteFooter" role="contentinfo">
@@ -609,14 +764,12 @@
   <script>
     const PROXY_BASE = "https://yellow-sea-71b2.captainkimmer07.workers.dev";
 
-    // Footer year
     (function setFooterYear(){
       const y = new Date().getFullYear();
       const el = document.getElementById("footerYear");
       if(el) el.textContent = y;
     })();
 
-    // ========= Fix: ensure mobile content never sits under fixed header =========
     function updateMobileHeaderHeight(){
       const isMobile = window.matchMedia("(max-width: 760px)").matches;
       const fixed = document.querySelector(".mobileFixedHeader");
@@ -696,29 +849,8 @@
       updateMobileHeaderHeight();
     }
 
-    async function loadAboutIntoPage(){
-      const target = document.getElementById("aboutContent");
-      if(!target) return;
-
-      target.innerHTML = '<p class="aboutLoading">Loading about content…</p>';
-
-      try{
-        const res = await fetch("about.html", { cache: "no-store" });
-        if(!res.ok) throw new Error("Fetch failed");
-        const html = await res.text();
-        target.innerHTML = html;
-      }catch(err){
-        console.error("About page load failed:", err);
-        target.innerHTML = `
-          <p class="aboutError">Unable to load about.html right now.</p>
-          <p>If that file exists in the same folder, this page will automatically pull it in here.</p>
-        `;
-      }
-    }
-
     refreshLayout();
     updateHeaderRates();
-    loadAboutIntoPage();
 
     window.addEventListener("resize", refreshLayout);
 
