@@ -16,7 +16,6 @@
 
   <style>
    
-
     :root{
       --bg:#ffffff;
       --card:#ffffff;
@@ -36,6 +35,11 @@
     }
 
     *{box-sizing:border-box}
+
+    html,body{
+      width:100%;
+      overflow-x:hidden;
+    }
 
     body{
       margin:0;
@@ -188,26 +192,40 @@
         0 2px 6px rgba(0,0,0,.25);
     }
 
-.fullWidthBar{
-  height:56px;
-  width:100%;
-  margin-top:6px;
-  margin-bottom:0px;
-  padding:0 16px;
+    .fullWidthBar{
+      width:100%;
+      min-height:56px;
+      margin-top:6px;
+      margin-bottom:0px;
+      padding:0 14px;
 
-  display:flex;
-  align-items:center;
-  justify-content:space-evenly;
-  gap:22px;
+      display:grid !important;
+      grid-auto-flow:column !important;
+      grid-auto-columns:1fr !important;
+      align-items:stretch !important;
+      justify-items:stretch !important;
+      column-gap:6px;
 
-  background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
-  border-radius:999px;
+      background:linear-gradient(to bottom,#0b1220 0%,#0b1220 60%,#111827 100%);
+      border-radius:999px;
 
-  box-shadow:
-    0 10px 22px rgba(0,0,0,.30),
-    inset 0 2px 2px rgba(255,255,255,.08),
-    inset 0 -3px 6px rgba(0,0,0,.45);
-}
+      box-shadow:
+        0 10px 22px rgba(0,0,0,.30),
+        inset 0 2px 2px rgba(255,255,255,.08),
+        inset 0 -3px 6px rgba(0,0,0,.45);
+
+      overflow:hidden;
+    }
+
+    .fullWidthBar > *{
+      min-width:0 !important;
+      width:100% !important;
+      height:56px !important;
+      display:flex !important;
+      align-items:center !important;
+      justify-content:center !important;
+      text-align:center !important;
+    }
 
     /* ===== Card ===== */
     .card{
@@ -245,25 +263,27 @@
       100%{ transform:rotate(360deg); }
     }
 
+    .navItem{
+      color:#ffffff !important;
+      font-weight:800 !important;
+      font-size:.92rem !important;
+      letter-spacing:.03em !important;
+      text-transform:uppercase !important;
+      cursor:pointer;
+      white-space:nowrap !important;
+      padding:0 10px !important;
+      border-radius:999px !important;
+      transition:all .2s ease;
+      text-decoration:none !important;
+      line-height:1 !important;
+      background:transparent !important;
+      border:none !important;
+    }
 
-.navItem{
-  color:#ffffff;
-  font-weight:700;
-  font-size:.9rem;
-  letter-spacing:.04em;
-  text-transform:uppercase;
-  cursor:pointer;
-  white-space:nowrap;
-  padding:6px 4px;
-  border-radius:6px;
-  transition:all .2s ease;
-  text-decoration:none;
-}
-
-.navItem:hover{
-  background:rgba(255,255,255,.08);
-  transform:translateY(-1px);
-}
+    .navItem:hover{
+      background:rgba(255,255,255,.08) !important;
+      transform:translateY(-1px);
+    }
 
     .cardHeader h2{
       position:relative;
@@ -542,15 +562,20 @@
       }
       .tagline > span{ white-space:nowrap; }
 
-     .fullWidthBar{
-  height:46px;
-  padding:0 10px;
-  gap:12px;
-}
+      .fullWidthBar{
+        min-height:46px;
+        padding:0 8px;
+        column-gap:4px;
+      }
 
-.navItem{
-  font-size:.65rem;
-}
+      .fullWidthBar > *{
+        height:46px !important;
+      }
+
+      .navItem{
+        font-size:.65rem !important;
+        padding:0 4px !important;
+      }
 
       /* Force CTA title to stay one line on mobile */
       .cardHeader h2{
